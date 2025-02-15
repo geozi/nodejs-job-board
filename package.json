@@ -1,0 +1,12 @@
+{
+  "name": "nodejs-job-board-api",
+  "version": "1.0.0",
+  "description": "Contains the backend implementation of a Job Board API",
+  "license": "ISC",
+  "author": "geozi",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  }
+}
