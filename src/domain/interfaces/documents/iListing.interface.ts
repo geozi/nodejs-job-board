@@ -12,6 +12,9 @@ export interface IListing extends Document {
   experienceLevel: ExperienceLevelType;
   city: string;
   country: string;
-  description: string;
-  salaryRange?: string;
+  listingDesc: string;
+  salaryRange?: {
+    min: number;
+    max: number;
+  };
 }

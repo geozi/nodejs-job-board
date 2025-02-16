@@ -10,6 +10,7 @@ export const personFailedValidation = {
   LAST_NAME_BELOW_MIN_LENGTH_MESSAGE: `Last name must be at least ${personConstants.PERSON_NAME_MIN_LENGTH} characters long`,
   PHONE_NUMBER_REQUIRED_MESSAGE: "Phone number is a required field",
   PHONE_NUMBER_INVALID_MESSAGE: `Phone number must only contain digits and/or hyphens`,
-  ADDRESS_BELOW_MIN_LENGTH_MESSAGE: `Street address must be at least ${commonConstants.GENERIC_MIN_LENGTH} characters long`,
-  DATE_OF_BIRTH_INVALID: "Date of Birth must be a Date",
+  ADDRESS_REQUIRED_MESSAGE: "Address is a required field",
+  ADDRESS_BELOW_MIN_LENGTH_MESSAGE: `Address must be at least ${commonConstants.GENERIC_MIN_LENGTH} characters long`,
+  DATE_OF_BIRTH_INVALID_MESSAGE: "Date of Birth must be a valid date",
 };
