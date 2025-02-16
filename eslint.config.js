@@ -9,4 +9,7 @@ export default tseslint.config({
     tseslint.configs.strict,
     tseslint.configs.stylistic,
   ],
+  rules: {
+    "no-var": ["error", { "var-enum": false }],
+  },
 });
