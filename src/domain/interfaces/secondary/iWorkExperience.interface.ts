@@ -1,3 +1,4 @@
+import { Schema } from "mongoose";
 import { ITask } from "./iTask.interface";
 
 export interface IWorkExperience {
@@ -5,8 +6,8 @@ export interface IWorkExperience {
   organizationName: string;
   city: string;
   country?: string;
-  startingDate: Date;
-  endingDate?: Date;
-  isOngoing: boolean;
+  startingDate: Schema.Types.Date;
+  endingDate?: Schema.Types.Date;
+  isOngoing: Schema.Types.Boolean;
   tasks?: ITask[];
 }

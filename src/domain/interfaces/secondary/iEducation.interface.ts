@@ -1,7 +1,9 @@
+import { Schema } from "mongoose";
+
 export interface IEducation {
   degreeTitle: string;
   institution: string;
-  startingDate: Date;
-  graduationDate?: Date;
-  isOngoing: boolean;
+  startingDate: Schema.Types.Date;
+  graduationDate?: Schema.Types.Date;
+  isOngoing: Schema.Types.Boolean;
 }
