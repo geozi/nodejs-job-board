@@ -86,5 +86,13 @@ export const invalidPersonInputs = {
   TOO_SHORT_LAST_NAME: "J",
   INVALID_PHONE_NUMBER: "543*123*",
   TOO_SHORT_ADDRESS: "A street",
-  INVALID_DATE_OF_BIRTH: "",
+};
+
+export const invalidEducationInputs = {
+  TOO_SHORT_DEGREE_TITLE: "Degree",
+  TOO_SHORT_INSTITUTION: "Inst",
+};
+
+export const invalidWorkExperienceInputs = {
+  TOO_SHORT_JOB_TITLE: "IT",
 };
