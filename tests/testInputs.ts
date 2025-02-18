@@ -64,7 +64,7 @@ export const validWorkExperienceInput = {
   isOngoing: new Schema.Types.Boolean("true"),
 };
 
-export const taskValidInputs = [
+export const validTaskInputs = [
   {
     name: "User Support and Troubleshooting",
     description: `Respond to and resolve user issues with hardware, software, and network systems. This includes setting up new user accounts, troubleshooting login problems, and assisting with software installations or updates. The IT administrator ensures that users have the necessary access and support to perform their jobs effectively.`,
@@ -105,7 +105,7 @@ export const invalidWorkExperienceInputs = {
   ],
 };
 
-export const taskInvalidInputs = {
+export const invalidTaskInputs = {
   TOO_SHORT_TASK_NAME: "Edit",
   TOO_LONG_TASK_NAME: `Submit quarterly financial report with detailed analysis on market trends, competitive landscape, and future projections.`,
   TOO_SHORT_DESCRIPTION: "Review docs",
