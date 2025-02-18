@@ -5,13 +5,14 @@ import { commonFailedValidation } from "../messages/commonValidation.message";
 import { commonConstants } from "../constants/common.constant";
 import { COUNTRY_REGEX } from "../resources/validationRegExp";
 import { taskSchema } from "./task.schema";
+import { workExperienceConstants } from "../constants/workExperience.constant";
 
 export const workExperienceSchema = new Schema<IWorkExperience>({
   jobTitle: {
     type: String,
     required: [true, workExperienceFailedValidation.JOB_TITLE_REQUIRED_MESSAGE],
     minLength: [
-      commonConstants.GENERIC_MIN_LENGTH,
+      workExperienceConstants.JOB_TITLE_MIN_LENGTH,
       workExperienceFailedValidation.JOB_TITLE_MIN_LENGTH_MESSAGE,
     ],
     trim: true,
@@ -20,7 +21,7 @@ export const workExperienceSchema = new Schema<IWorkExperience>({
     type: String,
     required: [true, commonFailedValidation.ORGANIZATION_NAME_REQUIRED_MESSAGE],
     minlength: [
-      commonConstants.GENERIC_MIN_LENGTH,
+      commonConstants.ORGANIZATION_NAME_MIN_LENGTH,
       commonFailedValidation.ORGANIZATION_NAME_MIN_LENGTH_MESSAGE,
     ],
     trim: true,

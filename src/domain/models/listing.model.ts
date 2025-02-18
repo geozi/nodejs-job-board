@@ -20,7 +20,7 @@ const listingSchema = new Schema<IListing>({
     type: String,
     required: [true, commonFailedValidation.ORGANIZATION_NAME_REQUIRED_MESSAGE],
     minLength: [
-      commonConstants.GENERIC_MIN_LENGTH,
+      commonConstants.ORGANIZATION_NAME_MIN_LENGTH,
       commonFailedValidation.ORGANIZATION_NAME_MIN_LENGTH_MESSAGE,
     ],
     trim: true,
