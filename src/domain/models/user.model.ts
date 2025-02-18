@@ -62,4 +62,4 @@ userSchema.plugin(mongooseUniqueValidator, {
   type: "UniqueConstraintError",
 });
 
-export const userModel = model<IUser>("User", userSchema);
+export const User = model<IUser>("User", userSchema);
