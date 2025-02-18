@@ -13,4 +13,7 @@ export const personFailedValidation = {
   ADDRESS_REQUIRED_MESSAGE: "Address is a required field",
   ADDRESS_BELOW_MIN_LENGTH_MESSAGE: `Address must be at least ${commonConstants.GENERIC_MIN_LENGTH} characters long`,
   DATE_OF_BIRTH_INVALID_MESSAGE: "Date of Birth must be a valid date",
+  PERSON_ID_REQUIRED_MESSAGE: "Person ID is a required field",
+  PERSON_ID_INVALID_MESSAGE: "Person ID must be a string of hex characters",
+  PERSON_ID_OUT_OF_LENGTH_MESSAGE: `Person ID must be ${commonConstants.MONGODB_ID_LENGTH} characters long`,
 };

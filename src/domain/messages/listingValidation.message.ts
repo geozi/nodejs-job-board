@@ -19,4 +19,7 @@ export const listingFailedValidation = {
   LISTING_DESCRIPTION_REQUIRED_MESSAGE: `Listing description is a required message`,
   LISTING_DESCRIPTION_MIN_LENGTH_MESSAGE: `Listing description must be at least ${commonConstants.GENERIC_MIN_LENGTH} characters long`,
   LISTING_DESCRIPTION_MAX_LENGTH_MESSAGE: `Listing description must be no longer than ${listingConstants.LISTING_DESCRIPTION_MAX_LENGTH} characters`,
+  LISTING_ID_REQUIRED_MESSAGE: "Listing ID is a required field",
+  LISTING_ID_INVALID_MESSAGE: "Listing ID must be a string of hex characters",
+  LISTING_ID_OUT_OF_LENGTH_MESSAGE: `Listing ID must be ${commonConstants.MONGODB_ID_LENGTH} characters long`,
 };
