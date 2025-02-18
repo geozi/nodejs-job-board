@@ -96,4 +96,18 @@ export const invalidEducationInputs = {
 export const invalidWorkExperienceInputs = {
   TOO_SHORT_JOB_TITLE: "IT",
   TOO_SHORT_ORGANIZATION_NAME: "Org",
+  INVALID_COUNTRY_CASES: [
+    ["country name contains special symbol", "Bosnia & Herzegovina"],
+    ["country name contains numbers", "Timor-Leste123"],
+    ["country name contains an apostrophe", "Côte d'Ivoire"],
+    ["country name contains underscores", "Papua_New_Guinea"],
+    ["country name contains dollar sign", "Curaçao$"],
+  ],
+};
+
+export const taskInvalidInputs = {
+  TOO_SHORT_TASK_NAME: "Edit",
+  TOO_LONG_TASK_NAME: `Submit quarterly financial report with detailed analysis on market trends, competitive landscape, and future projections.`,
+  TOO_SHORT_DESCRIPTION: "Review docs",
+  TOO_LONG_DESCRIPTION: `Please review the complete documentation for the new software module, paying particular attention to the integration points with existing systems. Provide detailed feedback on any potential issues, inconsistencies, or areas for improvement. Ensure that all user scenarios are thoroughly tested and documented.`,
 };
