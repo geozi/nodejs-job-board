@@ -95,4 +95,5 @@ export const invalidEducationInputs = {
 
 export const invalidWorkExperienceInputs = {
   TOO_SHORT_JOB_TITLE: "IT",
+  TOO_SHORT_ORGANIZATION_NAME: "Org",
 };

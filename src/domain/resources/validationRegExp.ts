@@ -8,7 +8,7 @@ export const EMAIL_REGEX = new RegExp(
 
 export const NAME_REGEX = new RegExp(/^[A-Za-z]+$/);
 
-export const COUNTRY_REGEX = new RegExp(/^[A-Za-z ]+$/);
+export const COUNTRY_REGEX = new RegExp(/^[\p{L}\p{Zs}-]+$/u);
 
 export const PHONE_REGEX = new RegExp(/^\d+(-\d+)*$/);
 
