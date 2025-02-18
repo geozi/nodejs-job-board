@@ -77,4 +77,4 @@ const personSchema = new Schema<IPerson>(
   }
 );
 
-export const personModel = model<IPerson>("Person", personSchema);
+export const Person = model<IPerson>("Person", personSchema);
