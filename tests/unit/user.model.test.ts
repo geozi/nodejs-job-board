@@ -113,5 +113,128 @@ describe("User model unit tests", () => {
         userFailedValidation.EMAIL_REQUIRED_MESSAGE
       );
     });
+
+    invalidUserInputs.EMAIL_INVALID_CASES.forEach(
+      ([testName, invalidEmail]) => {
+        it(testName, () => {
+          validationError.errors = {
+            email: new Error.ValidatorError({
+              message: userFailedValidation.EMAIL_INVALID_MESSAGE,
+              path: "email",
+              value: invalidEmail,
+            }),
+          };
+
+          validateSyncStub.returns(validationError);
+          const mongooseErrors = newUser.validateSync();
+
+          assert.notStrictEqual(mongooseErrors, undefined);
+          assert.strictEqual(
+            mongooseErrors?.errors.email.message,
+            userFailedValidation.EMAIL_INVALID_MESSAGE
+          );
+        });
+      }
+    );
+
+    it("password is empty", () => {
+      validationError.errors = {
+        password: new Error.ValidatorError({
+          message: userFailedValidation.PASSWORD_REQUIRED_MESSAGE,
+          path: "password",
+          value: "",
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newUser.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.password.message,
+        userFailedValidation.PASSWORD_REQUIRED_MESSAGE
+      );
+    });
+
+    it("password is too short", () => {
+      validationError.errors = {
+        password: new Error.ValidatorError({
+          message: userFailedValidation.PASSWORD_BELOW_MIN_LENGTH_MESSAGE,
+          path: "password",
+          value: invalidUserInputs.TOO_SHORT_PASSWORD,
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newUser.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.password.message,
+        userFailedValidation.PASSWORD_BELOW_MIN_LENGTH_MESSAGE
+      );
+    });
+
+    invalidUserInputs.PASSWORD_INVALID_CASES.forEach(
+      ([testName, invalidPassword]) => {
+        it(testName, () => {
+          validationError.errors = {
+            password: new Error.ValidatorError({
+              message:
+                userFailedValidation.PASSWORD_MUST_HAVE_CHARACTERS_MESSAGE,
+              path: "password",
+              value: invalidPassword,
+            }),
+          };
+
+          validateSyncStub.returns(validationError);
+          const mongooseErrors = newUser.validateSync();
+
+          assert.notStrictEqual(mongooseErrors, undefined);
+          assert.strictEqual(
+            mongooseErrors?.errors.password.message,
+            userFailedValidation.PASSWORD_MUST_HAVE_CHARACTERS_MESSAGE
+          );
+        });
+      }
+    );
+
+    it("role is empty", () => {
+      validationError.errors = {
+        role: new Error.ValidatorError({
+          message: userFailedValidation.ROLE_REQUIRED_MESSAGE,
+          path: "role",
+          value: "",
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newUser.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.role.message,
+        userFailedValidation.ROLE_REQUIRED_MESSAGE
+      );
+    });
+
+    it("role is invalid", () => {
+      validationError.errors = {
+        role: new Error.ValidatorError({
+          message: userFailedValidation.ROLE_INVALID_MESSAGE,
+          path: "role",
+          value: invalidUserInputs.ROLE_INVALID,
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newUser.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.role.message,
+        userFailedValidation.ROLE_INVALID_MESSAGE
+      );
+    });
   });
 });
