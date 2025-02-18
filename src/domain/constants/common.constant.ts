@@ -1,4 +1,5 @@
 export const commonConstants = {
+  ORGANIZATION_NAME_MIN_LENGTH: 4,
   GENERIC_MIN_LENGTH: 10,
   MONGODB_ID_LENGTH: 24,
 };
