@@ -48,12 +48,6 @@ const personSchema = new Schema<IPerson>(
     },
     dateOfBirth: {
       type: Schema.Types.Date,
-      validate: {
-        validator: function (value: any) {
-          return value instanceof Schema.Types.Date;
-        },
-        message: personFailedValidation.DATE_OF_BIRTH_INVALID_MESSAGE,
-      },
     },
     education: {
       type: [educationSchema],

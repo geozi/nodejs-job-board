@@ -41,21 +41,9 @@ export const workExperienceSchema = new Schema<IWorkExperience>({
       true,
       workExperienceFailedValidation.STARTING_DATE_REQUIRED_MESSAGE,
     ],
-    validate: {
-      validator: function (value: any) {
-        return value instanceof Schema.Types.Date;
-      },
-      message: workExperienceFailedValidation.STARTING_DATE_INVALID_MESSAGE,
-    },
   },
   endingDate: {
     type: Schema.Types.Date,
-    validate: {
-      validator: function (value: any) {
-        return value instanceof Schema.Types.Date;
-      },
-      message: workExperienceFailedValidation.ENDING_DATE_INVALID_MESSAGE,
-    },
   },
   isOngoing: {
     type: Schema.Types.Boolean,
