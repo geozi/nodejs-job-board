@@ -1,3 +1,4 @@
+import { commonConstants } from "../constants/common.constant";
 import { listingConstants } from "../constants/listing.constant";
 import { EmploymentType } from "../enums/employmentType.enum";
 import { ExperienceLevelType } from "../enums/experienceLevelType.enum";
@@ -16,6 +17,6 @@ export const listingFailedValidation = {
   CITY_REQUIRED_MESSAGE: "City is a required field",
   COUNTRY_REQUIRED_MESSAGE: "Country is a required field",
   LISTING_DESCRIPTION_REQUIRED_MESSAGE: `Listing description is a required message`,
+  LISTING_DESCRIPTION_MIN_LENGTH_MESSAGE: `Listing description must be at least ${commonConstants.GENERIC_MIN_LENGTH} characters long`,
   LISTING_DESCRIPTION_MAX_LENGTH_MESSAGE: `Listing description must be no longer than ${listingConstants.LISTING_DESCRIPTION_MAX_LENGTH} characters`,
-  SALARY_RANGE_INVALID_MESSAGE: "Salary range is invalid",
 };

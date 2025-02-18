@@ -7,6 +7,7 @@ import { NAME_REGEX, PHONE_REGEX } from "../resources/validationRegExp";
 import { educationSchema } from "../schemas/education.schema";
 import { userFailedValidation } from "../messages/userValidation.message";
 import { userConstants } from "../constants/user.constant";
+import { workExperienceSchema } from "../schemas/workExperience.schema";
 
 const personSchema = new Schema<IPerson>(
   {
@@ -47,9 +48,19 @@ const personSchema = new Schema<IPerson>(
     },
     dateOfBirth: {
       type: Schema.Types.Date,
+      validate: {
+        validator: function (value: any) {
+          return value instanceof Schema.Types.Date;
+        },
+        message: personFailedValidation.DATE_OF_BIRTH_INVALID_MESSAGE,
+      },
     },
     education: {
       type: [educationSchema],
+      required: true,
+    },
+    workExperience: {
+      type: [workExperienceSchema],
       required: true,
     },
     username: {

@@ -1,5 +1,4 @@
 import { Schema } from "mongoose";
-
 import { IEducation } from "../interfaces/secondary/iEducation.interface";
 import { educationFailedValidation } from "../messages/educationValidation.message";
 import { commonFailedValidation } from "../messages/commonValidation.message";
@@ -27,9 +26,21 @@ export const educationSchema = new Schema<IEducation>({
   startingDate: {
     type: Schema.Types.Date,
     required: [true, educationFailedValidation.STARTING_DATE_REQUIRED_MESSAGE],
+    validate: {
+      validator: function (value: any) {
+        return value instanceof Schema.Types.Date;
+      },
+      message: educationFailedValidation.STARTING_DATE_INVALID_MESSAGE,
+    },
   },
   graduationDate: {
     type: Schema.Types.Date,
+    validate: {
+      validator: function (value: any) {
+        return value instanceof Schema.Types.Date;
+      },
+      message: educationFailedValidation.GRADUATION_DATE_INVALID_MESSAGE,
+    },
   },
   isOngoing: {
     type: Schema.Types.Boolean,
