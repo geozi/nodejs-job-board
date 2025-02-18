@@ -1,3 +1,4 @@
+import { Schema } from "mongoose";
 import { RoleType } from "../src/domain/enums/roleType.enum";
 
 export const invalidUserInputs = {
@@ -34,4 +35,56 @@ export const validUserInput = {
   email: "random@mail.com",
   password: "5W]L8t1m4@PcTTO",
   role: RoleType.User,
+};
+
+export const validPersonInput = {
+  firstName: "Jasmine",
+  lastName: "Powell",
+  phoneNumber: "412-304-0145",
+  address: "236 Poplar Street",
+  dateOfBirth: new Schema.Types.Date("2001-02-18"),
+  username: "newUser",
+};
+
+export const validEducationInput = {
+  degreeTitle: "Software Engineering",
+  institution: "Central University",
+  startingDate: new Schema.Types.Date("2018-09-17"),
+  graduationDate: new Schema.Types.Date("2022-06-22"),
+  isOngoing: new Schema.Types.Boolean("false"),
+};
+
+export const validWorkExperienceInput = {
+  jobTitle: "IT administrator",
+  organizationName: "Imaginary Processing",
+  city: "Athens",
+  country: "Greece",
+  startingDate: "2022-09-09",
+  endingDate: undefined,
+  isOngoing: new Schema.Types.Boolean("true"),
+};
+
+export const taskValidInputs = [
+  {
+    name: "User Support and Troubleshooting",
+    description: `Respond to and resolve user issues with hardware, software, and network systems. This includes setting up new user accounts, troubleshooting login problems, and assisting with software installations or updates. The IT administrator ensures that users have the necessary access and support to perform their jobs effectively.`,
+  },
+  {
+    name: "System Monitoring and Maintenance",
+    description: `Monitor the organization's IT infrastructure, including servers, networks, and systems, to ensure they are running smoothly. Perform routine maintenance tasks such as applying patches, updating software, and performing backups. This helps to prevent potential issues and ensures the reliability and security of IT systems.`,
+  },
+  {
+    name: "Network Configuration and Management",
+    description: `Assist in the configuration and management of the organization's network. This includes setting up and maintaining network devices such as routers, switches, and firewalls. The IT administrator ensures that the network is secure, efficient, and meets the organization's needs.`,
+  },
+];
+
+export const invalidPersonInputs = {
+  INVALID_FIRST_NAME: "T1m0thy",
+  TOO_SHORT_FIRST_NAME: "T",
+  INVALID_LAST_NAME: "J3nk1ns*",
+  TOO_SHORT_LAST_NAME: "J",
+  INVALID_PHONE_NUMBER: "543*123*",
+  TOO_SHORT_ADDRESS: "A street",
+  INVALID_DATE_OF_BIRTH: "",
 };
