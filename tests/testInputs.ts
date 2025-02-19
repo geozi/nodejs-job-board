@@ -1,5 +1,8 @@
 import { Schema } from "mongoose";
 import { RoleType } from "../src/domain/enums/roleType.enum";
+import { WorkType } from "./domain/enums/workType.enum";
+import { EmploymentType } from "./domain/enums/employmentType.enum";
+import { ExperienceLevelType } from "./domain/enums/experienceLevelType.enum";
 
 export const invalidUserInputs = {
   USER_ID_LENGTH_CASES: [
@@ -81,6 +84,22 @@ export const validTaskInputs = [
   },
 ];
 
+export const validListingInput = {
+  title: "Senior Software Engineer",
+  organizationName: "Tech Innovators Inc.",
+  datePosted: new Date("2025-02-19"),
+  workType: WorkType.Hybrid,
+  employmentType: EmploymentType.Full_Time,
+  experienceLevel: ExperienceLevelType.Mid_Senior_Level,
+  city: "Kalamaria",
+  country: "Greece",
+  listingDesc: `We are seeking a Senior Software Engineer to join our dynamic team at Tech Innovators Inc. The ideal candidate will have 5+ years of experience in software development, proficiency in JavaScript, and a passion for building innovative solutions. Responsibilities include designing, coding, and testing software applications, collaborating with cross-functional teams, and mentoring junior developers.`,
+  salaryRange: {
+    minAmount: 60000,
+    maxAmount: 80000,
+  },
+};
+
 export const invalidPersonInputs = {
   INVALID_FIRST_NAME: "T1m0thy",
   TOO_SHORT_FIRST_NAME: "T",
@@ -95,8 +114,7 @@ export const invalidEducationInputs = {
   TOO_SHORT_INSTITUTION: "Inst",
 };
 
-export const invalidWorkExperienceInputs = {
-  TOO_SHORT_JOB_TITLE: "IT",
+export const invalidCommonInputs = {
   TOO_SHORT_ORGANIZATION_NAME: "Org",
   INVALID_COUNTRY_CASES: [
     ["country name contains special symbol", "Bosnia & Herzegovina"],
@@ -107,9 +125,125 @@ export const invalidWorkExperienceInputs = {
   ],
 };
 
+export const invalidWorkExperienceInputs = {
+  TOO_SHORT_JOB_TITLE: "IT",
+};
+
 export const invalidTaskInputs = {
   TOO_SHORT_TASK_NAME: "Edit",
   TOO_LONG_TASK_NAME: `Submit quarterly financial report with detailed analysis on market trends, competitive landscape, and future projections.`,
   TOO_SHORT_DESCRIPTION: "Review docs",
   TOO_LONG_DESCRIPTION: `Please review the complete documentation for the new software module, paying particular attention to the integration points with existing systems. Provide detailed feedback on any potential issues, inconsistencies, or areas for improvement. Ensure that all user scenarios are thoroughly tested and documented.`,
+};
+
+export const invalidListingInputs = {
+  INVALID_WORK_TYPE: "Local",
+  INVALID_EMPLOYMENT_TYPE: "Some_time",
+  INVALID_EXPERIENCE_LEVEL: "Pro",
+  TOO_SHORT_LISTING_DESCRIPTION: "Desc",
+  TOO_LONG_LISTING_DESCRIPTION: `Job Description:
+
+We are seeking a highly skilled and experienced Senior Software Engineer to join our dynamic team at Tech Innovators Inc. As a leading technology company, we are dedicated to innovation, creativity, and pushing the boundaries of what is possible. The ideal candidate will have a deep understanding of software development, excellent problem-solving skills, and a passion for building high-quality software solutions.
+
+Responsibilities:
+
+    Design and Architecture:
+
+        Lead the design and architecture of complex software systems, ensuring scalability, performance, and maintainability.
+
+        Collaborate with cross-functional teams to define system requirements, develop technical specifications, and create architectural blueprints.
+
+        Evaluate and recommend tools, technologies, and processes to ensure the highest quality software development practices.
+
+    Development and Coding:
+
+        Write clean, efficient, and maintainable code in multiple programming languages, with a focus on JavaScript, Python, and Java.
+
+        Develop and implement software solutions that meet the needs of our clients and end-users.
+
+        Perform code reviews and provide constructive feedback to junior developers, promoting best practices and continuous improvement.
+
+    Testing and Quality Assurance:
+
+        Create and execute comprehensive test plans to ensure software functionality, performance, and security.
+
+        Collaborate with QA engineers to identify and resolve defects, ensuring the highest level of software quality.
+
+        Implement automated testing frameworks to streamline the testing process and improve efficiency.
+
+    Project Management:
+
+        Lead and manage software development projects from inception to completion, ensuring timely delivery and adherence to budget constraints.
+
+        Coordinate with project managers, product owners, and stakeholders to define project scope, objectives, and deliverables.
+
+        Track project progress, identify potential risks, and implement mitigation strategies to ensure successful project outcomes.
+
+    Mentorship and Leadership:
+
+        Mentor and guide junior developers, fostering a collaborative and inclusive team environment.
+
+        Provide technical leadership and expertise to drive continuous improvement and innovation within the team.
+
+        Facilitate knowledge sharing and professional development through workshops, training sessions, and code reviews.
+
+    Client and Stakeholder Interaction:
+
+        Engage with clients and stakeholders to understand their needs, provide technical guidance, and deliver customized software solutions.
+
+        Communicate project status, updates, and technical details to non-technical stakeholders, ensuring transparency and alignment.
+
+        Build and maintain strong relationships with clients, partners, and industry experts to drive business growth and innovation.
+
+Qualifications:
+
+    Bachelor's or Master's degree in Computer Science, Software Engineering, or a related field.
+
+    7+ years of experience in software development, with a proven track record of delivering high-quality software solutions.
+
+    Expertise in multiple programming languages, including JavaScript, Python, Java, and C++.
+
+    Strong understanding of software development methodologies, tools, and processes, including Agile and DevOps practices.
+
+    Experience with cloud platforms (e.g., AWS, Azure, Google Cloud) and containerization technologies (e.g., Docker, Kubernetes).
+
+    Excellent problem-solving skills and the ability to think critically and creatively.
+
+    Strong communication and interpersonal skills, with the ability to work effectively in a collaborative team environment.
+
+    Proven leadership and mentorship abilities, with a passion for developing and growing talent.
+
+Salary Range:
+
+    Minimum: €60,000
+
+    Maximum: €80,000
+
+    Currency: EUR
+
+Benefits:
+
+    Comprehensive health, dental, and vision insurance.
+
+    Generous paid time off and holiday leave.
+
+    Professional development opportunities, including conferences, workshops, and certifications.
+
+    Flexible work hours and remote work options.
+
+    Employee wellness programs and fitness facilities.
+
+    On-site meals and snacks.
+
+About Tech Innovators Inc.:
+
+Tech Innovators Inc. is a leading technology company dedicated to pushing the boundaries of innovation and creativity. Our mission is to develop cutting-edge software solutions that empower businesses and individuals to achieve their full potential. We pride ourselves on fostering a collaborative, inclusive, and dynamic work environment where creativity and innovation thrive.
+
+At Tech Innovators Inc., we believe in investing in our employees' growth and development. We offer a range of professional development opportunities, including workshops, training sessions, and conferences, to help our team members stay at the forefront of the industry. Our commitment to excellence is reflected in our state-of-the-art facilities, comprehensive benefits, and supportive work culture.
+
+We are passionate about making a positive impact on the world through technology, and we are always looking for talented individuals who share our vision and values. If you are a dedicated and skilled Senior Software Engineer with a passion for innovation and excellence, we would love to hear from you.
+
+How to Apply:
+
+Please submit your resume, cover letter, and portfolio of relevant projects to [email address] with the subject line "Senior Software Engineer Application - [Your Name]." We look forward to reviewing your application and discussing how you can contribute to our team's success.`,
 };
