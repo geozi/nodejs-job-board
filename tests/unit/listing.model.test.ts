@@ -295,23 +295,44 @@ describe("Listing model unit tests", () => {
       );
     });
 
-    // it('listingDesc is too short', () => {
-    //     validationError.errors = {
-    //         listingDesc: new Error.ValidatorError({
-    //           message: listingFailedValidation.LISTING_DESCRIPTION_MIN_LENGTH_MESSAGE,
-    //           path: "listingDesc",
-    //           value: invalidListingInputs.TOO_LONG_LISTING_DESCRIPTION,
-    //         }),
-    //       };
+    it("listingDesc is too short", () => {
+      validationError.errors = {
+        listingDesc: new Error.ValidatorError({
+          message:
+            listingFailedValidation.LISTING_DESCRIPTION_BELOW_MIN_LENGTH_MESSAGE,
+          path: "listingDesc",
+          value: invalidListingInputs.TOO_SHORT_LISTING_DESCRIPTION,
+        }),
+      };
 
-    //       validateSyncStub.returns(validationError);
-    //       const mongooseErrors = newListing.validateSync();
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newListing.validateSync();
 
-    //       assert.notStrictEqual(mongooseErrors, undefined);
-    //       assert.strictEqual(
-    //         mongooseErrors?.errors.listingDesc.message,
-    //         listingFailedValidation.LISTING_DESCRIPTION_REQUIRED_MESSAGE
-    //       );
-    // })
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.listingDesc.message,
+        listingFailedValidation.LISTING_DESCRIPTION_BELOW_MIN_LENGTH_MESSAGE
+      );
+    });
+
+    it("listingDesc is too long", () => {
+      validationError.errors = {
+        listingDesc: new Error.ValidatorError({
+          message:
+            listingFailedValidation.LISTING_DESCRIPTION_ABOVE_MAX_LENGTH_MESSAGE,
+          path: "listingDesc",
+          value: invalidListingInputs.TOO_LONG_LISTING_DESCRIPTION,
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newListing.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.listingDesc.message,
+        listingFailedValidation.LISTING_DESCRIPTION_ABOVE_MAX_LENGTH_MESSAGE
+      );
+    });
   });
 });
