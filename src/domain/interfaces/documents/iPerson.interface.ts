@@ -5,7 +5,7 @@ export interface IPerson extends Document {
   lastName: string;
   phoneNumber: string;
   address: string;
-  dateOfBirth?: Schema.Types.Date;
+  dateOfBirth?: Date;
   education: Schema.Types.Mixed[];
   workExperience: Schema.Types.Mixed[];
   username: string;
