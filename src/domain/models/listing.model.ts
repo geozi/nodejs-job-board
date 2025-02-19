@@ -27,12 +27,6 @@ const listingSchema = new Schema<IListing>({
   datePosted: {
     type: Schema.Types.Date,
     required: [true, listingFailedValidation.DATE_POSTED_REQUIRED_MESSAGE],
-    validate: {
-      validator: function (value: any) {
-        return value instanceof Schema.Types.Date;
-      },
-      message: listingFailedValidation.DATE_POSTED_INVALID_MESSAGE,
-    },
   },
   workType: {
     type: String,
