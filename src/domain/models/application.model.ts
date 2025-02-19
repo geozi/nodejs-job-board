@@ -36,7 +36,7 @@ const applicationSchema = new Schema<IApplication>(
   }
 );
 
-export const applicationModel = model<IApplication>(
+export const Application = model<IApplication>(
   "Application",
   applicationSchema
 );
