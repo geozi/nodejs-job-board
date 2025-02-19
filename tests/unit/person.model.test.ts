@@ -5,9 +5,9 @@ import sinon, { SinonStub } from "sinon";
 import assert from "assert";
 import { Error } from "mongoose";
 import { personFailedValidation } from "../../src/domain/messages/personValidation.message";
-import { educationFailedValidation } from "../domain/messages/educationValidation.message";
+import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
 
-describe.only("Person model unit tests", () => {
+describe("Person model unit tests", () => {
   let newPerson: IPerson;
 
   describe("Successful validation", () => {
@@ -227,6 +227,63 @@ describe.only("Person model unit tests", () => {
       assert.strictEqual(
         mongooseErrors?.errors.address.message,
         personFailedValidation.ADDRESS_BELOW_MIN_LENGTH_MESSAGE
+      );
+    });
+
+    it("education is undefined", () => {
+      validationError.errors = {
+        education: new Error.ValidatorError({
+          message: personFailedValidation.EDUCATION_REQUIRED,
+          path: "education",
+          value: undefined,
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newPerson.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.education.message,
+        personFailedValidation.EDUCATION_REQUIRED
+      );
+    });
+
+    it("workExperience is undefined", () => {
+      validationError.errors = {
+        workExperience: new Error.ValidatorError({
+          message: personFailedValidation.WORK_EXPERIENCE_REQUIRED,
+          path: "workExperience",
+          value: undefined,
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newPerson.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.workExperience.message,
+        personFailedValidation.WORK_EXPERIENCE_REQUIRED
+      );
+    });
+
+    it("username is empty", () => {
+      validationError.errors = {
+        username: new Error.ValidatorError({
+          message: userFailedValidation.USERNAME_REQUIRED_MESSAGE,
+          path: "username",
+          value: undefined,
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newPerson.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.username.message,
+        userFailedValidation.USERNAME_REQUIRED_MESSAGE
       );
     });
   });
