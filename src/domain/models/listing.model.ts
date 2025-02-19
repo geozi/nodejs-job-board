@@ -103,4 +103,4 @@ const listingSchema = new Schema<IListing>({
   },
 });
 
-export const listingModel = model<IListing>("Listing", listingSchema);
+export const Listing = model<IListing>("Listing", listingSchema);
