@@ -1,8 +1,8 @@
 import { Schema } from "mongoose";
 import { RoleType } from "../src/domain/enums/roleType.enum";
-import { WorkType } from "./domain/enums/workType.enum";
-import { EmploymentType } from "./domain/enums/employmentType.enum";
-import { ExperienceLevelType } from "./domain/enums/experienceLevelType.enum";
+import { WorkType } from "../src/domain/enums/workType.enum";
+import { EmploymentType } from "../src/domain/enums/employmentType.enum";
+import { ExperienceLevelType } from "../src/domain/enums/experienceLevelType.enum";
 
 export const invalidUserInputs = {
   USER_ID_LENGTH_CASES: [
