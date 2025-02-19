@@ -33,7 +33,8 @@ describe("User model unit tests", () => {
     let validateSyncStub: SinonStub;
 
     beforeEach(() => {
-      sinon.restore(), (newUser = new User());
+      sinon.restore();
+      newUser = new User();
       validationError = new Error.ValidationError();
       validateSyncStub = sinon.stub(User.prototype, "validateSync");
     });

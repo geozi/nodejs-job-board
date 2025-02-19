@@ -43,6 +43,8 @@ export const validPersonInput = {
   phoneNumber: "412-304-0145",
   address: "236 Poplar Street",
   dateOfBirth: new Schema.Types.Date("2001-02-18"),
+  education: [],
+  workExperience: [],
   username: "newUser",
 };
 
