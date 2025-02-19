@@ -8,7 +8,6 @@ import { WorkType } from "../enums/workType.enum";
 import { EmploymentType } from "../enums/employmentType.enum";
 import { ExperienceLevelType } from "../enums/experienceLevelType.enum";
 import { COUNTRY_REGEX } from "../resources/validationRegExp";
-import { salaryRangeSchema } from "../schemas/salaryRange.schema";
 
 const listingSchema = new Schema<IListing>({
   title: {
@@ -100,7 +99,7 @@ const listingSchema = new Schema<IListing>({
     trim: true,
   },
   salaryRange: {
-    type: salaryRangeSchema,
+    type: Schema.Types.Mixed,
   },
 });
 

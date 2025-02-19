@@ -1,6 +1,4 @@
 import { Document, Schema } from "mongoose";
-import { IEducation } from "../secondary/iEducation.interface";
-import { IWorkExperience } from "../secondary/iWorkExperience.interface";
 
 export interface IPerson extends Document {
   firstName: string;
@@ -8,7 +6,7 @@ export interface IPerson extends Document {
   phoneNumber: string;
   address: string;
   dateOfBirth?: Schema.Types.Date;
-  education: IEducation[];
-  workExperience: IWorkExperience[];
+  education: Schema.Types.Mixed[];
+  workExperience: Schema.Types.Mixed[];
   username: string;
 }

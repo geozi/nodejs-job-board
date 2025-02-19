@@ -4,10 +4,8 @@ import { personConstants } from "../constants/person.constant";
 import { commonConstants } from "../constants/common.constant";
 import { personFailedValidation } from "../messages/personValidation.message";
 import { NAME_REGEX, PHONE_REGEX } from "../resources/validationRegExp";
-import { educationSchema } from "../schemas/education.schema";
 import { userFailedValidation } from "../messages/userValidation.message";
 import { userConstants } from "../constants/user.constant";
-import { workExperienceSchema } from "../schemas/workExperience.schema";
 
 const personSchema = new Schema<IPerson>(
   {
@@ -50,11 +48,11 @@ const personSchema = new Schema<IPerson>(
       type: Schema.Types.Date,
     },
     education: {
-      type: [educationSchema],
+      type: [Schema.Types.Mixed],
       required: true,
     },
     workExperience: {
-      type: [workExperienceSchema],
+      type: [Schema.Types.Mixed],
       required: true,
     },
     username: {
