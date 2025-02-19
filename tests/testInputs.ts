@@ -5,15 +5,6 @@ import { EmploymentType } from "../src/domain/enums/employmentType.enum";
 import { ExperienceLevelType } from "../src/domain/enums/experienceLevelType.enum";
 
 export const invalidUserInputs = {
-  USER_ID_LENGTH_CASES: [
-    ["user ID is too short", "67710722913928977"],
-    ["user ID is too long", "67710722913928977aa04ea067710722913928977aa04ea0"],
-  ] as [string, string][],
-  USER_ID_INVALID_CASES: [
-    ["user ID contains special symbols", "67*db12ed*29a1*ed143e37e"],
-    ["user ID contains white spaces", "6771 722 13928977aa04ea0"],
-    ["user ID contains capital letters", "67710722913928977AA04ea0"],
-  ] as [string, string][],
   TOO_SHORT_USERNAME: "ab",
   TOO_LONG_USERNAME: "thisIsAVeryLongUsernameToTest",
   EMAIL_INVALID_CASES: [
@@ -246,4 +237,24 @@ We are passionate about making a positive impact on the world through technology
 How to Apply:
 
 Please submit your resume, cover letter, and portfolio of relevant projects to [email address] with the subject line "Senior Software Engineer Application - [Your Name]." We look forward to reviewing your application and discussing how you can contribute to our team's success.`,
+};
+
+export const validApplicationInput = {
+  personId: "67b605a836fe1a8bb86b7874",
+  listingId: "67b605ae4098030467b29c66",
+};
+
+export const invalidObjectIdInputs = {
+  OBJECT_ID_LENGTH_CASES: [
+    ["ObjectId is too short", "67710722913928977"],
+    [
+      "ObjectId is too long",
+      "67710722913928977aa04ea067710722913928977aa04ea0",
+    ],
+  ] as [string, string][],
+  OBJECT_ID_INVALID_CASES: [
+    ["ObjectId contains special symbols", "67*db12ed*29a1*ed143e37e"],
+    ["ObjectId contains white spaces", "6771 722 13928977aa04ea0"],
+    ["ObjectId contains capital letters", "67710722913928977AA04ea0"],
+  ] as [string, string][],
 };
