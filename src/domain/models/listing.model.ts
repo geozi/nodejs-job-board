@@ -84,11 +84,11 @@ const listingSchema = new Schema<IListing>({
     ],
     minLength: [
       commonConstants.GENERIC_MIN_LENGTH,
-      listingFailedValidation.LISTING_DESCRIPTION_MIN_LENGTH_MESSAGE,
+      listingFailedValidation.LISTING_DESCRIPTION_BELOW_MIN_LENGTH_MESSAGE,
     ],
     maxLength: [
       listingConstants.LISTING_DESCRIPTION_MAX_LENGTH,
-      listingFailedValidation.LISTING_DESCRIPTION_MAX_LENGTH_MESSAGE,
+      listingFailedValidation.LISTING_DESCRIPTION_ABOVE_MAX_LENGTH_MESSAGE,
     ],
     trim: true,
   },
