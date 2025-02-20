@@ -24,6 +24,7 @@
     "mocha": "^11.1.0",
     "sinon": "^19.0.2",
     "tsx": "^4.19.2",
+    "typedoc": "^0.27.7",
     "typescript-eslint": "^8.24.0"
   },
   "dependencies": {
