@@ -1,6 +1,6 @@
 /**
  * IApplication interface.
- * @module src/domain/interfaces/iApplication.interface
+ * @module src/domain/interfaces/documents/iApplication.interface
  */
 import { Document, Types } from "mongoose";
 

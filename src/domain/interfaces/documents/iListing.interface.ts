@@ -1,6 +1,6 @@
 /**
  * IListing interface.
- * @module src/domain/interfaces/iListing.interface
+ * @module src/domain/interfaces/documents/iListing.interface
  */
 import { Document } from "mongoose";
 import { EmploymentType } from "../../enums/employmentType.enum";

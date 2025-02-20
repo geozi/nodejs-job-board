@@ -1,6 +1,6 @@
 /**
  * IPerson interface.
- * @module src/domain/interfaces/iPerson.interface
+ * @module src/domain/interfaces/documents/iPerson.interface
  */
 import { Document, Schema } from "mongoose";
 
