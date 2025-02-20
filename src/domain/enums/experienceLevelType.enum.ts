@@ -1,8 +1,55 @@
+/**
+ * ExperienceLevelType enums.
+ * @module src/domain/enums/experienceLevelType.enum
+ */
+
+/**
+ * Enums corresponding to experience levels.
+ *
+ * @readonly
+ * @enum
+ */
 export enum ExperienceLevelType {
+  /**
+   * Internship experience level.
+   * @readonly
+   * @type {string}
+   */
   Internship = "Internship",
-  Entry_Level = "Entry level",
+
+  /**
+   * Entry-level experience level.
+   * @readonly
+   * @type {string}
+   */
+  Entry_Level = "Entry-level",
+
+  /**
+   * Associate experience level.
+   * @readonly
+   * @type {string}
+   */
   Associate = "Associate",
+
+  /**
+   * Mid-senior experience level.
+   * @readonly
+   * @type {string}
+   */
   Mid_Senior_Level = "Mid-Senior level",
+
+  /**
+   * Director experience level.
+   * @readonly
+   * @type {string}
+   *
+   */
   Director = "Director",
+
+  /**
+   * Executive experience level.
+   * @readonly
+   * @type {string}
+   */
   Executive = "Executive",
 }
