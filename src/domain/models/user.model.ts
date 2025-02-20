@@ -1,3 +1,7 @@
+/**
+ * User model schema.
+ * @module src/domain/models/user.model
+ */
 import { model, Schema } from "mongoose";
 import mongooseUniqueValidator from "mongoose-unique-validator";
 import { userConstants } from "../constants/user.constant";
@@ -6,6 +10,15 @@ import { RoleType } from "../enums/roleType.enum";
 import { IUser } from "../interfaces/documents/iUser.interface";
 import { EMAIL_REGEX, PASSWORD_REGEX } from "../resources/validationRegExp";
 
+/**
+ * User schema for persistence in MongoDB.
+ *
+ * @type {Schema<IUser>}
+ * @property {string} username - The username of the user.
+ * @property {string} email - The email of the user.
+ * @property {string} password - The password of the user.
+ * @property {RoleType} role - The role of the user.
+ */
 const userSchema = new Schema<IUser>(
   {
     username: {

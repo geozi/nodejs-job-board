@@ -1,3 +1,7 @@
+/**
+ * Person model schema.
+ * @module src/domain/models/person.model
+ */
 import { Schema, model } from "mongoose";
 import { IPerson } from "../interfaces/documents/iPerson.interface";
 import { personConstants } from "../constants/person.constant";
@@ -7,6 +11,19 @@ import { NAME_REGEX, PHONE_REGEX } from "../resources/validationRegExp";
 import { userFailedValidation } from "../messages/userValidation.message";
 import { userConstants } from "../constants/user.constant";
 
+/**
+ * Person schema for persistence in MongoDB.
+ *
+ * @type {Schema<IPerson>}
+ * @property {string} firstName - The first name of the person.
+ * @property {string} lastName - The last name of the person.
+ * @property {string} phoneNumber - The phone number of the person.
+ * @property {string} address - The address of the person.
+ * @property {Date} [dateOfBirth] - (Optional) The date of birth of the person.
+ * @property {Schema.Types.Mixed[]} education - The education of the person.
+ * @property {Schema.Types.Mixed[]} workExperience - The work experience of the person.
+ * @property {string} username - The username of the person.
+ */
 const personSchema = new Schema<IPerson>(
   {
     firstName: {

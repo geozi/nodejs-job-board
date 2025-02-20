@@ -1,3 +1,7 @@
+/**
+ * Listing model schema.
+ * @module src/domain/models/listing.model
+ */
 import { Schema, model } from "mongoose";
 import { IListing } from "../interfaces/documents/iListing.interface";
 import { listingConstants } from "../constants/listing.constant";
@@ -9,6 +13,21 @@ import { EmploymentType } from "../enums/employmentType.enum";
 import { ExperienceLevelType } from "../enums/experienceLevelType.enum";
 import { COUNTRY_REGEX } from "../resources/validationRegExp";
 
+/**
+ * Listing schema for persistence in MongoDB.
+ *
+ * @type {Schema<IListing>}
+ * @property {string} title - The title of the job listing.
+ * @property {string} organizationName - The name of the hiring organization.
+ * @property {Date} datePosted - The date when the job listing was posted.
+ * @property {WorkType} workType - The work type of the job.
+ * @property {EmploymentType} employmentType - The employment type of the job.
+ * @property {ExperienceLevelType} experienceLevel - The experience level required by the hiring organization.
+ * @property {string} city - The city where the job is located.
+ * @property {string} country - The country where the job is located.
+ * @property {string} listingDesc - The description of the job.
+ * @property {ISalaryRange} [salaryRange] - (Optional) The salary range of the job.
+ */
 const listingSchema = new Schema<IListing>({
   title: {
     type: String,
