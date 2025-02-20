@@ -13,7 +13,7 @@ import { Document, Schema } from "mongoose";
  * @property {string} lastName - The last name of the person.
  * @property {string} phoneNumber - The phone number of the person.
  * @property {string} address - The address of the person.
- * @property {Date} dateOfBirth - The date of birth of the person.
+ * @property {Date} [dateOfBirth] - (Optional) The date of birth of the person.
  * @property {Schema.Types.Mixed[]} education - The education of the person.
  * @property {Schema.Types.Mixed[]} workExperience - The work experience of the person.
  * @property {string} username - The username of the person.
@@ -45,7 +45,7 @@ export interface IPerson extends Document {
   address: string;
 
   /**
-   *  The date of birth of the person.
+   * (Optional) The date of birth of the person..
    * @type {Date}
    */
   dateOfBirth?: Date;
