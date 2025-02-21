@@ -13,7 +13,7 @@ import {
 } from "../../src/persistence/user.repository";
 import { IUserUpdate } from "../business/interfaces/IUserUpdate.interface";
 
-describe.only("User repository unit tests", () => {
+describe("User repository unit tests", () => {
   const mockUser = new User();
   const mockUsers = [new User(), new User()];
   const mockId = new Types.ObjectId("67b853b6909eb92b7547e41c");
