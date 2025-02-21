@@ -10,6 +10,8 @@ Contains the backend implementation of a Job Board API.
 
 Compared to the [Task Manager API](https://github.com/geozi/nodejs-typescript-task-manager) and [Contact Manager API](https://github.com/geozi/nodejs-typescript-contact-manager) projects, the Job Board API project uses:
 
-- nested sub-documents in the [Person](src/domain/models/person.model.ts) and [Listing](src/domain//models//listing.model.ts) model schemas,
+- **tsx** instead of **ts-node**,
 
-- as a result of the previous point, secondary interfaces for better type checking.
+- nested sub-documents, as in the [Person](src/domain/models/person.model.ts) and [Listing](src/domain//models//listing.model.ts) model schemas,
+
+- secondary interfaces for better type checking.
