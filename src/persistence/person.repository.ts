@@ -50,7 +50,11 @@ export const updatePerson = async (
     username: username,
   };
 
-  const updatedPerson = await Person.findByIdAndUpdate(id, personToUpdate);
+  const updatedPerson = await Person.findByIdAndUpdate(id, personToUpdate, {
+    new: true,
+    runValidators: true,
+    context: "query",
+  });
 
   appLogger.info(`Person repository: findByIdAndUpdate called successfully`);
 
