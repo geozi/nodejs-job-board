@@ -4,15 +4,17 @@ import { Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
 import { IPersonUpdate } from "../business/interfaces/iPersonUpdate.interface";
 
-export const getPersonByUsername = async (username: string) => {
-  const requestedPerson = await Person.find({ username: username });
+export const getPersonByUsername = async (
+  username: string
+): Promise<IPerson | null> => {
+  const requestedPerson = await Person.findOne({ username: username });
 
   appLogger.info(`Person repository: ${Person.find.name} called successfully`);
 
   return requestedPerson;
 };
 
-export const addPerson = async (newPerson: IPerson) => {
+export const addPerson = async (newPerson: IPerson): Promise<IPerson> => {
   const savedPerson = await newPerson.save();
 
   appLogger.info(
@@ -22,7 +24,9 @@ export const addPerson = async (newPerson: IPerson) => {
   return savedPerson;
 };
 
-export const updatePerson = async (updateDataObj: IPersonUpdate) => {
+export const updatePerson = async (
+  updateDataObj: IPersonUpdate
+): Promise<IPerson | null> => {
   const {
     id,
     firstName,
@@ -53,7 +57,9 @@ export const updatePerson = async (updateDataObj: IPersonUpdate) => {
   return updatedPerson;
 };
 
-export const deletePerson = async (id: Types.ObjectId) => {
+export const deletePerson = async (
+  id: Types.ObjectId
+): Promise<IPerson | null> => {
   const deletedPerson = await Person.findByIdAndDelete(id);
 
   appLogger.info(`Person repository: findByIdAndDelete called successfully`);

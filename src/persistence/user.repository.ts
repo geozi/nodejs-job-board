@@ -42,11 +42,20 @@ export const addUser = async (newUser: IUser): Promise<IUser> => {
 export const updateUser = async (
   updateDataObj: IUserUpdate
 ): Promise<IUser | null> => {
-  const updatedUser = await User.findByIdAndUpdate(
-    updateDataObj.id,
-    updateDataObj,
-    { new: true, runValidators: true, context: "query" }
-  );
+  const { id, username, email, password, role } = { ...updateDataObj };
+
+  const userToUpdate = {
+    username: username,
+    email: email,
+    password: password,
+    role: role,
+  };
+
+  const updatedUser = await User.findByIdAndUpdate(id, userToUpdate, {
+    new: true,
+    runValidators: true,
+    context: "query",
+  });
 
   appLogger.info(`User repository: findByIdAndUpdate called successfully`);
 
