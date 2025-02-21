@@ -10,6 +10,7 @@ import { personFailedValidation } from "../messages/personValidation.message";
 import { NAME_REGEX, PHONE_REGEX } from "../resources/validationRegExp";
 import { userFailedValidation } from "../messages/userValidation.message";
 import { userConstants } from "../constants/user.constant";
+import mongooseUniqueValidator from "mongoose-unique-validator";
 
 /**
  * Person schema for persistence in MongoDB.
@@ -74,6 +75,7 @@ const personSchema = new Schema<IPerson>(
     },
     username: {
       type: String,
+      unique: true,
       required: [true, userFailedValidation.USERNAME_REQUIRED_MESSAGE],
       minLength: [
         userConstants.USERNAME_MIN_LENGTH,
@@ -91,5 +93,10 @@ const personSchema = new Schema<IPerson>(
     timestamps: true,
   }
 );
+
+personSchema.plugin(mongooseUniqueValidator, {
+  message: "{PATH} already exists in the database",
+  type: "UniqueConstraintError",
+});
 
 export const Person = model<IPerson>("Person", personSchema);
