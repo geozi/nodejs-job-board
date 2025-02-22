@@ -9,7 +9,9 @@ export const getPersonByUsername = async (
 ): Promise<IPerson | null> => {
   const requestedPerson = await Person.findOne({ username: username });
 
-  appLogger.info(`Person repository: ${Person.find.name} called successfully`);
+  appLogger.info(
+    `Person repository: ${getPersonByUsername.name} called successfully`
+  );
 
   return requestedPerson;
 };
@@ -17,9 +19,7 @@ export const getPersonByUsername = async (
 export const addPerson = async (newPerson: IPerson): Promise<IPerson> => {
   const savedPerson = await newPerson.save();
 
-  appLogger.info(
-    `Person repository: ${savedPerson.save.name} called successfully`
-  );
+  appLogger.info(`Person repository: ${addPerson.name} called successfully`);
 
   return savedPerson;
 };
@@ -56,7 +56,7 @@ export const updatePerson = async (
     context: "query",
   });
 
-  appLogger.info(`Person repository: findByIdAndUpdate called successfully`);
+  appLogger.info(`Person repository: ${updatePerson.name} called successfully`);
 
   return updatedPerson;
 };
@@ -66,7 +66,7 @@ export const deletePerson = async (
 ): Promise<IPerson | null> => {
   const deletedPerson = await Person.findByIdAndDelete(id);
 
-  appLogger.info(`Person repository: findByIdAndDelete called successfully`);
+  appLogger.info(`Person repository: ${deletePerson.name} called successfully`);
 
   return deletedPerson;
 };

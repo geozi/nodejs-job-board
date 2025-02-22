@@ -13,7 +13,7 @@ export const getListingsByWorkType = async (
   const requestedListings = await Listing.find({ workType: workType });
 
   appLogger.info(
-    `Listing repository: ${Listing.find.name} called successfully`
+    `Listing repository: ${getListingsByWorkType.name} called successfully`
   );
 
   return requestedListings;
@@ -27,7 +27,7 @@ export const getListingsByEmploymentType = async (
   });
 
   appLogger.info(
-    `Listing repository: ${Listing.find.name} called successfully`
+    `Listing repository: ${getListingsByEmploymentType.name} called successfully`
   );
 
   return requestedListings;
@@ -41,7 +41,7 @@ export const getListingsByExperienceLevel = async (
   });
 
   appLogger.info(
-    `Listing repository: ${Listing.find.name} called successfully`
+    `Listing repository: ${getListingsByExperienceLevel.name} called successfully`
   );
 
   return requestedListings;
@@ -52,7 +52,9 @@ export const getListingById = async (
 ): Promise<IListing | null> => {
   const requestedListing = await Listing.findById(id);
 
-  appLogger.info(`Listing repository: findById called successfully`);
+  appLogger.info(
+    `Listing repository: ${getListingById.name} called successfully`
+  );
 
   return requestedListing;
 };
@@ -60,9 +62,7 @@ export const getListingById = async (
 export const addListing = async (newListing: IListing): Promise<IListing> => {
   const savedListing = await newListing.save();
 
-  appLogger.info(
-    `Listing repository: ${savedListing.save.name} called successfully`
-  );
+  appLogger.info(`Listing repository: ${addListing.name} called successfully`);
 
   return savedListing;
 };
@@ -103,7 +103,9 @@ export const updateListing = async (
     context: "query",
   });
 
-  appLogger.info(`Listing repository: findByIdAndUpdate called successfully`);
+  appLogger.info(
+    `Listing repository: ${updateListing.name} called successfully`
+  );
 
   return updatedListing;
 };
@@ -113,7 +115,9 @@ export const deleteListing = async (
 ): Promise<IListing | null> => {
   const deletedListing = await Listing.findByIdAndDelete(id);
 
-  appLogger.info(`Listing repository: findByIdAndDelete called successfully`);
+  appLogger.info(
+    `Listing repository: ${deleteListing.name} called successfully`
+  );
 
   return deletedListing;
 };

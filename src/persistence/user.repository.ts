@@ -10,7 +10,9 @@ export const getUserByUsername = async (
 ): Promise<IUser | null> => {
   const requestedUser = await User.findOne({ username: username });
 
-  appLogger.info(`User repository: ${User.find.name} called successfully`);
+  appLogger.info(
+    `User repository: ${getUserByUsername.name} called successfully`
+  );
 
   return requestedUser;
 };
@@ -18,7 +20,7 @@ export const getUserByUsername = async (
 export const getUserByEmail = async (email: string): Promise<IUser | null> => {
   const requestedUser = await User.findOne({ email: email });
 
-  appLogger.info(`User repository: ${User.find.name} called successfully`);
+  appLogger.info(`User repository: ${getUserByEmail.name} called successfully`);
 
   return requestedUser;
 };
@@ -26,7 +28,7 @@ export const getUserByEmail = async (email: string): Promise<IUser | null> => {
 export const getUsersByRole = async (role: RoleType): Promise<Array<IUser>> => {
   const requestedUsers = await User.find({ role: role });
 
-  appLogger.info(`User repository: ${User.find.name} called successfully`);
+  appLogger.info(`User repository: ${getUsersByRole.name} called successfully`);
 
   return requestedUsers;
 };
@@ -34,7 +36,7 @@ export const getUsersByRole = async (role: RoleType): Promise<Array<IUser>> => {
 export const addUser = async (newUser: IUser): Promise<IUser> => {
   const savedUser = await newUser.save();
 
-  appLogger.info(`User repository: ${newUser.save.name} called successfully`);
+  appLogger.info(`User repository: ${addUser.name} called successfully`);
 
   return savedUser;
 };
@@ -57,7 +59,7 @@ export const updateUser = async (
     context: "query",
   });
 
-  appLogger.info(`User repository: findByIdAndUpdate called successfully`);
+  appLogger.info(`User repository: ${updateUser.name} called successfully`);
 
   return updatedUser;
 };
@@ -65,7 +67,7 @@ export const updateUser = async (
 export const deleteUser = async (id: Types.ObjectId): Promise<IUser | null> => {
   const deletedUser = await User.findByIdAndDelete(id);
 
-  appLogger.info(`User repository: findByIdAndDelete called successfully`);
+  appLogger.info(`User repository: ${deleteUser} called successfully`);
 
   return deletedUser;
 };
