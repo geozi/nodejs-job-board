@@ -30,3 +30,39 @@ export const getApplicationsByListingId = async (
 
   return requestedApplications;
 };
+
+export const addApplication = async (
+  newApplication: IApplication
+): Promise<IApplication> => {
+  const savedApplication = newApplication.save();
+
+  appLogger.info(
+    `Application repository: ${addApplication.name} called successfully`
+  );
+
+  return savedApplication;
+};
+
+export const deleteApplicationById = async (
+  id: Types.ObjectId
+): Promise<IApplication | null> => {
+  const deletedApplication = Application.findByIdAndDelete(id);
+
+  appLogger.info(
+    `Application repository: ${deleteApplicationById.name} called successfully`
+  );
+
+  return deletedApplication;
+};
+
+export const deleteApplicationByPersonId = async (
+  personId: Types.ObjectId
+): Promise<IApplication | null> => {
+  const deletedApplication = Application.findByIdAndDelete(personId);
+
+  appLogger.info(
+    `Application repository: ${deleteApplicationByPersonId.name} called successfully`
+  );
+
+  return deletedApplication;
+};
