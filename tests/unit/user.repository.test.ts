@@ -30,13 +30,17 @@ describe("User repository unit tests", () => {
 
     it("Promise resolves to User object", async () => {
       functionStub.resolves(mockUser);
+
       const foundUser = await getUserByUsername(validUserInput.username);
+
       assert(foundUser instanceof User);
     });
 
     it("Promise resolves to null", async () => {
       functionStub.resolves(null);
+
       const foundUser = await getUserByUsername(validUserInput.username);
+
       assert.strictEqual(foundUser, null);
     });
   });
@@ -49,13 +53,17 @@ describe("User repository unit tests", () => {
 
     it("Promise resolves to User object", async () => {
       functionStub.resolves(mockUser);
+
       const foundUser = await getUserByEmail(validUserInput.email);
+
       assert(foundUser instanceof User);
     });
 
     it("Promise resolves to null", async () => {
       functionStub.resolves(null);
+
       const foundUser = await getUserByEmail(validUserInput.email);
+
       assert.strictEqual(foundUser, null);
     });
   });
@@ -68,13 +76,17 @@ describe("User repository unit tests", () => {
 
     it("Promise resolves to User object", async () => {
       functionStub.resolves(mockUsers);
+
       const foundUsers = await getUsersByRole(validUserInput.role);
+
       assert.strictEqual(foundUsers.length, 2);
     });
 
     it("Promise resolves to null", async () => {
       functionStub.resolves([]);
+
       const foundUsers = await getUsersByRole(validUserInput.role);
+
       assert.strictEqual(foundUsers.length, 0);
     });
   });
@@ -87,8 +99,10 @@ describe("User repository unit tests", () => {
 
     it("Promise resolves to User object", async () => {
       functionStub.resolves(mockUser);
+
       const newUser = new User(validUserInput);
       const savedUser = await addUser(newUser);
+
       assert(savedUser instanceof User);
     });
   });
@@ -101,13 +115,17 @@ describe("User repository unit tests", () => {
 
     it("Promise resolves to User object", async () => {
       functionStub.resolves(mockUser);
+
       const updatedUser = await updateUser(mockUpdateObj);
+
       assert(updatedUser instanceof User);
     });
 
     it("Promise resolves to null", async () => {
       functionStub.resolves(null);
+
       const updatedUser = await updateUser(mockUpdateObj);
+
       assert.strictEqual(updatedUser, null);
     });
   });
@@ -120,13 +138,17 @@ describe("User repository unit tests", () => {
 
     it("Promise resolves to User object", async () => {
       functionStub.resolves(mockUser);
+
       const deletedUser = await deleteUser(mockId);
+
       assert(deletedUser instanceof User);
     });
 
     it("Promise resolves to null", async () => {
       functionStub.resolves(null);
+
       const deletedUser = await deleteUser(mockId);
+
       assert.strictEqual(deletedUser, null);
     });
   });

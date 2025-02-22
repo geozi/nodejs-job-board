@@ -29,13 +29,17 @@ describe("Listing repository unit tests", () => {
 
     it("Promise resolves to Listing object", async () => {
       functionStub.resolves(mockListing);
+
       const foundListing = await getListingById(mockId);
+
       assert(foundListing instanceof Listing);
     });
 
     it("Promise resolves to null", async () => {
       functionStub.resolves(null);
+
       const foundListing = await getListingById(mockId);
+
       assert.strictEqual(foundListing, null);
     });
   });
@@ -48,18 +52,22 @@ describe("Listing repository unit tests", () => {
 
     it("Promise resolves to an array of Listing objects", async () => {
       functionStub.resolves(mockListings);
+
       const foundListings = await getListingsByEmploymentType(
         validListingInput.employmentType
       );
+
       assert.notStrictEqual(foundListings, null);
       assert.strictEqual(foundListings.length, 3);
     });
 
     it("Promise resolves to an array of zero length", async () => {
       functionStub.resolves([]);
+
       const foundListings = await getListingsByEmploymentType(
         validListingInput.employmentType
       );
+
       assert.notStrictEqual(foundListings, undefined);
       assert.strictEqual(foundListings.length, 0);
     });
@@ -73,18 +81,22 @@ describe("Listing repository unit tests", () => {
 
     it("Promise resolves to an array of Listing objects", async () => {
       functionStub.resolves(mockListings);
+
       const foundListings = await getListingsByExperienceLevel(
         validListingInput.experienceLevel
       );
+
       assert.notStrictEqual(foundListings, null);
       assert.strictEqual(foundListings.length, 3);
     });
 
     it("Promise resolves to an array of zero length", async () => {
       functionStub.resolves([]);
+
       const foundListings = await getListingsByExperienceLevel(
         validListingInput.experienceLevel
       );
+
       assert.notStrictEqual(foundListings, undefined);
       assert.strictEqual(foundListings.length, 0);
     });
@@ -98,18 +110,22 @@ describe("Listing repository unit tests", () => {
 
     it("Promise resolves to an array of Listing objects", async () => {
       functionStub.resolves(mockListings);
+
       const foundListings = await getListingsByWorkType(
         validListingInput.workType
       );
+
       assert.notStrictEqual(foundListings, undefined);
       assert.strictEqual(foundListings.length, 3);
     });
 
     it("Promise resolves to an array of zero objects", async () => {
       functionStub.resolves([]);
+
       const foundListings = await getListingsByWorkType(
         validListingInput.workType
       );
+
       assert.notStrictEqual(foundListings, undefined);
       assert.strictEqual(foundListings.length, 0);
     });
@@ -123,8 +139,10 @@ describe("Listing repository unit tests", () => {
 
     it("Promise resolves to a Listing object", async () => {
       functionStub.resolves(mockListing);
+
       const newListing = new Listing(validListingInput);
       const savedListing = await addListing(newListing);
+
       assert(savedListing instanceof Listing);
     });
   });
@@ -137,13 +155,17 @@ describe("Listing repository unit tests", () => {
 
     it("Promise resolves to a Listing object", async () => {
       functionStub.resolves(mockListing);
+
       const updatedListing = await updateListing(mockUpdateObj);
+
       assert(updatedListing instanceof Listing);
     });
 
     it("Promise resolves to null", async () => {
       functionStub.resolves(null);
+
       const updatedListing = await updateListing(mockUpdateObj);
+
       assert.strictEqual(updatedListing, null);
     });
   });
@@ -156,13 +178,17 @@ describe("Listing repository unit tests", () => {
 
     it("Promise resolves to a Listing object", async () => {
       functionStub.resolves(mockListing);
+
       const deletedListing = await deleteListing(mockId);
+
       assert(deletedListing instanceof Listing);
     });
 
     it("Promise resolves to null", async () => {
       functionStub.resolves(null);
+
       const deletedListing = await deleteListing(mockId);
+
       assert.strictEqual(deletedListing, null);
     });
   });
