@@ -1,5 +1,5 @@
 import { User } from "../../src/domain/models/user.model";
-import sinon from "sinon";
+import sinon, { SinonStub } from "sinon";
 import assert from "assert";
 import { Types } from "mongoose";
 import { validUserInput } from "../testInputs";
@@ -20,105 +20,112 @@ describe("User repository unit tests", () => {
   const mockUpdateObj: IUserUpdate = {
     id: mockId,
   };
+  let functionStub: SinonStub;
 
-  describe("getUserByUsername()", () => {
+  describe(`${getUserByUsername.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(User, "findOne");
     });
 
     it("Promise resolves to User object", async () => {
-      sinon.stub(User, "findOne").resolves(mockUser);
+      functionStub.resolves(mockUser);
       const foundUser = await getUserByUsername(validUserInput.username);
       assert(foundUser instanceof User);
     });
 
     it("Promise resolves to null", async () => {
-      sinon.stub(User, "findOne").resolves(null);
+      functionStub.resolves(null);
       const foundUser = await getUserByUsername(validUserInput.username);
       assert.strictEqual(foundUser, null);
     });
   });
 
-  describe("getUserByEmail()", () => {
+  describe(`${getUserByEmail.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(User, "findOne");
     });
 
     it("Promise resolves to User object", async () => {
-      sinon.stub(User, "findOne").resolves(mockUser);
+      functionStub.resolves(mockUser);
       const foundUser = await getUserByEmail(validUserInput.email);
       assert(foundUser instanceof User);
     });
 
     it("Promise resolves to null", async () => {
-      sinon.stub(User, "findOne").resolves(null);
+      functionStub.resolves(null);
       const foundUser = await getUserByEmail(validUserInput.email);
       assert.strictEqual(foundUser, null);
     });
   });
 
-  describe("getUsersByRole()", () => {
+  describe(`${getUsersByRole.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(User, "find");
     });
 
     it("Promise resolves to User object", async () => {
-      sinon.stub(User, "find").resolves(mockUsers);
+      functionStub.resolves(mockUsers);
       const foundUsers = await getUsersByRole(validUserInput.role);
       assert.strictEqual(foundUsers.length, 2);
     });
 
     it("Promise resolves to null", async () => {
-      sinon.stub(User, "find").resolves([]);
+      functionStub.resolves([]);
       const foundUsers = await getUsersByRole(validUserInput.role);
       assert.strictEqual(foundUsers.length, 0);
     });
   });
 
-  describe("addUser()", () => {
+  describe(`${addUser.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(User.prototype, "save");
     });
 
     it("Promise resolves to User object", async () => {
-      sinon.stub(User.prototype, "save").resolves(mockUser);
+      functionStub.resolves(mockUser);
       const newUser = new User(validUserInput);
       const savedUser = await addUser(newUser);
       assert(savedUser instanceof User);
     });
   });
 
-  describe("updateUser()", () => {
+  describe(`${updateUser.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(User, "findByIdAndUpdate");
     });
 
     it("Promise resolves to User object", async () => {
-      sinon.stub(User, "findByIdAndUpdate").resolves(mockUser);
+      functionStub.resolves(mockUser);
       const updatedUser = await updateUser(mockUpdateObj);
       assert(updatedUser instanceof User);
     });
 
     it("Promise resolves to null", async () => {
-      sinon.stub(User, "findByIdAndUpdate").resolves(null);
+      functionStub.resolves(null);
       const updatedUser = await updateUser(mockUpdateObj);
       assert.strictEqual(updatedUser, null);
     });
   });
 
-  describe("deleteUser()", () => {
+  describe(`${deleteUser.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(User, "findByIdAndDelete");
     });
 
     it("Promise resolves to User object", async () => {
-      sinon.stub(User, "findByIdAndDelete").resolves(mockUser);
+      functionStub.resolves(mockUser);
       const deletedUser = await deleteUser(mockId);
       assert(deletedUser instanceof User);
     });
 
     it("Promise resolves to null", async () => {
-      sinon.stub(User, "findByIdAndDelete").resolves(null);
+      functionStub.resolves(null);
       const deletedUser = await deleteUser(mockId);
       assert.strictEqual(deletedUser, null);
     });

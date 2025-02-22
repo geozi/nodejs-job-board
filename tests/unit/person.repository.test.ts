@@ -1,4 +1,4 @@
-import sinon from "sinon";
+import sinon, { SinonStub } from "sinon";
 import assert from "assert";
 import { Person } from "../../src/domain/models/person.model";
 import { IPersonUpdate } from "../../src/business/interfaces/iPersonUpdate.interface";
@@ -15,14 +15,16 @@ describe("Person repository unit tests", () => {
   const mockPerson = new Person();
   const mockId = new Types.ObjectId("67b8a6bc2e3b2527cd30ba86");
   const mockUpdateObj: IPersonUpdate = { id: mockId };
+  let functionStub: SinonStub;
 
-  describe("getPersonByUsername()", () => {
+  describe(`${getPersonByUsername.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(Person, "findOne");
     });
 
     it("Promise resolves to Person object", async () => {
-      sinon.stub(Person, "findOne").resolves(mockPerson);
+      functionStub.resolves(mockPerson);
 
       const foundPerson = await getPersonByUsername(validPersonInput.username);
 
@@ -30,7 +32,7 @@ describe("Person repository unit tests", () => {
     });
 
     it("Promise resolves to null", async () => {
-      sinon.stub(Person, "findOne").resolves(null);
+      functionStub.resolves(null);
 
       const foundPerson = await getPersonByUsername(validPersonInput.username);
 
@@ -38,13 +40,14 @@ describe("Person repository unit tests", () => {
     });
   });
 
-  describe("addPerson()", () => {
+  describe(`${addPerson.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(Person.prototype, "save");
     });
 
     it("Promise resolves to Person object", async () => {
-      sinon.stub(Person.prototype, "save").resolves(mockPerson);
+      functionStub.resolves(mockPerson);
 
       const newPerson = new Person(validPersonInput);
       const savedPerson = await addPerson(newPerson);
@@ -53,13 +56,14 @@ describe("Person repository unit tests", () => {
     });
   });
 
-  describe("updatePerson()", () => {
+  describe(`${updatePerson.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(Person, "findByIdAndUpdate");
     });
 
     it("Promise resolves to Person object", async () => {
-      sinon.stub(Person, "findByIdAndUpdate").resolves(mockPerson);
+      functionStub.resolves(mockPerson);
 
       const updatedPerson = await updatePerson(mockUpdateObj);
 
@@ -67,7 +71,7 @@ describe("Person repository unit tests", () => {
     });
 
     it("Promise resolves to null", async () => {
-      sinon.stub(Person, "findByIdAndUpdate").resolves(null);
+      functionStub.resolves(null);
 
       const updatedPerson = await updatePerson(mockUpdateObj);
 
@@ -75,13 +79,14 @@ describe("Person repository unit tests", () => {
     });
   });
 
-  describe("deletePerson()", () => {
+  describe(`${deletePerson.name}`, () => {
     beforeEach(() => {
       sinon.restore();
+      functionStub = sinon.stub(Person, "findByIdAndDelete");
     });
 
     it("Promise resolves to Person object", async () => {
-      sinon.stub(Person, "findByIdAndDelete").resolves(mockPerson);
+      functionStub.resolves(mockPerson);
 
       const deletedPerson = await deletePerson(mockId);
 
@@ -89,7 +94,7 @@ describe("Person repository unit tests", () => {
     });
 
     it("Promise resolves to null", async () => {
-      sinon.stub(Person, "findByIdAndDelete").resolves(null);
+      functionStub.resolves(null);
 
       const deletedPerson = await deletePerson(mockId);
 

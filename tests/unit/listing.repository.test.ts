@@ -21,7 +21,7 @@ describe("Listing repository unit tests", () => {
   const mockUpdateObj: IListingUpdate = { id: mockId };
   let methodStub: SinonStub;
 
-  describe("getListingById()", () => {
+  describe(`${getListingById.name}`, () => {
     beforeEach(() => {
       sinon.restore();
       methodStub = sinon.stub(Listing, "findById");
@@ -40,7 +40,7 @@ describe("Listing repository unit tests", () => {
     });
   });
 
-  describe("getListingsByEmploymentType()", () => {
+  describe(`${getListingsByEmploymentType.name}`, () => {
     beforeEach(() => {
       sinon.restore();
       methodStub = sinon.stub(Listing, "find");
@@ -65,7 +65,7 @@ describe("Listing repository unit tests", () => {
     });
   });
 
-  describe("getListingsByExperienceLevel()", () => {
+  describe(`${getListingsByExperienceLevel.name}`, () => {
     beforeEach(() => {
       sinon.restore();
       methodStub = sinon.stub(Listing, "find");
@@ -87,6 +87,83 @@ describe("Listing repository unit tests", () => {
       );
       assert.notStrictEqual(foundListings, undefined);
       assert.strictEqual(foundListings.length, 0);
+    });
+  });
+
+  describe(`${getListingsByWorkType.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      methodStub = sinon.stub(Listing, "find");
+    });
+
+    it("Promise resolves to an array of Listing objects", async () => {
+      methodStub.resolves(mockListings);
+      const foundListings = await getListingsByWorkType(
+        validListingInput.workType
+      );
+      assert.notStrictEqual(foundListings, undefined);
+      assert.strictEqual(foundListings.length, 3);
+    });
+
+    it("Promise resolves to an array of zero objects", async () => {
+      methodStub.resolves([]);
+      const foundListings = await getListingsByWorkType(
+        validListingInput.workType
+      );
+      assert.notStrictEqual(foundListings, undefined);
+      assert.strictEqual(foundListings.length, 0);
+    });
+  });
+
+  describe(`${addListing.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      methodStub = sinon.stub(Listing.prototype, "save");
+    });
+
+    it("Promise resolves to a Listing object", async () => {
+      methodStub.resolves(mockListing);
+      const newListing = new Listing(validListingInput);
+      const savedListing = await addListing(newListing);
+      assert(savedListing instanceof Listing);
+    });
+  });
+
+  describe(`${updateListing.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      methodStub = sinon.stub(Listing, "findByIdAndUpdate");
+    });
+
+    it("Promise resolves to a Listing object", async () => {
+      methodStub.resolves(mockListing);
+      const updatedListing = await updateListing(mockUpdateObj);
+      assert(updatedListing instanceof Listing);
+    });
+
+    it("Promise resolves to null", async () => {
+      methodStub.resolves(null);
+      const updatedListing = await updateListing(mockUpdateObj);
+      assert.strictEqual(updatedListing, null);
+    });
+  });
+
+  describe(`${deleteListing.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      methodStub = sinon.stub(Listing, "findByIdAndDelete");
+    });
+
+    it("Promise resolves to a Listing object", async () => {
+      methodStub.resolves(mockListing);
+      const deletedListing = await deleteListing(mockId);
+      assert(deletedListing instanceof Listing);
+    });
+
+    it("Promise resolves to null", async () => {
+      methodStub.resolves(null);
+      const deletedListing = await deleteListing(mockId);
+      assert.strictEqual(deletedListing, null);
     });
   });
 });
