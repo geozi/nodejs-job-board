@@ -1,20 +1,20 @@
 import { Application } from "../domain/models/application.model";
 import { IApplication } from "../domain/interfaces/documents/iApplication.interface";
-import { Types } from "mongoose";
+import { ModifyResult, Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
 
-export const getApplicationByPersonId = async (
+export const getApplicationsByPersonId = async (
   personId: Types.ObjectId
-): Promise<IApplication | null> => {
-  const requestedApplication = await Application.findOne({
+): Promise<Array<IApplication>> => {
+  const requestedApplications = await Application.find({
     personId: personId,
   });
 
   appLogger.info(
-    `Application repository: ${getApplicationByPersonId.name} called successfully`
+    `Application repository: ${getApplicationsByPersonId.name} called successfully`
   );
 
-  return requestedApplication;
+  return requestedApplications;
 };
 
 export const getApplicationsByListingId = async (
@@ -29,6 +29,22 @@ export const getApplicationsByListingId = async (
   );
 
   return requestedApplications;
+};
+
+export const getApplicationByUniqueIndex = async (
+  personId: Types.ObjectId,
+  listingId: Types.ObjectId
+): Promise<IApplication | null> => {
+  const requestedApplication = Application.findOne({
+    personId: personId,
+    listingId: listingId,
+  });
+
+  appLogger.info(
+    `Application repository: ${getApplicationByUniqueIndex.name} called successfully`
+  );
+
+  return requestedApplication;
 };
 
 export const addApplication = async (
@@ -55,13 +71,22 @@ export const deleteApplicationById = async (
   return deletedApplication;
 };
 
-export const deleteApplicationByPersonId = async (
-  personId: Types.ObjectId
+export const deleteApplicationByUniqueIndex = async (
+  personId: Types.ObjectId,
+  listingId: Types.ObjectId
 ): Promise<IApplication | null> => {
-  const deletedApplication = Application.findByIdAndDelete(personId);
+  const deletedResult: ModifyResult<IApplication> | null =
+    await Application.findOneAndDelete({
+      personId: personId,
+      listingId: listingId,
+    });
+
+  const deletedApplication: IApplication | null = deletedResult
+    ? deletedResult.value
+    : null;
 
   appLogger.info(
-    `Application repository: ${deleteApplicationByPersonId.name} called successfully`
+    `Application repository: ${deleteApplicationByUniqueIndex.name} called successfully`
   );
 
   return deletedApplication;
