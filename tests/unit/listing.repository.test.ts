@@ -19,22 +19,22 @@ describe("Listing repository unit tests", () => {
   const mockListings = [new Listing(), new Listing(), new Listing()];
   const mockId = new Types.ObjectId("67b9a1cd1ac0a8bb3b2c1bee");
   const mockUpdateObj: IListingUpdate = { id: mockId };
-  let methodStub: SinonStub;
+  let functionStub: SinonStub;
 
   describe(`${getListingById.name}`, () => {
     beforeEach(() => {
       sinon.restore();
-      methodStub = sinon.stub(Listing, "findById");
+      functionStub = sinon.stub(Listing, "findById");
     });
 
     it("Promise resolves to Listing object", async () => {
-      methodStub.resolves(mockListing);
+      functionStub.resolves(mockListing);
       const foundListing = await getListingById(mockId);
       assert(foundListing instanceof Listing);
     });
 
     it("Promise resolves to null", async () => {
-      methodStub.resolves(null);
+      functionStub.resolves(null);
       const foundListing = await getListingById(mockId);
       assert.strictEqual(foundListing, null);
     });
@@ -43,11 +43,11 @@ describe("Listing repository unit tests", () => {
   describe(`${getListingsByEmploymentType.name}`, () => {
     beforeEach(() => {
       sinon.restore();
-      methodStub = sinon.stub(Listing, "find");
+      functionStub = sinon.stub(Listing, "find");
     });
 
     it("Promise resolves to an array of Listing objects", async () => {
-      methodStub.resolves(mockListings);
+      functionStub.resolves(mockListings);
       const foundListings = await getListingsByEmploymentType(
         validListingInput.employmentType
       );
@@ -56,7 +56,7 @@ describe("Listing repository unit tests", () => {
     });
 
     it("Promise resolves to an array of zero length", async () => {
-      methodStub.resolves([]);
+      functionStub.resolves([]);
       const foundListings = await getListingsByEmploymentType(
         validListingInput.employmentType
       );
@@ -68,11 +68,11 @@ describe("Listing repository unit tests", () => {
   describe(`${getListingsByExperienceLevel.name}`, () => {
     beforeEach(() => {
       sinon.restore();
-      methodStub = sinon.stub(Listing, "find");
+      functionStub = sinon.stub(Listing, "find");
     });
 
     it("Promise resolves to an array of Listing objects", async () => {
-      methodStub.resolves(mockListings);
+      functionStub.resolves(mockListings);
       const foundListings = await getListingsByExperienceLevel(
         validListingInput.experienceLevel
       );
@@ -81,7 +81,7 @@ describe("Listing repository unit tests", () => {
     });
 
     it("Promise resolves to an array of zero length", async () => {
-      methodStub.resolves([]);
+      functionStub.resolves([]);
       const foundListings = await getListingsByExperienceLevel(
         validListingInput.experienceLevel
       );
@@ -93,11 +93,11 @@ describe("Listing repository unit tests", () => {
   describe(`${getListingsByWorkType.name}`, () => {
     beforeEach(() => {
       sinon.restore();
-      methodStub = sinon.stub(Listing, "find");
+      functionStub = sinon.stub(Listing, "find");
     });
 
     it("Promise resolves to an array of Listing objects", async () => {
-      methodStub.resolves(mockListings);
+      functionStub.resolves(mockListings);
       const foundListings = await getListingsByWorkType(
         validListingInput.workType
       );
@@ -106,7 +106,7 @@ describe("Listing repository unit tests", () => {
     });
 
     it("Promise resolves to an array of zero objects", async () => {
-      methodStub.resolves([]);
+      functionStub.resolves([]);
       const foundListings = await getListingsByWorkType(
         validListingInput.workType
       );
@@ -118,11 +118,11 @@ describe("Listing repository unit tests", () => {
   describe(`${addListing.name}`, () => {
     beforeEach(() => {
       sinon.restore();
-      methodStub = sinon.stub(Listing.prototype, "save");
+      functionStub = sinon.stub(Listing.prototype, "save");
     });
 
     it("Promise resolves to a Listing object", async () => {
-      methodStub.resolves(mockListing);
+      functionStub.resolves(mockListing);
       const newListing = new Listing(validListingInput);
       const savedListing = await addListing(newListing);
       assert(savedListing instanceof Listing);
@@ -132,17 +132,17 @@ describe("Listing repository unit tests", () => {
   describe(`${updateListing.name}`, () => {
     beforeEach(() => {
       sinon.restore();
-      methodStub = sinon.stub(Listing, "findByIdAndUpdate");
+      functionStub = sinon.stub(Listing, "findByIdAndUpdate");
     });
 
     it("Promise resolves to a Listing object", async () => {
-      methodStub.resolves(mockListing);
+      functionStub.resolves(mockListing);
       const updatedListing = await updateListing(mockUpdateObj);
       assert(updatedListing instanceof Listing);
     });
 
     it("Promise resolves to null", async () => {
-      methodStub.resolves(null);
+      functionStub.resolves(null);
       const updatedListing = await updateListing(mockUpdateObj);
       assert.strictEqual(updatedListing, null);
     });
@@ -151,17 +151,17 @@ describe("Listing repository unit tests", () => {
   describe(`${deleteListing.name}`, () => {
     beforeEach(() => {
       sinon.restore();
-      methodStub = sinon.stub(Listing, "findByIdAndDelete");
+      functionStub = sinon.stub(Listing, "findByIdAndDelete");
     });
 
     it("Promise resolves to a Listing object", async () => {
-      methodStub.resolves(mockListing);
+      functionStub.resolves(mockListing);
       const deletedListing = await deleteListing(mockId);
       assert(deletedListing instanceof Listing);
     });
 
     it("Promise resolves to null", async () => {
-      methodStub.resolves(null);
+      functionStub.resolves(null);
       const deletedListing = await deleteListing(mockId);
       assert.strictEqual(deletedListing, null);
     });
