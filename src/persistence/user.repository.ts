@@ -67,7 +67,7 @@ export const updateUser = async (
 export const deleteUser = async (id: Types.ObjectId): Promise<IUser | null> => {
   const deletedUser = await User.findByIdAndDelete(id);
 
-  appLogger.info(`User repository: ${deleteUser} called successfully`);
+  appLogger.info(`User repository: ${deleteUser.name} called successfully`);
 
   return deletedUser;
 };
