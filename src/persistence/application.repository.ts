@@ -1,6 +1,6 @@
 import { Application } from "../domain/models/application.model";
 import { IApplication } from "../domain/interfaces/documents/iApplication.interface";
-import { ModifyResult, Types } from "mongoose";
+import { Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
 
 export const getApplicationsByPersonId = async (
@@ -50,7 +50,7 @@ export const getApplicationByUniqueIndex = async (
 export const addApplication = async (
   newApplication: IApplication
 ): Promise<IApplication> => {
-  const savedApplication = newApplication.save();
+  const savedApplication = await newApplication.save();
 
   appLogger.info(
     `Application repository: ${addApplication.name} called successfully`
@@ -75,19 +75,26 @@ export const deleteApplicationByUniqueIndex = async (
   personId: Types.ObjectId,
   listingId: Types.ObjectId
 ): Promise<IApplication | null> => {
-  const deletedResult: ModifyResult<IApplication> | null =
-    await Application.findOneAndDelete({
-      personId: personId,
-      listingId: listingId,
-    });
+  const foundApplication = await Application.findOne({
+    personId: personId,
+    listingId: listingId,
+  });
 
-  const deletedApplication: IApplication | null = deletedResult
-    ? deletedResult.value
-    : null;
+  if (foundApplication) {
+    const deletedApplication = await Application.findByIdAndDelete(
+      foundApplication._id
+    );
+
+    appLogger.info(
+      `Application repository: ${deleteApplicationByUniqueIndex.name} called successfully`
+    );
+
+    return deletedApplication;
+  }
 
   appLogger.info(
     `Application repository: ${deleteApplicationByUniqueIndex.name} called successfully`
   );
 
-  return deletedApplication;
+  return foundApplication;
 };
