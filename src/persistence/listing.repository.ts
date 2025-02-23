@@ -1,3 +1,7 @@
+/**
+ * Listing repository.
+ * @module src/persistence/listing.repository
+ */
 import { Listing } from "../domain/models/listing.model";
 import { IListing } from "../domain/interfaces/documents/iListing.interface";
 import { IListingUpdate } from "../business/interfaces/iListingUpdate.interface";
@@ -7,6 +11,12 @@ import { EmploymentType } from "../domain/enums/employmentType.enum";
 import { ExperienceLevelType } from "../domain/enums/experienceLevelType.enum";
 import { appLogger } from "../../logs/logger.config";
 
+/**
+ * Returns an array of listings with the specified work type.
+ *
+ * @param {WorkType} workType - A work type category.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of Listing objects or an empty array.
+ */
 export const getListingsByWorkType = async (
   workType: WorkType
 ): Promise<Array<IListing>> => {
@@ -19,6 +29,12 @@ export const getListingsByWorkType = async (
   return requestedListings;
 };
 
+/**
+ * Returns an array of listings with the specified employment type.
+ *
+ * @param {EmploymentType} employmentType - An employment type category.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of Listing objects or an empty array.
+ */
 export const getListingsByEmploymentType = async (
   employmentType: EmploymentType
 ): Promise<Array<IListing>> => {
@@ -33,6 +49,12 @@ export const getListingsByEmploymentType = async (
   return requestedListings;
 };
 
+/**
+ * Returns an array of listings with the specified experience level.
+ *
+ * @param {ExperienceLevelType} experienceLevel - An experience level category.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of Listing objects or an empty array.
+ */
 export const getListingsByExperienceLevel = async (
   experienceLevel: ExperienceLevelType
 ): Promise<Array<IListing>> => {
@@ -47,6 +69,12 @@ export const getListingsByExperienceLevel = async (
   return requestedListings;
 };
 
+/**
+ * Returns a listing with the specified ID.
+ *
+ * @param {Types.ObjectId} id - The ID of a listing.
+ * @returns {Promise<IListing | null>} A promise that resolves to a Listing object or null.
+ */
 export const getListingById = async (
   id: Types.ObjectId
 ): Promise<IListing | null> => {
@@ -59,6 +87,12 @@ export const getListingById = async (
   return requestedListing;
 };
 
+/**
+ * Adds a new listing to database.
+ *
+ * @param {IListing} newListing - The new listing to be persisted.
+ * @returns {Promise<IListing>} A promise that resolves to a Listing object.
+ */
 export const addListing = async (newListing: IListing): Promise<IListing> => {
   const savedListing = await newListing.save();
 
@@ -67,6 +101,12 @@ export const addListing = async (newListing: IListing): Promise<IListing> => {
   return savedListing;
 };
 
+/**
+ * Updates the information of an existing listing in the database.
+ *
+ * @param {IListingUpdate} updateDataObj - The new information to be persisted.
+ * @returns {Promise<IListing | null>} A promise that resolves to a Listing object representing the updated document or null.
+ */
 export const updateListing = async (
   updateDataObj: IListingUpdate
 ): Promise<IListing | null> => {
@@ -110,6 +150,12 @@ export const updateListing = async (
   return updatedListing;
 };
 
+/**
+ * Deletes a listing.
+ *
+ * @param {Types.ObjectId} id The ID of a listing.
+ * @returns {Promise<IListing | null>} A promise that resolves to a Listing object representing the deleted document or null.
+ */
 export const deleteListing = async (
   id: Types.ObjectId
 ): Promise<IListing | null> => {
