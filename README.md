@@ -14,4 +14,12 @@ Compared to the [Task Manager API](https://github.com/geozi/nodejs-typescript-ta
 
 - nested sub-documents, as in the [Person](src/domain/models/person.model.ts) and [Listing](src/domain//models//listing.model.ts) model schemas,
 
-- secondary interfaces for better type checking.
+- secondary interfaces in the domain layer for better type checking.
+
+##
+
+<p align="center">
+        <a href="https://github.com/LelouchFR/skill-icons">
+        <img src="https://go-skill-icons.vercel.app/api/icons?i=vscode,nodejs,typescript,mocha,mongoose"/>
+      </a>
+</p>
