@@ -17,7 +17,7 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from "../resources/validationRegExp";
  * @property {string} username - The username of the user.
  * @property {string} email - The email of the user.
  * @property {string} password - The password of the user.
- * @property {RoleType} role - The role of the user.
+ * @property {string} role - The role of the user.
  */
 const userSchema = new Schema<IUser>(
   {
