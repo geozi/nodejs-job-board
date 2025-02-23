@@ -334,5 +334,43 @@ describe("Listing model unit tests", () => {
         listingFailedValidation.LISTING_DESCRIPTION_ABOVE_MAX_LENGTH_MESSAGE
       );
     });
+
+    it("status is undefined", () => {
+      validationError.errors = {
+        status: new Error.ValidatorError({
+          message: listingFailedValidation.STATUS_REQUIRED,
+          path: "status",
+          value: undefined,
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newListing.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.status.message,
+        listingFailedValidation.STATUS_REQUIRED
+      );
+    });
+
+    it("status is invalid", () => {
+      validationError.errors = {
+        status: new Error.ValidatorError({
+          message: listingFailedValidation.STATUS_INVALID,
+          path: "status",
+          value: invalidListingInputs.INVALID_STATUS,
+        }),
+      };
+
+      validateSyncStub.returns(validationError);
+      const mongooseErrors = newListing.validateSync();
+
+      assert.notStrictEqual(mongooseErrors, undefined);
+      assert.strictEqual(
+        mongooseErrors?.errors.status.message,
+        listingFailedValidation.STATUS_INVALID
+      );
+    });
   });
 });

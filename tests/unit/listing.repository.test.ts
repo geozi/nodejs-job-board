@@ -5,6 +5,7 @@ import assert from "assert";
 import { Types } from "mongoose";
 import { validListingInput } from "../testInputs";
 import {
+  getListingsByStatus,
   getListingById,
   getListingsByEmploymentType,
   getListingsByExperienceLevel,
@@ -20,6 +21,30 @@ describe("Listing repository unit tests", () => {
   const mockId = new Types.ObjectId("67b9a1cd1ac0a8bb3b2c1bee");
   const mockUpdateObj: IListingUpdate = { id: mockId };
   let functionStub: SinonStub;
+
+  describe(`${getListingsByStatus.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      functionStub = sinon.stub(Listing, "find");
+    });
+
+    it("Promise resolves to an array of Listing objects", async () => {
+      functionStub.resolves(mockListings);
+
+      const foundListings = await getListingsByStatus(validListingInput.status);
+
+      assert.notStrictEqual(foundListings, null);
+      assert.strictEqual(foundListings.length, 3);
+    });
+
+    it("Promise resolves to an empty array", async () => {
+      functionStub.resolves([]);
+
+      const foundListings = await getListingsByStatus(validListingInput.status);
+
+      assert.strictEqual(foundListings.length, 0);
+    });
+  });
 
   describe(`${getListingById.name}`, () => {
     beforeEach(() => {

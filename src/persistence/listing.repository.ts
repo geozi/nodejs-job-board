@@ -10,6 +10,25 @@ import { WorkType } from "../domain/enums/workType.enum";
 import { EmploymentType } from "../domain/enums/employmentType.enum";
 import { ExperienceLevelType } from "../domain/enums/experienceLevelType.enum";
 import { appLogger } from "../../logs/logger.config";
+import { ListingStatus } from "../domain/enums/listingStatus.enum";
+
+/**
+ * Returns an array of listings with the specified status.
+ *
+ * @param {ListingStatus} status - The status assigned to listings.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of Listing objects or an empty array.
+ */
+export const getListingsByStatus = async (
+  status: ListingStatus
+): Promise<Array<IListing>> => {
+  const requestedListings = await Listing.find({ status: status });
+
+  appLogger.info(
+    `Listing repository: ${getListingsByStatus.name} called successfully`
+  );
+
+  return requestedListings;
+};
 
 /**
  * Returns an array of listings with the specified work type.

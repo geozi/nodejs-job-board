@@ -7,6 +7,7 @@ import { EmploymentType } from "../../enums/employmentType.enum";
 import { WorkType } from "../../enums/workType.enum";
 import { ExperienceLevelType } from "../../enums/experienceLevelType.enum";
 import { ISalaryRange } from "../secondary/iSalaryRange.interface";
+import { ListingStatus } from "../../enums/listingStatus.enum";
 
 /**
  * Represents a job listing.
@@ -23,6 +24,7 @@ import { ISalaryRange } from "../secondary/iSalaryRange.interface";
  * @property {string} country - The country where the job is located.
  * @property {string} listingDesc - The description of the job.
  * @property {ISalaryRange} [salaryRange] - (Optional) The salary range of the job.
+ * @property {ListingStatus} status - The status of the listing.
  *
  */
 export interface IListing extends Document {
@@ -85,4 +87,10 @@ export interface IListing extends Document {
    * @type {string}
    */
   salaryRange?: ISalaryRange;
+
+  /**
+   * The status of the listing.
+   * @type {ListingStatus}
+   */
+  status: ListingStatus;
 }

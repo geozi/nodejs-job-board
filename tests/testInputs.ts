@@ -3,6 +3,7 @@ import { RoleType } from "../src/domain/enums/roleType.enum";
 import { WorkType } from "../src/domain/enums/workType.enum";
 import { EmploymentType } from "../src/domain/enums/employmentType.enum";
 import { ExperienceLevelType } from "../src/domain/enums/experienceLevelType.enum";
+import { ListingStatus } from "../src/domain/enums/listingStatus.enum";
 
 export const invalidUserInputs = {
   TOO_SHORT_USERNAME: "ab",
@@ -89,6 +90,7 @@ export const validListingInput = {
     minAmount: 60000,
     maxAmount: 80000,
   },
+  status: ListingStatus.Open,
 };
 
 export const invalidPersonInputs = {
@@ -131,6 +133,7 @@ export const invalidListingInputs = {
   INVALID_WORK_TYPE: "Local",
   INVALID_EMPLOYMENT_TYPE: "Some_time",
   INVALID_EXPERIENCE_LEVEL: "Pro",
+  INVALID_STATUS: "Under review",
   TOO_SHORT_LISTING_DESCRIPTION: "Desc",
   TOO_LONG_LISTING_DESCRIPTION: `Job Description:
 

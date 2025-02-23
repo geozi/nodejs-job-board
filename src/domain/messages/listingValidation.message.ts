@@ -8,6 +8,7 @@ import { EmploymentType } from "../enums/employmentType.enum";
 import { ExperienceLevelType } from "../enums/experienceLevelType.enum";
 import { WorkType } from "../enums/workType.enum";
 import { DATE_REGEX, ID_REGEX } from "../resources/validationRegExp";
+import { ListingStatus } from "../enums/listingStatus.enum";
 
 /**
  * Contains error message(s) that are used when listing validation fails.
@@ -27,6 +28,8 @@ import { DATE_REGEX, ID_REGEX } from "../resources/validationRegExp";
  @property {string} LISTING_DESCRIPTION_REQUIRED_MESSAGE - Message sent when no listing description is provided.
  @property {string} LISTING_DESCRIPTION_BELOW_MIN_LENGTH_MESSAGE - Message sent when the provided listing description is shorter than the accepted minimum length.
  @property {string} LISTING_DESCRIPTION_ABOVE_MAX_LENGTH_MESSAGE - Message sent when the provided listing description is longer than the accepted minimum length.
+ @property {string} STATUS_REQUIRED - Message sent when no status is provided.
+ @property {string} STATUS_INVALID - Message sent when the provided status does not comply with the {@link ListingStatus} enums.
  @property {string} LISTING_ID_REQUIRED_MESSAGE - Message sent when no listing ID is provided for application, listing update and/or deletion operations.
  @property {string} LISTING_ID_INVALID_MESSAGE - Message sent when the provided listing ID does not match the {@link ID_REGEX}.
  @property {string} LISTING_ID_OUT_OF_LENGTH_MESSAGE - Message sent when the provided listing ID is either shorter or longer than the accepted length.
@@ -115,6 +118,18 @@ export const listingFailedValidation = {
    * @type {string}
    */
   LISTING_DESCRIPTION_ABOVE_MAX_LENGTH_MESSAGE: `Listing description must be no longer than ${listingConstants.LISTING_DESCRIPTION_MAX_LENGTH} characters`,
+
+  /**
+   * Message sent when no status is provided.
+   * @type {string}
+   */
+  STATUS_REQUIRED: "Status is a required field",
+
+  /**
+   * Message sent when the provided status does not comply with the {@link ListingStatus} enums.
+   * @type {string}
+   */
+  STATUS_INVALID: `Status must be one the following: ${ListingStatus.Open}, ${ListingStatus.Closed}`,
 
   /**
    * Message sent when no listing ID is provided for application, listing update and/or deletion operations.

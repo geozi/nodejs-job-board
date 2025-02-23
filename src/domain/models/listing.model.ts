@@ -12,6 +12,7 @@ import { WorkType } from "../enums/workType.enum";
 import { EmploymentType } from "../enums/employmentType.enum";
 import { ExperienceLevelType } from "../enums/experienceLevelType.enum";
 import { COUNTRY_REGEX } from "../resources/validationRegExp";
+import { ListingStatus } from "../enums/listingStatus.enum";
 
 /**
  * Listing schema for persistence in MongoDB.
@@ -27,6 +28,7 @@ import { COUNTRY_REGEX } from "../resources/validationRegExp";
  * @property {string} country - The country where the job is located.
  * @property {string} listingDesc - The description of the job.
  * @property {ISalaryRange} [salaryRange] - (Optional) The salary range of the job.
+ * @property {ListingStatus} status - The status of the listing.
  */
 const listingSchema = new Schema<IListing>({
   title: {
@@ -113,6 +115,14 @@ const listingSchema = new Schema<IListing>({
   },
   salaryRange: {
     type: Schema.Types.Mixed,
+  },
+  status: {
+    type: String,
+    required: [true, listingFailedValidation.STATUS_REQUIRED],
+    enum: {
+      values: [ListingStatus.Open, ListingStatus.Closed],
+      message: listingFailedValidation.STATUS_INVALID,
+    },
   },
 });
 
