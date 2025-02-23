@@ -1,6 +1,6 @@
 # Job Board API test plan
 
-Document version 1.0.0
+Document version 1.0.1
 
 ## Introduction
 
@@ -20,10 +20,10 @@ Unit tests are conducted per layer and can be further divided into **validation-
 
 Domain layer unit test suites:
 
-- User model [✔],
-- Person model [✔],
+- Application model [✔],
 - Listing model [✔],
-- Application model [✔]
+- Person model [✔],
+- User model [✔],
 
 ```text
 └── tests
@@ -35,6 +35,31 @@ Domain layer unit test suites:
 ```
 
 The domain layer unit tests contain simulated scenarios, in which a stub of `validateSync()`[^1] returns specific validation errors.
+
+### Promise-oriented
+
+#### Persistence layer
+
+Persistence layer unit test suites:
+
+- Application repository [✔],
+- Listing repository [✔],
+- Person repository [✔],
+- User repository [✔]
+
+```text
+└── tests
+    └── unit
+        ├── application.repository.test.ts
+        ├── listing.repository.test.ts
+        ├── person.repository.test.ts
+        └── user.repository.test.ts
+```
+
+Depending on its particular return type, each repository function is tested against 2 scenarios:
+
+1. **Positive scenario**: Promise resolves to an object or an array of objects.
+2. **Negative scenario**: Promise resolves to null or an empty array.
 
 ## Out of scope
 
