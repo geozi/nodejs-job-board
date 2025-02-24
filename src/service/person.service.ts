@@ -12,6 +12,7 @@ import {
 import { commonServiceMessages } from "./messages/commonService.message";
 import { personServiceMessages } from "./messages/personService.message";
 import { IPersonUpdate } from "../business/interfaces/iPersonUpdate.interface";
+import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
 
 export const retrievePersonProfileByUsername = async (
   username: string
@@ -52,7 +53,7 @@ export const createPersonProfile = async (
         `Person service: ${createPersonProfile.name} -> ${error.name} detected and re-thrown`
       );
 
-      throw error;
+      throw new UniqueConstraintError(error.message);
     }
 
     appLogger.error(
