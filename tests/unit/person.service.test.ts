@@ -9,7 +9,7 @@ import {
   retrievePersonProfileByUsername,
   createPersonProfile,
   bringPersonProfileToDate,
-  deletePersonProfile,
+  removePersonProfile,
 } from "../../src/service/person.service";
 import { validPersonInput } from "../testInputs";
 import * as chai from "chai";
@@ -97,7 +97,7 @@ describe("Person service unit tests", () => {
     });
   });
 
-  describe(`${deletePersonProfile.name}`, async () => {
+  describe(`${removePersonProfile.name}`, async () => {
     beforeEach(() => {
       sinon.restore();
       functionStub = sinon.stub(Person, "findByIdAndDelete");
@@ -106,13 +106,13 @@ describe("Person service unit tests", () => {
     it("server error", async () => {
       functionStub.rejects();
 
-      return chai.assert.isRejected(deletePersonProfile(mockId), ServerError);
+      return chai.assert.isRejected(removePersonProfile(mockId), ServerError);
     });
 
     it("not found", async () => {
       functionStub.resolves(null);
 
-      return chai.assert.isRejected(deletePersonProfile(mockId), NotFoundError);
+      return chai.assert.isRejected(removePersonProfile(mockId), NotFoundError);
     });
   });
 });
