@@ -91,28 +91,28 @@ export const bringPersonProfileToDate = async (
   }
 };
 
-export const deletePersonProfile = async (
+export const removePersonProfile = async (
   id: Types.ObjectId
 ): Promise<IPerson | null> => {
   try {
-    const deletedPerson = await deletePerson(id);
+    const removedPersonProfile = await deletePerson(id);
 
-    if (deletedPerson === null) {
+    if (removedPersonProfile === null) {
       throw new NotFoundError(personServiceMessages.PERSON_NOT_FOUND);
     }
 
-    return deletedPerson;
+    return removedPersonProfile;
   } catch (error) {
     if (error instanceof NotFoundError) {
       appLogger.error(
-        `Person service: ${deletePersonProfile.name} -> ${error.name} detected and re-thrown`
+        `Person service: ${removePersonProfile.name} -> ${error.name} detected and re-thrown`
       );
 
       throw error;
     }
 
     appLogger.error(
-      `Person service: ${deletePersonProfile.name} -> ServerError detected and re-thrown`
+      `Person service: ${removePersonProfile.name} -> ServerError detected and re-thrown`
     );
 
     throw new ServerError(commonServiceMessages.SERVER_ERROR);
