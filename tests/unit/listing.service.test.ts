@@ -28,7 +28,7 @@ describe("Listing service unit tests", () => {
   const mockUpdateObj: IListingUpdate = { id: mockId };
   let functionStub: SinonStub;
 
-  describe(`${retrieveListingById}`, () => {
+  describe(`${retrieveListingById.name}`, () => {
     beforeEach(() => {
       sinon.restore();
       functionStub = sinon.stub(Listing, "findById");
@@ -44,6 +44,174 @@ describe("Listing service unit tests", () => {
       functionStub.resolves(null);
 
       return chai.assert.isRejected(retrieveListingById(mockId), NotFoundError);
+    });
+  });
+
+  describe(`${retrieveListingsByStatus.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      functionStub = sinon.stub(Listing, "find");
+    });
+
+    it("server error", async () => {
+      functionStub.rejects();
+
+      return chai.assert.isRejected(
+        retrieveListingsByStatus(validListingInput.status),
+        ServerError
+      );
+    });
+
+    it("not found", async () => {
+      functionStub.resolves(mockListings);
+
+      return (
+        chai.assert.isRejected(
+          retrieveListingsByStatus(validListingInput.status)
+        ),
+        NotFoundError
+      );
+    });
+  });
+
+  describe(`${retrieveListingsByEmploymentType.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      functionStub = sinon.stub(Listing, "find");
+    });
+
+    it("server error", async () => {
+      functionStub.rejects();
+
+      return chai.assert.isRejected(
+        retrieveListingsByEmploymentType(validListingInput.employmentType),
+        ServerError
+      );
+    });
+
+    it("not found", async () => {
+      functionStub.resolves(mockListings);
+
+      return chai.assert.isRejected(
+        retrieveListingsByEmploymentType(validListingInput.employmentType),
+        NotFoundError
+      );
+    });
+  });
+
+  describe(`${retrieveListingsByExperienceLevel.name}`, async () => {
+    beforeEach(() => {
+      sinon.restore();
+      functionStub = sinon.stub(Listing, "find");
+    });
+
+    it("server error", async () => {
+      functionStub.rejects();
+
+      return chai.assert.isRejected(
+        retrieveListingsByExperienceLevel(validListingInput.experienceLevel),
+        ServerError
+      );
+    });
+
+    it("not found", async () => {
+      functionStub.resolves(mockListings);
+
+      return chai.assert.isRejected(
+        retrieveListingsByExperienceLevel(validListingInput.experienceLevel),
+        NotFoundError
+      );
+    });
+  });
+
+  describe(`${retrieveListingsByWorkType.name}`, async () => {
+    beforeEach(() => {
+      sinon.restore();
+      functionStub = sinon.stub(Listing, "find");
+    });
+
+    it("server error", async () => {
+      functionStub.rejects();
+
+      return chai.assert.isRejected(
+        retrieveListingsByWorkType(validListingInput.workType),
+        ServerError
+      );
+    });
+
+    it("not found", async () => {
+      functionStub.resolves(mockListings);
+
+      return chai.assert.isRejected(
+        retrieveListingsByWorkType(validListingInput.workType),
+        NotFoundError
+      );
+    });
+  });
+
+  describe(`${createListing.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      functionStub = sinon.stub(Listing.prototype, "save");
+    });
+
+    it("server error", async () => {
+      functionStub.rejects();
+
+      return chai.assert.isRejected(createListing(mockListing), ServerError);
+    });
+
+    it("unique constraint error", async () => {
+      functionStub.rejects(new Error.ValidationError());
+
+      return chai.assert.isRejected(
+        createListing(mockListing),
+        UniqueConstraintError
+      );
+    });
+  });
+
+  describe(`${bringListingToDate.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      functionStub = sinon.stub(Listing, "findByIdAndUpdate");
+    });
+
+    it("server error", async () => {
+      functionStub.rejects();
+
+      return chai.assert.isRejected(
+        bringListingToDate(mockUpdateObj),
+        ServerError
+      );
+    });
+
+    it("not found", async () => {
+      functionStub.resolves(null);
+
+      return chai.assert.isRejected(
+        bringListingToDate(mockUpdateObj),
+        NotFoundError
+      );
+    });
+  });
+
+  describe(`${removeListing.name}`, () => {
+    beforeEach(() => {
+      sinon.restore();
+      functionStub = sinon.stub(Listing, "findByIdAndDelete");
+    });
+
+    it("server error", async () => {
+      functionStub.rejects();
+
+      return chai.assert.isRejected(removeListing(mockId), ServerError);
+    });
+
+    it("not found", async () => {
+      functionStub.resolves(null);
+
+      return chai.assert.isRejected(removeListing(mockId), NotFoundError);
     });
   });
 });
