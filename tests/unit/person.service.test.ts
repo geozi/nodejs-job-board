@@ -11,8 +11,10 @@ import {
   bringPersonProfileToDate,
   deletePersonProfile,
 } from "../../src/service/person.service";
-import { assert } from "chai";
 import { validPersonInput } from "../testInputs";
+import * as chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
 
 describe("Person service unit tests", () => {
   const mockPerson = new Person(validPersonInput);
@@ -29,7 +31,7 @@ describe("Person service unit tests", () => {
     it("server error", async () => {
       functionStub.rejects();
 
-      return assert.isRejected(
+      return chai.assert.isRejected(
         retrievePersonProfileByUsername(validPersonInput.username),
         ServerError
       );
@@ -38,7 +40,7 @@ describe("Person service unit tests", () => {
     it("not found", async () => {
       functionStub.resolves(null);
 
-      return assert.isRejected(
+      return chai.assert.isRejected(
         retrievePersonProfileByUsername(validPersonInput.username),
         NotFoundError
       );
@@ -54,13 +56,16 @@ describe("Person service unit tests", () => {
     it("server error", async () => {
       functionStub.rejects();
 
-      return assert.isRejected(createPersonProfile(mockPerson), ServerError);
+      return chai.assert.isRejected(
+        createPersonProfile(mockPerson),
+        ServerError
+      );
     });
 
     it("unique constraint error", async () => {
       functionStub.rejects(new Error.ValidationError());
 
-      return assert.isRejected(
+      return chai.assert.isRejected(
         createPersonProfile(mockPerson),
         UniqueConstraintError
       );
@@ -76,7 +81,7 @@ describe("Person service unit tests", () => {
     it("server error", async () => {
       functionStub.rejects();
 
-      return assert.isRejected(
+      return chai.assert.isRejected(
         bringPersonProfileToDate(mockUpdateObj),
         ServerError
       );
@@ -85,7 +90,7 @@ describe("Person service unit tests", () => {
     it("not found", async () => {
       functionStub.resolves(null);
 
-      return assert.isRejected(
+      return chai.assert.isRejected(
         bringPersonProfileToDate(mockUpdateObj),
         NotFoundError
       );
@@ -101,13 +106,13 @@ describe("Person service unit tests", () => {
     it("server error", async () => {
       functionStub.rejects();
 
-      return assert.isRejected(deletePersonProfile(mockId), ServerError);
+      return chai.assert.isRejected(deletePersonProfile(mockId), ServerError);
     });
 
     it("not found", async () => {
       functionStub.resolves(null);
 
-      return assert.isRejected(deletePersonProfile(mockId), NotFoundError);
+      return chai.assert.isRejected(deletePersonProfile(mockId), NotFoundError);
     });
   });
 });

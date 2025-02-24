@@ -13,10 +13,10 @@ import {
   bringUserToDate,
   removeUser,
 } from "../../src/service/user.service";
-import * as chai from "chai";
-import chaiAsPromised from "chai-as-promised";
 import { IUserUpdate } from "../../src/business/interfaces/IUserUpdate.interface";
 import { UniqueConstraintError } from "../../src/errors/uniqueConstraintError.class";
+import * as chai from "chai";
+import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 describe("User service unit tests", () => {
