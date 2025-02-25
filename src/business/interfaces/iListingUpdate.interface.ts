@@ -7,6 +7,7 @@ import { WorkType } from "../../domain/enums/workType.enum";
 import { EmploymentType } from "../../domain/enums/employmentType.enum";
 import { ExperienceLevelType } from "../../domain/enums/experienceLevelType.enum";
 import { ISalaryRange } from "../../domain/interfaces/secondary/iSalaryRange.interface";
+import { ListingStatus } from "../../domain/enums/listingStatus.enum";
 
 /**
  * Represents a DTO used in the update of listings.
@@ -23,6 +24,7 @@ import { ISalaryRange } from "../../domain/interfaces/secondary/iSalaryRange.int
  * @property {string} [country] - (Optional) The country where the job is located.
  * @property {string} [listingDesc] - (Optional) The description of the job.
  * @property {ISalaryRange} [salaryRange] - (Optional) The salary range of the job.
+ * @property {ListingStatus} [status] - (Optional) An enum representing the status of the listing.
  */
 export interface IListingUpdate {
   /**
@@ -90,4 +92,10 @@ export interface IListingUpdate {
    * @type {ISalaryRange}
    */
   salaryRange?: ISalaryRange;
+
+  /**
+   * (Optional) An enum representing the status of the listing.
+   * @type {ListingStatus}
+   */
+  status?: ListingStatus;
 }

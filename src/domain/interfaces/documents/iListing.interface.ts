@@ -17,15 +17,14 @@ import { ListingStatus } from "../../enums/listingStatus.enum";
  * @property {string} title - The title of the job listing.
  * @property {string} organizationName - The name of the hiring organization.
  * @property {Date} datePosted - The date when the job listing was posted.
- * @property {WorkType} workType - The work type of the job.
- * @property {EmploymentType} employmentType - The employment type of the job.
- * @property {ExperienceLevelType} experienceLevel - The experience level required by the hiring organization.
+ * @property {WorkType} workType - An enum representing the work type of the job.
+ * @property {EmploymentType} employmentType - An enum representing the employment type of the job.
+ * @property {ExperienceLevelType} experienceLevel - An enum representing the experience level required by the hiring organization.
  * @property {string} city - The city where the job is located.
  * @property {string} country - The country where the job is located.
  * @property {string} listingDesc - The description of the job.
  * @property {ISalaryRange} [salaryRange] - (Optional) The salary range of the job.
- * @property {ListingStatus} status - The status of the listing.
- *
+ * @property {ListingStatus} status - An enum representing the status of the listing.
  */
 export interface IListing extends Document {
   /**
@@ -47,19 +46,19 @@ export interface IListing extends Document {
   datePosted: Date;
 
   /**
-   * The work type of the job.
+   * An enum representing the work type of the job.
    * @type {WorkType}
    */
   workType: WorkType;
 
   /**
-   * The employment type of the job.
+   * An enum representing the employment type of the job.
    * @type {EmploymentType}
    */
   employmentType: EmploymentType;
 
   /**
-   * The experience level required by the hiring organization.
+   * An enum representing the experience level required by the hiring organization.
    * @type {ExperienceLevelType}
    */
   experienceLevel: ExperienceLevelType;
@@ -77,19 +76,19 @@ export interface IListing extends Document {
   country: string;
 
   /**
-   *  The description of the job.
+   * The description of the job.
    * @type {string}
    */
   listingDesc: string;
 
   /**
    * (Optional) The salary range of the job.
-   * @type {string}
+   * @type {ISalaryRange}
    */
   salaryRange?: ISalaryRange;
 
   /**
-   * The status of the listing.
+   * An enum representing the status of the listing.
    * @type {ListingStatus}
    */
   status: ListingStatus;
