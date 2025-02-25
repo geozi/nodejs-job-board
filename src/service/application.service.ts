@@ -25,7 +25,7 @@ import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
  *
  * @param {Types.ObjectId} personId - The ID assigned to a person.
  * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of IApplication objects.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveApplicationsByPersonId = async (
   personId: Types.ObjectId
@@ -60,7 +60,7 @@ export const retrieveApplicationsByPersonId = async (
  *
  * @param {Types.ObjectId} listingId - The ID assigned to a listing.
  * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of IApplication objects.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveApplicationsByListingId = async (
   listingId: Types.ObjectId
@@ -98,7 +98,7 @@ export const retrieveApplicationsByListingId = async (
  * @param {Types.ObjectId} personId - The ID assigned to a person.
  * @param {Types.ObjectId} listingId - The ID assigned to a listing.
  * @returns {Promise<IApplication>} A promise that resolves to an IApplication object.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveApplicationByUniqueIndex = async (
   personId: Types.ObjectId,
@@ -137,7 +137,7 @@ export const retrieveApplicationByUniqueIndex = async (
  *
  * @param {IApplication} newApplication - The new application to be persisted.
  * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the newly persisted application.
- * @throws {UniqueConstraintError | ServerError}
+ * @throws - {@link UniqueConstraintError} | {@link ServerError}
  */
 export const createApplication = async (
   newApplication: IApplication
@@ -166,7 +166,7 @@ export const createApplication = async (
  *
  * @param {Types.ObjectId} id - The ID assigned to an application.
  * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the removed application.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const removeApplicationById = async (
   id: Types.ObjectId
@@ -202,7 +202,7 @@ export const removeApplicationById = async (
  * @param {Types.ObjectId} personId - The ID assigned to a person.
  * @param {Types.ObjectId} listingId - The ID assigned to a listing.
  * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the removed application.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const removeApplicationByUniqueIndex = async (
   personId: Types.ObjectId,

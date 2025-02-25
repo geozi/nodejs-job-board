@@ -23,7 +23,7 @@ import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
  *
  * @param {string} username - The username of the person.
  * @returns {Promise<IPerson>} A promise that resolves to an IPerson object.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrievePersonInfoByUsername = async (
   username: string
@@ -58,7 +58,7 @@ export const retrievePersonInfoByUsername = async (
  *
  * @param {IPerson} newPerson - The new person to be persisted.
  * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the newly added person.
- * @throws {UniqueConstraintError | ServerError}
+ * @throws - {@link UniqueConstraintError} | {@link ServerError}
  */
 export const createPersonInfo = async (
   newPerson: IPerson
@@ -87,7 +87,7 @@ export const createPersonInfo = async (
  *
  * @param {IPersonUpdate} updateDataObj - The new information to be persisted.
  * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the updated information of a person.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const bringPersonInfoToDate = async (
   updateDataObj: IPersonUpdate
@@ -121,7 +121,7 @@ export const bringPersonInfoToDate = async (
  *
  * @param {Types.ObjectId} id - The ID assigned to the person.
  * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the removed information of a person.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const removePersonInfo = async (
   id: Types.ObjectId

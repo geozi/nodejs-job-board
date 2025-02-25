@@ -26,7 +26,7 @@ import { IUserUpdate } from "../business/interfaces/IUserUpdate.interface";
  *
  * @param {string} username - The username of the user.
  * @returns {Promise<IUser>} A promise that resolves to an IUser object.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveUserByUsername = async (
   username: string
@@ -60,7 +60,7 @@ export const retrieveUserByUsername = async (
  *
  * @param {string} email - The email of the user.
  * @returns {Promise<IUser>} A promise that resolves to an IUser object.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveUserByEmail = async (email: string): Promise<IUser> => {
   try {
@@ -92,7 +92,7 @@ export const retrieveUserByEmail = async (email: string): Promise<IUser> => {
  *
  * @param {RoleType} role - A role assigned to users.
  * @returns {Promise<Array<IUser>>} A promise that resolves to an array of IUser objects.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveUsersByRole = async (
   role: RoleType
@@ -126,7 +126,7 @@ export const retrieveUsersByRole = async (
  *
  * @param {IUser} newUser - The new user profile to be persisted.
  * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the newly added user profile.
- * @throws {UniqueConstraintError | ServerError}
+ * @throws - {@link UniqueConstraintError} | {@link ServerError}
  */
 export const createUser = async (newUser: IUser): Promise<IUser> => {
   try {
@@ -153,7 +153,7 @@ export const createUser = async (newUser: IUser): Promise<IUser> => {
  *
  * @param {IUserUpdate} updateDataObj - The new information to be persisted.
  * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the updated user profile.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const bringUserToDate = async (
   updateDataObj: IUserUpdate
@@ -188,7 +188,7 @@ export const bringUserToDate = async (
  *
  * @param {Types.ObjectId} id - The ID assigned to the user profile.
  * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the removed user profile.
- * @throws {NotFoundError | ServerError}
+ * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const removeUser = async (id: Types.ObjectId): Promise<IUser> => {
   try {
