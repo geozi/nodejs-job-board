@@ -14,7 +14,7 @@ import { personServiceMessages } from "./messages/personService.message";
 import { IPersonUpdate } from "../business/interfaces/iPersonUpdate.interface";
 import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
 
-export const retrievePersonProfileByUsername = async (
+export const retrievePersonInfoByUsername = async (
   username: string
 ): Promise<IPerson | null> => {
   try {
@@ -28,21 +28,21 @@ export const retrievePersonProfileByUsername = async (
   } catch (error) {
     if (error instanceof NotFoundError) {
       appLogger.error(
-        `Person service: ${retrievePersonProfileByUsername.name} -> ${error.name} detected and re-thrown`
+        `Person service: ${retrievePersonInfoByUsername.name} -> ${error.name} detected and re-thrown`
       );
 
       throw error;
     }
 
     appLogger.error(
-      `Person service: ${retrievePersonProfileByUsername.name} -> ServerError detected and re-thrown`
+      `Person service: ${retrievePersonInfoByUsername.name} -> ServerError detected and re-thrown`
     );
 
     throw new ServerError(commonServiceMessages.SERVER_ERROR);
   }
 };
 
-export const createPersonProfile = async (
+export const createPersonInfo = async (
   newPerson: IPerson
 ): Promise<IPerson> => {
   try {
@@ -50,21 +50,21 @@ export const createPersonProfile = async (
   } catch (error) {
     if (error instanceof Error.ValidationError) {
       appLogger.error(
-        `Person service: ${createPersonProfile.name} -> ${error.name} detected and re-thrown`
+        `Person service: ${createPersonInfo.name} -> ${error.name} detected and re-thrown`
       );
 
       throw new UniqueConstraintError(error.message);
     }
 
     appLogger.error(
-      `Person service: ${createPersonProfile.name} -> ServerError detected and re-thrown`
+      `Person service: ${createPersonInfo.name} -> ServerError detected and re-thrown`
     );
 
     throw new ServerError(commonServiceMessages.SERVER_ERROR);
   }
 };
 
-export const bringPersonProfileToDate = async (
+export const bringPersonInfoToDate = async (
   updateDataObj: IPersonUpdate
 ): Promise<IPerson | null> => {
   try {
@@ -77,21 +77,21 @@ export const bringPersonProfileToDate = async (
   } catch (error) {
     if (error instanceof NotFoundError) {
       appLogger.error(
-        `Person service: ${bringPersonProfileToDate.name} -> ${error.name} detected and re-thrown`
+        `Person service: ${bringPersonInfoToDate.name} -> ${error.name} detected and re-thrown`
       );
 
       throw error;
     }
 
     appLogger.error(
-      `Person service: ${bringPersonProfileToDate.name} -> ServerError detected and re-thrown`
+      `Person service: ${bringPersonInfoToDate.name} -> ServerError detected and re-thrown`
     );
 
     throw new ServerError(commonServiceMessages.SERVER_ERROR);
   }
 };
 
-export const removePersonProfile = async (
+export const removePersonInfo = async (
   id: Types.ObjectId
 ): Promise<IPerson | null> => {
   try {
@@ -105,14 +105,14 @@ export const removePersonProfile = async (
   } catch (error) {
     if (error instanceof NotFoundError) {
       appLogger.error(
-        `Person service: ${removePersonProfile.name} -> ${error.name} detected and re-thrown`
+        `Person service: ${removePersonInfo.name} -> ${error.name} detected and re-thrown`
       );
 
       throw error;
     }
 
     appLogger.error(
-      `Person service: ${removePersonProfile.name} -> ServerError detected and re-thrown`
+      `Person service: ${removePersonInfo.name} -> ServerError detected and re-thrown`
     );
 
     throw new ServerError(commonServiceMessages.SERVER_ERROR);
