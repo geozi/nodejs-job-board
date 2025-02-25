@@ -10,32 +10,32 @@ import { RoleType } from "../../enums/roleType.enum";
  *
  * @interface
  * @extends {Document}
- * @property {string} username - The username of the user.
- * @property {string} email - The email of the user.
- * @property {string} password - The password of the user.
- * @property {RoleType} role - The role of the user.
+ * @property {string} username - The username of a user.
+ * @property {string} email - The email of a user.
+ * @property {string} password - The password of a user.
+ * @property {RoleType} role - An enum representing the role assigned to a user.
  */
 export interface IUser extends Document {
   /**
-   * The username of the user.
+   * The username of a user.
    * @type {string}
    */
   username: string;
 
   /**
-   * The email of the user.
+   * The email of a user.
    * @type {string}
    */
   email: string;
 
   /**
-   * The password of the user.
+   * The password of a user.
    * @type {string}
    */
   password: string;
 
   /**
-   * The role of the user.
+   * An enum representing the role assigned to a user.
    * @type {RoleType}
    */
   role: RoleType;
