@@ -1,3 +1,7 @@
+/**
+ * User service.
+ * @module src/service/user.service
+ */
 import { Error, Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
 import { RoleType } from "../domain/enums/roleType.enum";
@@ -17,6 +21,13 @@ import { userServiceMessages } from "./messages/userService.message";
 import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
 import { IUserUpdate } from "../business/interfaces/IUserUpdate.interface";
 
+/**
+ * Calls on the persistence layer to retrieve the user with the specified username.
+ *
+ * @param {string} username - The username of the user.
+ * @returns {Promise<IUser>} A promise that resolves to an IUser object.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveUserByUsername = async (
   username: string
 ): Promise<IUser> => {
@@ -44,6 +55,13 @@ export const retrieveUserByUsername = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to retrieve the user with the specified email.
+ *
+ * @param {string} email - The email of the user.
+ * @returns {Promise<IUser>} A promise that resolves to an IUser object.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveUserByEmail = async (email: string): Promise<IUser> => {
   try {
     const retrievedUser = await getUserByEmail(email);
@@ -69,6 +87,13 @@ export const retrieveUserByEmail = async (email: string): Promise<IUser> => {
   }
 };
 
+/**
+ * Calls on the persistence layer to retrieve the users with the specified role.
+ *
+ * @param {RoleType} role - A role assigned to users.
+ * @returns {Promise<Array<IUser>>} A promise that resolves to an array of IUser objects.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveUsersByRole = async (
   role: RoleType
 ): Promise<Array<IUser>> => {
@@ -96,6 +121,13 @@ export const retrieveUsersByRole = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to add a new user profile to database.
+ *
+ * @param {IUser} newUser - The new user profile to be persisted.
+ * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the newly added user profile.
+ * @throws {UniqueConstraintError | ServerError}
+ */
 export const createUser = async (newUser: IUser): Promise<IUser> => {
   try {
     return await addUser(newUser);
@@ -116,6 +148,13 @@ export const createUser = async (newUser: IUser): Promise<IUser> => {
   }
 };
 
+/**
+ * Calls on the persistence layer to update the profile of an existing user.
+ *
+ * @param {IUserUpdate} updateDataObj - The new information to be persisted.
+ * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the updated user profile.
+ * @throws {NotFoundError | ServerError}
+ */
 export const bringUserToDate = async (
   updateDataObj: IUserUpdate
 ): Promise<IUser> => {
@@ -144,6 +183,13 @@ export const bringUserToDate = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to remove a user profile from database.
+ *
+ * @param {Types.ObjectId} id - The ID assigned to the user profile.
+ * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the removed user profile.
+ * @throws {NotFoundError | ServerError}
+ */
 export const removeUser = async (id: Types.ObjectId): Promise<IUser> => {
   try {
     const removedUser = await deleteUser(id);
