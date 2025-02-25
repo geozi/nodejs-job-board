@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { Error, Types } from "mongoose";
 import { IApplication } from "../domain/interfaces/documents/iApplication.interface";
 import { NotFoundError } from "../errors/notFoundError.class";
 import { appLogger } from "../../logs/logger.config";
@@ -112,7 +112,7 @@ export const createApplication = async (
   try {
     return await addApplication(newApplication);
   } catch (error) {
-    if (error instanceof NotFoundError) {
+    if (error instanceof Error.ValidationError) {
       appLogger.error(
         `Application service: ${createApplication.name} -> ${error.name} detected and re-thrown`
       );

@@ -58,7 +58,7 @@ export const getApplicationByUniqueIndex = async (
   personId: Types.ObjectId,
   listingId: Types.ObjectId
 ): Promise<IApplication | null> => {
-  const requestedApplication = Application.findOne({
+  const foundApplication = await Application.findOne({
     personId: personId,
     listingId: listingId,
   });
@@ -67,7 +67,7 @@ export const getApplicationByUniqueIndex = async (
     `Application repository: ${getApplicationByUniqueIndex.name} called successfully`
   );
 
-  return requestedApplication;
+  return foundApplication;
 };
 
 /**
@@ -97,7 +97,7 @@ export const addApplication = async (
 export const deleteApplicationById = async (
   id: Types.ObjectId
 ): Promise<IApplication | null> => {
-  const deletedApplication = Application.findByIdAndDelete(id);
+  const deletedApplication = await Application.findByIdAndDelete(id);
 
   appLogger.info(
     `Application repository: ${deleteApplicationById.name} called successfully`
