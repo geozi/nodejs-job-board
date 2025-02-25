@@ -1,3 +1,7 @@
+/**
+ * Application service.
+ * @module src/service/application.service
+ */
 import { Error, Types } from "mongoose";
 import { IApplication } from "../domain/interfaces/documents/iApplication.interface";
 import { NotFoundError } from "../errors/notFoundError.class";
@@ -16,6 +20,13 @@ import { listingServiceMessages } from "./messages/listingService.message";
 import { applicationServiceMessages } from "./messages/applicationService.message";
 import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
 
+/**
+ * Calls on the persistence layer to retrieve applications with the specified person ID.
+ *
+ * @param {Types.ObjectId} personId - The ID assigned to a person.
+ * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of IApplication objects.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveApplicationsByPersonId = async (
   personId: Types.ObjectId
 ): Promise<Array<IApplication>> => {
@@ -44,6 +55,13 @@ export const retrieveApplicationsByPersonId = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to retrieve applications with the specified listing ID.
+ *
+ * @param {Types.ObjectId} listingId - The ID assigned to a listing.
+ * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of IApplication objects.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveApplicationsByListingId = async (
   listingId: Types.ObjectId
 ): Promise<Array<IApplication>> => {
@@ -74,6 +92,14 @@ export const retrieveApplicationsByListingId = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to retrieve an application with the specified combination of person and listing IDs.
+ *
+ * @param {Types.ObjectId} personId - The ID assigned to a person.
+ * @param {Types.ObjectId} listingId - The ID assigned to a listing.
+ * @returns {Promise<IApplication>} A promise that resolves to an IApplication object.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveApplicationByUniqueIndex = async (
   personId: Types.ObjectId,
   listingId: Types.ObjectId
@@ -106,6 +132,13 @@ export const retrieveApplicationByUniqueIndex = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to add a new application to database.
+ *
+ * @param {IApplication} newApplication - The new application to be persisted.
+ * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the newly persisted application.
+ * @throws {UniqueConstraintError | ServerError}
+ */
 export const createApplication = async (
   newApplication: IApplication
 ): Promise<IApplication> => {
@@ -128,9 +161,16 @@ export const createApplication = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to remove an application with the specified ID.
+ *
+ * @param {Types.ObjectId} id - The ID assigned to an application.
+ * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the removed application.
+ * @throws {NotFoundError | ServerError}
+ */
 export const removeApplicationById = async (
   id: Types.ObjectId
-): Promise<IApplication | null> => {
+): Promise<IApplication> => {
   try {
     const removedApplication = await deleteApplicationById(id);
 
@@ -156,10 +196,18 @@ export const removeApplicationById = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to remove an application with the specified combination of person and listing IDs.
+ *
+ * @param {Types.ObjectId} personId - The ID assigned to a person.
+ * @param {Types.ObjectId} listingId - The ID assigned to a listing.
+ * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the removed application.
+ * @throws {NotFoundError | ServerError}
+ */
 export const removeApplicationByUniqueIndex = async (
   personId: Types.ObjectId,
   listingId: Types.ObjectId
-): Promise<IApplication | null> => {
+): Promise<IApplication> => {
   try {
     const removedApplication = await deleteApplicationByUniqueIndex(
       personId,
