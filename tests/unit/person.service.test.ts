@@ -6,10 +6,10 @@ import { NotFoundError } from "../../src/errors/notFoundError.class";
 import { ServerError } from "../../src/errors/serverError.class";
 import { UniqueConstraintError } from "../../src/errors/uniqueConstraintError.class";
 import {
-  retrievePersonProfileByUsername,
-  createPersonProfile,
-  bringPersonProfileToDate,
-  removePersonProfile,
+  retrievePersonInfoByUsername,
+  createPersonInfo,
+  bringPersonInfoToDate,
+  removePersonInfo,
 } from "../../src/service/person.service";
 import { validPersonInput } from "../testInputs";
 import * as chai from "chai";
@@ -22,7 +22,7 @@ describe("Person service unit tests", () => {
   const mockUpdateObj: IPersonUpdate = { id: mockId };
   let functionStub: SinonStub;
 
-  describe(`${retrievePersonProfileByUsername.name}`, () => {
+  describe(`${retrievePersonInfoByUsername.name}`, () => {
     beforeEach(() => {
       sinon.restore();
       functionStub = sinon.stub(Person, "findOne");
@@ -32,7 +32,7 @@ describe("Person service unit tests", () => {
       functionStub.rejects();
 
       return chai.assert.isRejected(
-        retrievePersonProfileByUsername(validPersonInput.username),
+        retrievePersonInfoByUsername(validPersonInput.username),
         ServerError
       );
     });
@@ -41,13 +41,13 @@ describe("Person service unit tests", () => {
       functionStub.resolves(null);
 
       return chai.assert.isRejected(
-        retrievePersonProfileByUsername(validPersonInput.username),
+        retrievePersonInfoByUsername(validPersonInput.username),
         NotFoundError
       );
     });
   });
 
-  describe(`${createPersonProfile.name}`, () => {
+  describe(`${createPersonInfo.name}`, () => {
     beforeEach(() => {
       sinon.restore();
       functionStub = sinon.stub(Person.prototype, "save");
@@ -56,23 +56,20 @@ describe("Person service unit tests", () => {
     it("server error", async () => {
       functionStub.rejects();
 
-      return chai.assert.isRejected(
-        createPersonProfile(mockPerson),
-        ServerError
-      );
+      return chai.assert.isRejected(createPersonInfo(mockPerson), ServerError);
     });
 
     it("unique constraint error", async () => {
       functionStub.rejects(new Error.ValidationError());
 
       return chai.assert.isRejected(
-        createPersonProfile(mockPerson),
+        createPersonInfo(mockPerson),
         UniqueConstraintError
       );
     });
   });
 
-  describe(`${bringPersonProfileToDate.name}`, async () => {
+  describe(`${bringPersonInfoToDate.name}`, async () => {
     beforeEach(() => {
       sinon.restore();
       functionStub = sinon.stub(Person, "findByIdAndUpdate");
@@ -82,7 +79,7 @@ describe("Person service unit tests", () => {
       functionStub.rejects();
 
       return chai.assert.isRejected(
-        bringPersonProfileToDate(mockUpdateObj),
+        bringPersonInfoToDate(mockUpdateObj),
         ServerError
       );
     });
@@ -91,13 +88,13 @@ describe("Person service unit tests", () => {
       functionStub.resolves(null);
 
       return chai.assert.isRejected(
-        bringPersonProfileToDate(mockUpdateObj),
+        bringPersonInfoToDate(mockUpdateObj),
         NotFoundError
       );
     });
   });
 
-  describe(`${removePersonProfile.name}`, async () => {
+  describe(`${removePersonInfo.name}`, async () => {
     beforeEach(() => {
       sinon.restore();
       functionStub = sinon.stub(Person, "findByIdAndDelete");
@@ -106,13 +103,13 @@ describe("Person service unit tests", () => {
     it("server error", async () => {
       functionStub.rejects();
 
-      return chai.assert.isRejected(removePersonProfile(mockId), ServerError);
+      return chai.assert.isRejected(removePersonInfo(mockId), ServerError);
     });
 
     it("not found", async () => {
       functionStub.resolves(null);
 
-      return chai.assert.isRejected(removePersonProfile(mockId), NotFoundError);
+      return chai.assert.isRejected(removePersonInfo(mockId), NotFoundError);
     });
   });
 });
