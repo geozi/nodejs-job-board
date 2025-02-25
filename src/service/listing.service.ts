@@ -1,3 +1,7 @@
+/**
+ * Listing service.
+ * @module src/service/listing.service
+ */
 import { Error, Types } from "mongoose";
 import { EmploymentType } from "../domain/enums/employmentType.enum";
 import { ExperienceLevelType } from "../domain/enums/experienceLevelType.enum";
@@ -22,6 +26,13 @@ import {
 import { listingServiceMessages } from "./messages/listingService.message";
 import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
 
+/**
+ * Calls on the persistence layer to retrieve the listings with the specified status.
+ *
+ * @param {ListingStatus} status - An enum representing the status assigned to listings.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of IListing objects.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveListingsByStatus = async (
   status: ListingStatus
 ): Promise<Array<IListing>> => {
@@ -48,6 +59,13 @@ export const retrieveListingsByStatus = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to retrieve the listings with the specified work type.
+ *
+ * @param {WorkType} workType - An enum representing the work type assigned to listings.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of IListing objects.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveListingsByWorkType = async (
   workType: WorkType
 ): Promise<Array<IListing>> => {
@@ -76,6 +94,13 @@ export const retrieveListingsByWorkType = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to retrieve the listings with the specified employment type.
+ *
+ * @param {EmploymentType} employmentType - An enum representing the employment type assigned to listings.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of IListing objects.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveListingsByEmploymentType = async (
   employmentType: EmploymentType
 ): Promise<Array<IListing>> => {
@@ -104,6 +129,13 @@ export const retrieveListingsByEmploymentType = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to retrieve the listings with the specified experience level.
+ *
+ * @param {ExperienceLevelType} experienceLevel - An enum representing the experience level assigned to listings.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of IListing objects.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveListingsByExperienceLevel = async (
   experienceLevel: ExperienceLevelType
 ): Promise<Array<IListing>> => {
@@ -134,9 +166,16 @@ export const retrieveListingsByExperienceLevel = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to retrieve the listing with the specified ID.
+ *
+ * @param {Types.ObjectId} id - The ID assigned to the listing.
+ * @returns {Promise<IListing>} A promise that resolves to an IListing object.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrieveListingById = async (
   id: Types.ObjectId
-): Promise<IListing | null> => {
+): Promise<IListing> => {
   try {
     const retrievedListing = await getListingById(id);
 
@@ -162,6 +201,13 @@ export const retrieveListingById = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to create a new listing in the database.
+ *
+ * @param {IListing} newListing - The new listing to be persisted.
+ * @returns {Promise<IListing>} A promise that resolves to an IListing object representing the newly created listing.
+ * @throws {UniqueConstraintError | ServerError}
+ */
 export const createListing = async (
   newListing: IListing
 ): Promise<IListing> => {
@@ -184,9 +230,16 @@ export const createListing = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to update an existing listing in the database.
+ *
+ * @param {IListingUpdate} updateDataObj - The new information to be persisted.
+ * @returns {Promise<IListing>} A listing that resolves to an IListing object representing the updated listing.
+ * @throws {NotFoundError | ServerError}
+ */
 export const bringListingToDate = async (
   updateDataObj: IListingUpdate
-): Promise<IListing | null> => {
+): Promise<IListing> => {
   try {
     const updatedListing = await updateListing(updateDataObj);
 
@@ -211,9 +264,14 @@ export const bringListingToDate = async (
   }
 };
 
-export const removeListing = async (
-  id: Types.ObjectId
-): Promise<IListing | null> => {
+/**
+ * Calls on the persistence layer to remove a listing from the database.
+ *
+ * @param {Types.ObjectId} id - The ID assigned to a listing.
+ * @returns {Promise<IListing>} A promise that resolves to an IListing object representing the removed listing.
+ * @throws {NotFoundError | ServerError}
+ */
+export const removeListing = async (id: Types.ObjectId): Promise<IListing> => {
   try {
     const removedListing = await deleteListing(id);
     if (removedListing === null) {
