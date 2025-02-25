@@ -1,6 +1,6 @@
 # Job Board API test plan
 
-Document version 1.0.1
+Document version 1.0.2
 
 ## Introduction
 
@@ -23,7 +23,7 @@ Domain layer unit test suites:
 - Application model [✔],
 - Listing model [✔],
 - Person model [✔],
-- User model [✔],
+- User model [✔].
 
 ```text
 └── tests
@@ -45,7 +45,7 @@ Persistence layer unit test suites:
 - Application repository [✔],
 - Listing repository [✔],
 - Person repository [✔],
-- User repository [✔]
+- User repository [✔].
 
 ```text
 └── tests
@@ -61,6 +61,32 @@ Depending on its particular return type, each repository function is tested agai
 1. **Positive scenario**: Promise resolves to an object or an array of objects.
 2. **Negative scenario**: Promise resolves to null or an empty array.
 
+#### Service layer
+
+Service layer unit test suites:
+
+- Application service [✔],
+- Listing service [✔],
+- Person service [✔],
+- User service [✔].
+
+```text
+├── src
+└── tests
+    └── unit
+        ├── application.service.test.ts
+        ├── listing.service.test.ts
+        ├── person.service.test.ts
+        └── user.service.test.ts
+```
+
+Compared to the persistence layer unit tests, the service layer unit tests perform scenarios in which the promise:
+
+- is rejected and,
+- is resolved to null or an empty array.
+
+The purpose of the tests is to check the behavior of the try/catch blocks as well as the triggering of errors.
+
 ## Out of scope
 
 The Job Board API is a backend project, therefore any tests involving the frontend are excluded.
@@ -73,6 +99,7 @@ The current implementation is for demonstration purposes and might be subject to
 
 - Mongoose,
 - Mocha,
-- Sinon.
+- Sinon,
+- Chai and chai-as-promised.
 
 [^1]: Documentation for `validateSync()` can be found in: [https://mongoosejs.com/docs/api/document.html](https://mongoosejs.com/docs/api/document.html)
