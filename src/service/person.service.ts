@@ -1,3 +1,7 @@
+/**
+ * Person service.
+ * @module src/service/person.service
+ */
 import { Error, Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
 import { IPerson } from "../domain/interfaces/documents/iPerson.interface";
@@ -14,9 +18,16 @@ import { personServiceMessages } from "./messages/personService.message";
 import { IPersonUpdate } from "../business/interfaces/iPersonUpdate.interface";
 import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
 
+/**
+ * Calls on the persistence layer to retrieve a person's information with the specified username.
+ *
+ * @param {string} username - The username of the person.
+ * @returns {Promise<IPerson>} A promise that resolves to an IPerson object.
+ * @throws {NotFoundError | ServerError}
+ */
 export const retrievePersonInfoByUsername = async (
   username: string
-): Promise<IPerson | null> => {
+): Promise<IPerson> => {
   try {
     const person = await getPersonByUsername(username);
 
@@ -42,6 +53,13 @@ export const retrievePersonInfoByUsername = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to add the information of a new person to database.
+ *
+ * @param {IPerson} newPerson - The new person to be persisted.
+ * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the newly added person.
+ * @throws {UniqueConstraintError | ServerError}
+ */
 export const createPersonInfo = async (
   newPerson: IPerson
 ): Promise<IPerson> => {
@@ -64,9 +82,16 @@ export const createPersonInfo = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to update the information of an existing person in the database.
+ *
+ * @param {IPersonUpdate} updateDataObj - The new information to be persisted.
+ * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the updated information of a person.
+ * @throws {NotFoundError | ServerError}
+ */
 export const bringPersonInfoToDate = async (
   updateDataObj: IPersonUpdate
-): Promise<IPerson | null> => {
+): Promise<IPerson> => {
   try {
     const updatedPerson = await updatePerson(updateDataObj);
     if (updatedPerson === null) {
@@ -91,9 +116,16 @@ export const bringPersonInfoToDate = async (
   }
 };
 
+/**
+ * Calls on the persistence layer to remove the information of an existing person in the database.
+ *
+ * @param {Types.ObjectId} id - The ID assigned to the person.
+ * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the removed information of a person.
+ * @throws {NotFoundError | ServerError}
+ */
 export const removePersonInfo = async (
   id: Types.ObjectId
-): Promise<IPerson | null> => {
+): Promise<IPerson> => {
   try {
     const removedPersonProfile = await deletePerson(id);
 
