@@ -2,7 +2,6 @@
  * IWorkExperience interface.
  * @module src/domain/interfaces/secondary/iWorkExperience.interface
  */
-import { ITask } from "./iTask.interface";
 
 /**
  * Represents the work experience a person has.
@@ -15,7 +14,7 @@ import { ITask } from "./iTask.interface";
  * @property {Date} startingDate - The date when the person started to work.
  * @property {Date} [endingDate] - (Optional) the ending date of the contract.
  * @property {Boolean} isOngoing - A boolean on whether the person has finished working or continues to work.
- * @property {ITask[]} tasks - The tasks of the job.
+ * @property {string} tasks - The tasks of the job.
  *
  */
 export interface IWorkExperience {
@@ -63,7 +62,7 @@ export interface IWorkExperience {
 
   /**
    * The tasks of the job.
-   * @type {ITask[]}
+   * @type {string}
    */
-  tasks?: ITask[];
+  tasks?: string;
 }
