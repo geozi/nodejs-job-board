@@ -4,6 +4,7 @@ import { RoleType } from "../../domain/enums/roleType.enum";
 import { User } from "../../domain/models/user.model";
 import { IUserUpdate } from "../interfaces/IUserUpdate.interface";
 import { IUser } from "../../domain/interfaces/documents/iUser.interface";
+import { Types } from "mongoose";
 
 export const reqBodyToUser = async (req: Request): Promise<IUser> => {
   const { username, email, password, role } = req.body;
@@ -33,7 +34,7 @@ export const reqBodyToUserUpdate = async (
   const { id, username, email, password, role } = req.body;
 
   const userToUpdate: IUserUpdate = {
-    id: id,
+    id: new Types.ObjectId(id),
     username: username,
     email: email,
   };

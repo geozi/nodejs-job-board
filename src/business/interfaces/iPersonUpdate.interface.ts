@@ -2,7 +2,7 @@
  * IPersonUpdate interface.
  * @module src/business/interfaces/iPersonUpdate.interface
  */
-import { Types, Schema } from "mongoose";
+import { Types } from "mongoose";
 
 /**
  * Represents a DTO used in the update of a person's information.
@@ -14,8 +14,8 @@ import { Types, Schema } from "mongoose";
  * @property {string} [phoneNumber] - (Optional) The phone number of person.
  * @property {string} [address] - (Optional) The address of a person.
  * @property {Date} [dateOfBirth] - (Optional) The date of birth of a person.
- * @property {Schema.Types.Mixed[]} [education] - (Optional) The education of a person.
- * @property {Schema.Types.Mixed[]} [workExperience] - (Optional) The work experience of a person.
+ * @property {Object[]} [education] - (Optional) The education of a person as an array of objects.
+ * @property {Object[]} [workExperience] - (Optional) The work experience of a person as an array of objects.
  * @property {string} [username] - (Optional) The username of a person.
  */
 export interface IPersonUpdate {
@@ -56,16 +56,16 @@ export interface IPersonUpdate {
   dateOfBirth?: Date;
 
   /**
-   * (Optional) The education of a person.
-   * @type {Schema.Types.Mixed[]}
+   * (Optional) The education of a person as an array of objects.
+   * @type {Object[]}
    */
-  education?: Schema.Types.Mixed[];
+  education?: Object[];
 
   /**
-   * (Optional) The work experience of a person.
-   * @type {Schema.Types.Mixed[]}
+   * (Optional) The work experience of a person as an array of objects.
+   * @type {Object[]}
    */
-  workExperience?: Schema.Types.Mixed[];
+  workExperience?: Object[];
 
   /**
    * (Optional) The username of a person.
