@@ -32,11 +32,12 @@ export const registrationMiddlewareArray = [
 
     try {
       const newUser = await reqBodyToUser(req);
-      await createUser(newUser);
+      const savedUser = await createUser(newUser);
 
-      res
-        .status(httpCodes.CREATED)
-        .json({ message: userControllerResponseMessages.USER_REGISTERED });
+      res.status(httpCodes.CREATED).json({
+        message: userControllerResponseMessages.USER_REGISTERED,
+        data: savedUser,
+      });
     } catch (error) {
       if (
         error instanceof ServerError ||
