@@ -21,8 +21,8 @@ import mongooseUniqueValidator from "mongoose-unique-validator";
  * @property {string} phoneNumber - The phone number of the person.
  * @property {string} address - The address of the person.
  * @property {Date} [dateOfBirth] - (Optional) The date of birth of the person.
- * @property {Schema.Types.Mixed[]} education - The education of the person.
- * @property {Schema.Types.Mixed[]} workExperience - The work experience of the person.
+ * @property {Object[]} education - The education of the person as an array of objects.
+ * @property {Object[]} workExperience - The work experience of the person as an array of objects.
  * @property {string} username - The username of the person.
  */
 const personSchema = new Schema<IPerson>(
@@ -66,11 +66,11 @@ const personSchema = new Schema<IPerson>(
       type: Schema.Types.Date,
     },
     education: {
-      type: [Schema.Types.Mixed],
+      type: [Object],
       required: true,
     },
     workExperience: {
-      type: [Schema.Types.Mixed],
+      type: [Object],
       required: true,
     },
     username: {

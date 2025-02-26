@@ -2,7 +2,7 @@
  * IPerson interface.
  * @module src/domain/interfaces/documents/iPerson.interface
  */
-import { Document, Schema } from "mongoose";
+import { Document } from "mongoose";
 
 /**
  * Represents a person.
@@ -14,8 +14,8 @@ import { Document, Schema } from "mongoose";
  * @property {string} phoneNumber - The phone number of the person.
  * @property {string} address - The address of the person.
  * @property {Date} [dateOfBirth] - (Optional) The date of birth of the person.
- * @property {Schema.Types.Mixed[]} education - The education of the person.
- * @property {Schema.Types.Mixed[]} workExperience - The work experience of the person.
+ * @property {Object[]} education - The education of the person as an array of objects.
+ * @property {Object[]} workExperience - The work experience of the person as an array of objects.
  * @property {string} username - The username of the person.
  *
  */
@@ -51,16 +51,16 @@ export interface IPerson extends Document {
   dateOfBirth?: Date;
 
   /**
-   * The education of the person.
-   * @type { Schema.Types.Mixed[]}
+   * The education of the person as an array of objects.
+   * @type { Object[]}
    */
-  education: Schema.Types.Mixed[];
+  education: Object[];
 
   /**
-   * The work experience of the person.
-   * @type { Schema.Types.Mixed[]}
+   * The work experience of the person as an array of objects.
+   * @type { Object[]}
    */
-  workExperience: Schema.Types.Mixed[];
+  workExperience: Object[];
 
   /**
    * The username of the person.
