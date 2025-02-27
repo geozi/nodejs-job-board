@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  userDeletionRules,
   userRegistrationRules,
   userUpdateRules,
 } from "../middleware/user.rules";
@@ -11,9 +12,14 @@ import { ServerError } from "../../../../errors/serverError.class";
 import { UniqueConstraintError } from "../../../../errors/uniqueConstraintError.class";
 import {
   reqBodyToUser,
+  reqBodyToUserId,
   reqBodyToUserUpdate,
 } from "../../../mappers/user.mapper";
-import { bringUserToDate, createUser } from "../../../../service/user.service";
+import {
+  bringUserToDate,
+  createUser,
+  removeUser,
+} from "../../../../service/user.service";
 import { userControllerResponseMessages } from "../../../messages/userControllerResponse.message";
 import { NotFoundError } from "../../../../errors/notFoundError.class";
 
@@ -96,6 +102,44 @@ export const updateMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `User controller: ${callUserUpdate.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const removalMiddlewareArray = [
+  ...userDeletionRules(),
+  async function callUserRemoval(req: Request, res: Response) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `User controller: ${callUserRemoval.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+
+    try {
+      const id = reqBodyToUserId(req);
+      await removeUser(id);
+
+      res.status(httpCodes.NO_CONTENT).json({});
+    } catch (error) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
+        appLogger.error(
+          `User controller: ${callUserRemoval.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });

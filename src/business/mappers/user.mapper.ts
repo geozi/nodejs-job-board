@@ -44,3 +44,8 @@ export const reqBodyToUserUpdate = async (
 
   return userToUpdate;
 };
+
+export const reqBodyToUserId = (req: Request): Types.ObjectId => {
+  const { id } = req.body;
+  return new Types.ObjectId(id);
+};
