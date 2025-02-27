@@ -13,7 +13,7 @@ import {
   reqBodyToUser,
   reqBodyToUserUpdate,
 } from "../../../mappers/user.mapper";
-import { createUser } from "../../../../service/user.service";
+import { bringUserToDate, createUser } from "../../../../service/user.service";
 import { userControllerResponseMessages } from "../../../messages/userControllerResponse.message";
 import { NotFoundError } from "../../../../errors/notFoundError.class";
 import { bringPersonInfoToDate } from "../../../../service/person.service";
@@ -84,14 +84,12 @@ export const updateMiddlewareArray = [
 
     try {
       const userToUpdate = await reqBodyToUserUpdate(req);
-      const updatedUser = await bringPersonInfoToDate(userToUpdate);
+      const updatedUser = await bringUserToDate(userToUpdate);
 
-      res
-        .status(httpCodes.OK)
-        .json({
-          message: userControllerResponseMessages.USER_UPDATED,
-          data: updatedUser,
-        });
+      res.status(httpCodes.OK).json({
+        message: userControllerResponseMessages.USER_UPDATED,
+        data: updatedUser,
+      });
     } catch (error) {
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
