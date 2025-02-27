@@ -9,8 +9,9 @@ import { commonResponseMessages } from "../../src/business/messages/commonRespon
 import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
 import { userControllerResponseMessages } from "../../src/business/messages/userControllerResponse.message";
 import { User } from "../../src/domain/models/user.model";
+import { commonServiceMessages } from "../../src/service/messages/commonService.message";
 
-describe.only("User registration integration tests", () => {
+describe("User registration integration tests", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: SinonSpy;
@@ -353,6 +354,44 @@ describe.only("User registration integration tests", () => {
             true
           );
         });
+      });
+    });
+
+    describe("Promise-oriented", () => {
+      beforeEach(() => {
+        sinon.restore();
+        functionStub = sinon.stub(User.prototype, "save");
+        res = {
+          status: sinon.stub().callsFake(() => {
+            return res;
+          }) as unknown as SinonStub,
+          json: sinon.spy(),
+        };
+
+        next = sinon.spy();
+        req = { body: { ...validUserInput } };
+      });
+
+      it("server error", async () => {
+        functionStub.rejects();
+
+        for (const middleware of registrationMiddlewareArray) {
+          await middleware(req as Request, res as Response, next);
+        }
+
+        statusStub = res.status as SinonStub;
+        jsonSpy = res.json as SinonSpy;
+
+        assert.strictEqual(
+          statusStub.calledWith(httpCodes.INTERNAL_SERVER_ERROR),
+          true
+        );
+        assert.strictEqual(
+          jsonSpy.calledWith({
+            message: commonServiceMessages.SERVER_ERROR,
+          }),
+          true
+        );
       });
     });
   });
