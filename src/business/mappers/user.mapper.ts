@@ -31,7 +31,7 @@ export const reqBodyToUser = async (req: Request): Promise<IUser> => {
 export const reqBodyToUserUpdate = async (
   req: Request
 ): Promise<IUserUpdate> => {
-  const { id, username, email, password, role } = req.body;
+  const { id, username, email, password } = req.body;
 
   const userToUpdate: IUserUpdate = {
     id: new Types.ObjectId(id),
@@ -41,15 +41,6 @@ export const reqBodyToUserUpdate = async (
 
   const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
   userToUpdate.password = hashedPassword;
-
-  switch (role) {
-    case RoleType.Admin.toString():
-      userToUpdate.role = RoleType.Admin;
-      break;
-    case RoleType.User.toString():
-      userToUpdate.role = RoleType.User;
-      break;
-  }
 
   return userToUpdate;
 };

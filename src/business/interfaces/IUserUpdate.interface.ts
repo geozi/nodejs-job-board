@@ -3,7 +3,6 @@
  * @module src/business/interfaces/iUserUpdate.interface
  */
 import { Types } from "mongoose";
-import { RoleType } from "../../domain/enums/roleType.enum";
 
 /**
  * Represents a DTO used in the update of an existing user profile.
@@ -13,7 +12,6 @@ import { RoleType } from "../../domain/enums/roleType.enum";
  * @property {string} [username] - (Optional) The username of a user.
  * @property {string} [email] - (Optional) The email of a user.
  * @property {string} [password] - (Optional) The password of a user.
- * @property {RoleType} [role] - (Optional) An enum representing the role assigned to a user.
  */
 export interface IUserUpdate {
   /**
@@ -39,10 +37,4 @@ export interface IUserUpdate {
    * @type {string}
    */
   password?: string;
-
-  /**
-   * (Optional) An enum representing the role assigned to a user.
-   * @type {RoleType}
-   */
-  role?: RoleType;
 }
