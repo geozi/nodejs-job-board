@@ -19,7 +19,7 @@ import {
 import { commonServiceMessages } from "./messages/commonService.message";
 import { userServiceMessages } from "./messages/userService.message";
 import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
-import { IUserUpdate } from "../business/interfaces/IUserUpdate.interface";
+import { IUserUpdate } from "../business/interfaces/iUserUpdate.interface";
 
 /**
  * Calls on the persistence layer to retrieve the user with the specified username.

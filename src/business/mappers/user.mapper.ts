@@ -2,7 +2,7 @@ import { Request } from "express";
 import bcrypt from "bcryptjs";
 import { RoleType } from "../../domain/enums/roleType.enum";
 import { User } from "../../domain/models/user.model";
-import { IUserUpdate } from "../interfaces/IUserUpdate.interface";
+import { IUserUpdate } from "../interfaces/iUserUpdate.interface";
 import { IUser } from "../../domain/interfaces/documents/iUser.interface";
 import { Types } from "mongoose";
 

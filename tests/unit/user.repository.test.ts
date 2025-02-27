@@ -11,7 +11,7 @@ import {
   updateUser,
   deleteUser,
 } from "../../src/persistence/user.repository";
-import { IUserUpdate } from "../business/interfaces/IUserUpdate.interface";
+import { IUserUpdate } from "../business/interfaces/iUserUpdate.interface";
 
 describe("User repository unit tests", () => {
   const mockUser = new User();

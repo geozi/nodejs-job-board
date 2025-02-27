@@ -13,7 +13,7 @@ import {
   bringUserToDate,
   removeUser,
 } from "../../src/service/user.service";
-import { IUserUpdate } from "../../src/business/interfaces/IUserUpdate.interface";
+import { IUserUpdate } from "../business/interfaces/iUserUpdate.interface";
 import { UniqueConstraintError } from "../../src/errors/uniqueConstraintError.class";
 import * as chai from "chai";
 import chaiAsPromised from "chai-as-promised";
