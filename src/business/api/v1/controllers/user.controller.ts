@@ -19,7 +19,10 @@ import { NotFoundError } from "../../../../errors/notFoundError.class";
 
 export const registrationMiddlewareArray = [
   ...userRegistrationRules(),
-  async function registerUser(req: Request, res: Response): Promise<void> {
+  async function callUserRegistration(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -27,7 +30,7 @@ export const registrationMiddlewareArray = [
       }));
 
       appLogger.error(
-        `User controller: ${registerUser.name} -> Express validation errors detected and caught`
+        `User controller: ${callUserRegistration.name} -> Express validation errors detected and caught`
       );
 
       res.status(httpCodes.BAD_REQUEST).json({
@@ -51,7 +54,7 @@ export const registrationMiddlewareArray = [
         error instanceof UniqueConstraintError
       ) {
         appLogger.error(
-          `User controller: ${registerUser.name} -> ${error.name} detected and caught`
+          `User controller: ${callUserRegistration.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
@@ -63,7 +66,7 @@ export const registrationMiddlewareArray = [
 
 export const updateMiddlewareArray = [
   ...userUpdateRules(),
-  async function updateUser(req: Request, res: Response): Promise<void> {
+  async function callUserUpdate(req: Request, res: Response): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -71,7 +74,7 @@ export const updateMiddlewareArray = [
       }));
 
       appLogger.error(
-        `User controller: ${updateUser.name} -> Express validation errors detected and caught`
+        `User controller: ${callUserUpdate.name} -> Express validation errors detected and caught`
       );
 
       res.status(httpCodes.BAD_REQUEST).json({
@@ -92,7 +95,7 @@ export const updateMiddlewareArray = [
     } catch (error) {
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
-          `User controller: ${updateUser.name} -> ${error.name} detected and caught`
+          `User controller: ${callUserUpdate.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
