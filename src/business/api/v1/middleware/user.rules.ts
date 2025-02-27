@@ -68,3 +68,18 @@ export const userUpdateRules = (): ValidationChain[] => {
       .withMessage(userFailedValidation.PASSWORD_MUST_HAVE_CHARACTERS_MESSAGE),
   ];
 };
+
+export const userDeletionRules = (): ValidationChain[] => {
+  return [
+    check("id")
+      .notEmpty()
+      .withMessage(userFailedValidation.USER_ID_REQUIRED_MESSAGE)
+      .isLength({
+        min: commonConstants.MONGODB_ID_LENGTH,
+        max: commonConstants.MONGODB_ID_LENGTH,
+      })
+      .withMessage(userFailedValidation.USER_ID_OUT_OF_LENGTH_MESSAGE)
+      .matches(ID_REGEX)
+      .withMessage(userFailedValidation.USER_ID_INVALID_MESSAGE),
+  ];
+};
