@@ -16,7 +16,6 @@ import {
 import { bringUserToDate, createUser } from "../../../../service/user.service";
 import { userControllerResponseMessages } from "../../../messages/userControllerResponse.message";
 import { NotFoundError } from "../../../../errors/notFoundError.class";
-import { bringPersonInfoToDate } from "../../../../service/person.service";
 
 export const registrationMiddlewareArray = [
   ...userRegistrationRules(),
