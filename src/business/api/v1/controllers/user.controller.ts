@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   userDeletionRules,
   userRegistrationRules,
+  userRetrievalByEmailRules,
   userRetrievalByUsernameRules,
   userUpdateRules,
 } from "../middleware/user.rules";
@@ -20,6 +21,7 @@ import {
   bringUserToDate,
   createUser,
   removeUser,
+  retrieveUserByEmail,
   retrieveUserByUsername,
 } from "../../../../service/user.service";
 import { userControllerResponseMessages } from "../../../messages/userControllerResponse.message";
@@ -183,6 +185,49 @@ export const retrievalByUsernameMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `User controller: ${callUserRetrievalByUsername.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const retrievalByEmailMiddlewareArray = [
+  ...userRetrievalByEmailRules(),
+  async function callUserRetrievalByEmail(req: Request, res: Response) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `User controller: ${callUserRetrievalByEmail.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+
+    try {
+      const { email } = req.body;
+      const user = await retrieveUserByEmail(email);
+
+      res
+        .status(httpCodes.OK)
+        .json({
+          message: userControllerResponseMessages.USER_RETRIEVED,
+          data: user,
+        });
+    } catch (error) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
+        appLogger.error(
+          `User controller: ${callUserRetrievalByEmail.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });

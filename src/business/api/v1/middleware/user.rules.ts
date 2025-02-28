@@ -95,3 +95,13 @@ export const userRetrievalByUsernameRules = (): ValidationChain[] => {
       .withMessage(userFailedValidation.USERNAME_ABOVE_MAX_LENGTH_MESSAGE),
   ];
 };
+
+export const userRetrievalByEmailRules = (): ValidationChain[] => {
+  return [
+    check("email")
+      .notEmpty()
+      .withMessage(userFailedValidation.EMAIL_REQUIRED_MESSAGE)
+      .matches(EMAIL_REGEX)
+      .withMessage(userFailedValidation.EMAIL_INVALID_MESSAGE),
+  ];
+};
