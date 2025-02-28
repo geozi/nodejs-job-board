@@ -35,7 +35,7 @@ describe("User retrieval by email integration tests", () => {
       next = sinon.spy();
     });
 
-    it("has valid inputs", async () => {
+    it("email is valid", async () => {
       req = { body: { email: validUserInput.email } };
       functionStub.resolves(mockUser);
 

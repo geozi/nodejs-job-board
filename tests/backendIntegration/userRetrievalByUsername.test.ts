@@ -36,7 +36,7 @@ describe("User retrieval by username integration tests", () => {
       req = { body: { ...validUserInput } };
     });
 
-    it("has valid inputs", async () => {
+    it("username is valid", async () => {
       req = { body: { username: validUserInput.username } };
       functionStub.resolves(mockUser);
 
