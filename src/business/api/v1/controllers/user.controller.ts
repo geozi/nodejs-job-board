@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import {
-  userDeletionRules,
   userRegistrationRules,
   userRetrievalByEmailRules,
   userRetrievalByRoleRules,
@@ -16,13 +15,11 @@ import { UniqueConstraintError } from "../../../../errors/uniqueConstraintError.
 import {
   reqBodyToRole,
   reqBodyToUser,
-  reqBodyToUserId,
   reqBodyToUserUpdate,
 } from "../../../mappers/user.mapper";
 import {
   bringUserToDate,
   createUser,
-  removeUser,
   retrieveUserByEmail,
   retrieveUserByUsername,
   retrieveUsersByRole,
@@ -109,44 +106,6 @@ export const updateMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `User controller: ${callUserUpdate.name} -> ${error.name} detected and caught`
-        );
-
-        res.status(error.httpCode).json({ message: error.message });
-        return;
-      }
-    }
-  },
-];
-
-export const removalMiddlewareArray = [
-  ...userDeletionRules(),
-  async function callUserRemoval(req: Request, res: Response) {
-    const expressErrors = validationResult(req);
-    if (!expressErrors.isEmpty()) {
-      const errorMessage = expressErrors.array().map((err) => ({
-        message: err.msg,
-      }));
-
-      appLogger.error(
-        `User controller: ${callUserRemoval.name} -> Express validation errors detected and caught`
-      );
-
-      res.status(httpCodes.BAD_REQUEST).json({
-        message: commonResponseMessages.BAD_REQUEST,
-        errors: errorMessage,
-      });
-      return;
-    }
-
-    try {
-      const id = reqBodyToUserId(req);
-      await removeUser(id);
-
-      res.status(httpCodes.NO_CONTENT).json({});
-    } catch (error) {
-      if (error instanceof ServerError || error instanceof NotFoundError) {
-        appLogger.error(
-          `User controller: ${callUserRemoval.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
