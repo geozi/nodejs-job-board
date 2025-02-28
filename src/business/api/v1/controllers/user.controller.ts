@@ -218,12 +218,10 @@ export const retrievalByEmailMiddlewareArray = [
       const { email } = req.body;
       const user = await retrieveUserByEmail(email);
 
-      res
-        .status(httpCodes.OK)
-        .json({
-          message: userControllerResponseMessages.USER_RETRIEVED,
-          data: user,
-        });
+      res.status(httpCodes.OK).json({
+        message: userControllerResponseMessages.USER_RETRIEVED,
+        data: user,
+      });
     } catch (error) {
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
