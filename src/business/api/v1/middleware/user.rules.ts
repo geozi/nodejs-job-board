@@ -105,3 +105,13 @@ export const userRetrievalByEmailRules = (): ValidationChain[] => {
       .withMessage(userFailedValidation.EMAIL_INVALID_MESSAGE),
   ];
 };
+
+export const userRetrievalByRoleRules = (): ValidationChain[] => {
+  return [
+    check("role")
+      .notEmpty()
+      .withMessage(userFailedValidation.ROLE_REQUIRED_MESSAGE)
+      .isIn([RoleType.Admin, RoleType.User])
+      .withMessage(userFailedValidation.ROLE_INVALID_MESSAGE),
+  ];
+};

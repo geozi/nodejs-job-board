@@ -49,3 +49,13 @@ export const reqBodyToUserId = (req: Request): Types.ObjectId => {
   const { id } = req.body;
   return new Types.ObjectId(id);
 };
+
+export const reqBodyToRole = (req: Request) => {
+  const { roleAsString } = req.body;
+
+  if (roleAsString === RoleType.Admin.toString()) {
+    return RoleType.Admin;
+  } else {
+    return RoleType.User;
+  }
+};
