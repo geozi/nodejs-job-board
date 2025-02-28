@@ -83,3 +83,15 @@ export const userDeletionRules = (): ValidationChain[] => {
       .withMessage(userFailedValidation.USER_ID_INVALID_MESSAGE),
   ];
 };
+
+export const userRetrievalByUsernameRules = (): ValidationChain[] => {
+  return [
+    check("username")
+      .notEmpty()
+      .withMessage(userFailedValidation.USERNAME_REQUIRED_MESSAGE)
+      .isLength({ min: userConstants.USERNAME_MIN_LENGTH })
+      .withMessage(userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE)
+      .isLength({ max: userConstants.USERNAME_MAX_LENGTH })
+      .withMessage(userFailedValidation.USERNAME_ABOVE_MAX_LENGTH_MESSAGE),
+  ];
+};
