@@ -37,7 +37,6 @@ export const validPersonInput = {
   lastName: "Powell",
   phoneNumber: "412-304-0145",
   address: "236 Poplar Street",
-  dateOfBirth: new Schema.Types.Date("2001-02-18"),
   education: [],
   workExperience: [],
   username: "newUser",
@@ -46,8 +45,8 @@ export const validPersonInput = {
 export const validEducationInput = {
   degreeTitle: "Software Engineering",
   institution: "Central University",
-  startingDate: new Schema.Types.Date("2018-09-17"),
-  graduationDate: new Schema.Types.Date("2022-06-22"),
+  startingDate: new Date("2018-09-17"),
+  graduationDate: new Date("2022-06-22"),
   isOngoing: new Schema.Types.Boolean("false"),
 };
 
@@ -58,7 +57,7 @@ export const validWorkExperienceInput = {
   country: "Greece",
   startingDate: "2022-09-09",
   endingDate: undefined,
-  isOngoing: new Schema.Types.Boolean("true"),
+  isOngoing: new Boolean("true"),
 };
 
 export const validTaskInputs = [

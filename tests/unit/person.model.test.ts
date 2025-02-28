@@ -13,7 +13,10 @@ describe("Person model unit tests", () => {
   describe("Successful validation", () => {
     beforeEach(() => {
       sinon.restore();
-      newPerson = new Person(validPersonInput);
+      newPerson = new Person({
+        dateOfBirth: new Date("2001-02-18"),
+        ...validPersonInput,
+      });
     });
 
     it("has valid inputs", () => {

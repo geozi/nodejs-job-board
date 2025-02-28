@@ -17,7 +17,10 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 describe("Person service unit tests", () => {
-  const mockPerson = new Person(validPersonInput);
+  const mockPerson = new Person({
+    dateOfBirth: new Date("2001-02-18"),
+    ...validPersonInput,
+  });
   const mockId = new Types.ObjectId("67bc96f4259e2b294115821a");
   const mockUpdateObj: IPersonUpdate = { id: mockId };
   let functionStub: SinonStub;
