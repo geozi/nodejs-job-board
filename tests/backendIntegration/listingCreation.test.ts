@@ -74,7 +74,7 @@ describe("Listing creation integration tests", () => {
           };
 
           next = sinon.spy();
-          req = { body: validListingInput };
+          req = { body: { ...validListingInput } };
         });
 
         it("title is undefined", async () => {
