@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   personInfoCreationRules,
+  personInfoRetrievalByUsernameRules,
   personInfoUpdateRules,
 } from "../middleware/person.rules";
 import { validationResult } from "express-validator";
@@ -17,6 +18,7 @@ import { personControllerResponseMessages } from "../../../messages/personContro
 import {
   bringPersonInfoToDate,
   createPersonInfo,
+  retrievePersonInfoByUsername,
 } from "../../../../service/person.service";
 import { NotFoundError } from "../../../../errors/notFoundError.class";
 
@@ -95,6 +97,51 @@ export const infoUpdateMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `Person controller: ${callPersonInfoUpdate.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const infoRetrievalByUsernameMiddlewareArray = [
+  ...personInfoRetrievalByUsernameRules(),
+  async function callPersonInfoRetrievalByUsername(
+    req: Request,
+    res: Response
+  ) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `Person controller: ${callPersonInfoRetrievalByUsername.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+    const { username } = req.body;
+    const person = await retrievePersonInfoByUsername(username);
+
+    res
+      .status(httpCodes.OK)
+      .json({
+        message: personControllerResponseMessages.PERSON_RETRIEVED,
+        data: person,
+      });
+    try {
+    } catch (error) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
+        appLogger.error(
+          `Person controller: ${callPersonInfoRetrievalByUsername.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });

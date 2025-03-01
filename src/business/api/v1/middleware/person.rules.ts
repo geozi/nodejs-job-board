@@ -103,3 +103,15 @@ export const personInfoUpdateRules = (): ValidationChain[] => {
       .withMessage(userFailedValidation.USERNAME_ABOVE_MAX_LENGTH_MESSAGE),
   ];
 };
+
+export const personInfoRetrievalByUsernameRules = (): ValidationChain[] => {
+  return [
+    check("username")
+      .notEmpty()
+      .withMessage(userFailedValidation.USERNAME_REQUIRED_MESSAGE)
+      .isLength({ min: userConstants.USERNAME_MIN_LENGTH })
+      .withMessage(userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE)
+      .isLength({ max: userConstants.USERNAME_MAX_LENGTH })
+      .withMessage(userFailedValidation.USERNAME_ABOVE_MAX_LENGTH_MESSAGE),
+  ];
+};
