@@ -11,7 +11,6 @@ import { userControllerResponseMessages } from "../../src/business/messages/user
 import { User } from "../../src/domain/models/user.model";
 import { commonServiceMessages } from "../../src/service/messages/commonService.message";
 import { Error } from "mongoose";
-import { userServiceMessages } from "../service/messages/userService.message";
 
 describe("User registration integration tests", () => {
   let req: Partial<Request>;
