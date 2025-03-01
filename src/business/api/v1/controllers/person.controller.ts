@@ -41,14 +41,15 @@ export const infoCreationMiddlewareArray = [
       });
       return;
     }
-    const newPerson = reqBodyToPerson(req);
-    const savedPerson = await createPersonInfo(newPerson);
 
-    res.status(httpCodes.CREATED).json({
-      message: personControllerResponseMessages.PERSON_REGISTERED,
-      data: savedPerson,
-    });
     try {
+      const newPerson = reqBodyToPerson(req);
+      const savedPerson = await createPersonInfo(newPerson);
+
+      res.status(httpCodes.CREATED).json({
+        message: personControllerResponseMessages.PERSON_REGISTERED,
+        data: savedPerson,
+      });
     } catch (error) {
       if (
         error instanceof ServerError ||
@@ -128,16 +129,15 @@ export const infoRetrievalByUsernameMiddlewareArray = [
       });
       return;
     }
-    const { username } = req.body;
-    const person = await retrievePersonInfoByUsername(username);
 
-    res
-      .status(httpCodes.OK)
-      .json({
+    try {
+      const { username } = req.body;
+      const person = await retrievePersonInfoByUsername(username);
+
+      res.status(httpCodes.OK).json({
         message: personControllerResponseMessages.PERSON_RETRIEVED,
         data: person,
       });
-    try {
     } catch (error) {
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(

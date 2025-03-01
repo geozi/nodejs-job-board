@@ -1,30 +1,33 @@
-import { Request, Response } from "express";
 import sinon, { SinonSpy, SinonStub } from "sinon";
-import { User } from "../../src/domain/models/user.model";
-import { invalidUserInputs, validUserInput } from "../testInputs";
-import { retrievalByUsernameMiddlewareArray } from "../../src/business/api/v1/controllers/user.controller";
 import assert from "assert";
+import { Request, Response } from "express";
+import { invalidUserInputs, validPersonInput } from "../testInputs";
+import { Person } from "../../src/domain/models/person.model";
+import { infoRetrievalByUsernameMiddlewareArray } from "../../src/business/api/v1/controllers/person.controller";
 import { httpCodes } from "../../src/business/codes/responseStatusCodes";
-import { userControllerResponseMessages } from "../../src/business/messages/userControllerResponse.message";
-import { retrieveUserByUsername } from "../../src/service/user.service";
+import { personControllerResponseMessages } from "../../src/business/messages/personControllerResponse.message";
+import { retrievePersonInfoByUsername } from "../../src/service/person.service";
 import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
 import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
-import { userServiceMessages } from "../../src/service/messages/userService.message";
 import { commonServiceMessages } from "../../src/service/messages/commonService.message";
+import { personServiceMessages } from "../../src/service/messages/personService.message";
 
-describe("User retrieval by username integration tests", () => {
+describe("Person info retrieval by username integration tests", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: SinonSpy;
   let statusStub: SinonStub;
   let jsonSpy: SinonSpy;
   let functionStub: SinonStub;
-  const mockUser = new User(validUserInput);
+  const mockPerson = new Person({
+    dateOfBirth: new Date("2001-02-18"),
+    ...validPersonInput,
+  });
 
   describe("Positive scenario(s)", () => {
     beforeEach(() => {
       sinon.restore();
-      functionStub = sinon.stub(User, "findOne");
+      functionStub = sinon.stub(Person, "findOne");
       res = {
         status: sinon.stub().callsFake(() => {
           return res;
@@ -33,13 +36,13 @@ describe("User retrieval by username integration tests", () => {
       };
 
       next = sinon.spy();
-      req = { body: { username: validUserInput.username } };
+      req = { body: { username: validPersonInput.username } };
     });
 
     it("username is valid", async () => {
-      functionStub.resolves(mockUser);
+      functionStub.resolves(mockPerson);
 
-      for (const middleware of retrievalByUsernameMiddlewareArray) {
+      for (const middleware of infoRetrievalByUsernameMiddlewareArray) {
         await middleware(req as Request, res as Response, next);
       }
 
@@ -49,8 +52,8 @@ describe("User retrieval by username integration tests", () => {
       assert.strictEqual(statusStub.calledWith(httpCodes.OK), true);
       assert.strictEqual(
         jsonSpy.calledWith({
-          message: userControllerResponseMessages.USER_RETRIEVED,
-          data: mockUser,
+          message: personControllerResponseMessages.PERSON_RETRIEVED,
+          data: mockPerson,
         }),
         true
       );
@@ -63,8 +66,8 @@ describe("User retrieval by username integration tests", () => {
         beforeEach(() => {
           sinon.restore();
           sinon.replace(
-            { retrieveUserByUsername },
-            "retrieveUserByUsername",
+            { retrievePersonInfoByUsername },
+            "retrievePersonInfoByUsername",
             sinon.fake()
           );
           res = {
@@ -80,7 +83,7 @@ describe("User retrieval by username integration tests", () => {
         it("username is undefined", async () => {
           req = { body: { username: undefined } };
 
-          for (const middleware of retrievalByUsernameMiddlewareArray) {
+          for (const middleware of infoRetrievalByUsernameMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
           }
 
@@ -109,7 +112,7 @@ describe("User retrieval by username integration tests", () => {
         it("username is too short", async () => {
           req = { body: { username: invalidUserInputs.TOO_SHORT_USERNAME } };
 
-          for (const middleware of retrievalByUsernameMiddlewareArray) {
+          for (const middleware of infoRetrievalByUsernameMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
           }
 
@@ -137,7 +140,7 @@ describe("User retrieval by username integration tests", () => {
         it("username is too long", async () => {
           req = { body: { username: invalidUserInputs.TOO_LONG_USERNAME } };
 
-          for (const middleware of retrievalByUsernameMiddlewareArray) {
+          for (const middleware of infoRetrievalByUsernameMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
           }
 
@@ -167,7 +170,7 @@ describe("User retrieval by username integration tests", () => {
     describe("Promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
-        functionStub = sinon.stub(User, "findOne");
+        functionStub = sinon.stub(Person, "findOne");
         res = {
           status: sinon.stub().callsFake(() => {
             return res;
@@ -176,13 +179,13 @@ describe("User retrieval by username integration tests", () => {
         };
 
         next = sinon.spy();
-        req = { body: { username: validUserInput.username } };
+        req = { body: { username: validPersonInput.username } };
       });
 
       it("server error", async () => {
         functionStub.rejects();
 
-        for (const middleware of retrievalByUsernameMiddlewareArray) {
+        for (const middleware of infoRetrievalByUsernameMiddlewareArray) {
           await middleware(req as Request, res as Response, next);
         }
 
@@ -204,7 +207,7 @@ describe("User retrieval by username integration tests", () => {
       it("not found", async () => {
         functionStub.resolves(null);
 
-        for (const middleware of retrievalByUsernameMiddlewareArray) {
+        for (const middleware of infoRetrievalByUsernameMiddlewareArray) {
           await middleware(req as Request, res as Response, next);
         }
 
@@ -214,7 +217,7 @@ describe("User retrieval by username integration tests", () => {
         assert.strictEqual(statusStub.calledWith(httpCodes.NOT_FOUND), true);
         assert.strictEqual(
           jsonSpy.calledWith({
-            message: userServiceMessages.USER_NOT_FOUND,
+            message: personServiceMessages.PERSON_NOT_FOUND,
           }),
           true
         );

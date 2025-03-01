@@ -180,10 +180,10 @@ describe("Person info update integration tests", () => {
         };
 
         next = sinon.spy();
+        req = { body: mockUpdatePerson };
       });
 
       it("server error", async () => {
-        req = { body: mockUpdatePerson };
         functionStub.rejects();
 
         for (const middleware of infoUpdateMiddlewareArray) {
@@ -206,7 +206,6 @@ describe("Person info update integration tests", () => {
       });
 
       it("not found", async () => {
-        req = { body: mockUpdatePerson };
         functionStub.resolves(null);
 
         for (const middleware of infoUpdateMiddlewareArray) {
