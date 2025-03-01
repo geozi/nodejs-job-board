@@ -8,11 +8,11 @@ import { listingConstants } from "../constants/listing.constant";
 import { listingFailedValidation } from "../messages/listingValidation.message";
 import { commonConstants } from "../constants/common.constant";
 import { commonFailedValidation } from "../messages/commonValidation.message";
-import { WorkType } from "../enums/workType.enum";
-import { EmploymentType } from "../enums/employmentType.enum";
-import { ExperienceLevelType } from "../enums/experienceLevelType.enum";
+import { workTypeArray } from "../enums/workType.enum";
+import { employmentTypeArray } from "../enums/employmentType.enum";
+import { experienceLevelTypeArray } from "../enums/experienceLevelType.enum";
 import { COUNTRY_REGEX } from "../resources/validationRegExp";
-import { ListingStatus } from "../enums/listingStatus.enum";
+import { listingStatusArray } from "../enums/listingStatus.enum";
 
 /**
  * Listing schema for persistence in MongoDB.
@@ -53,7 +53,7 @@ const listingSchema = new Schema<IListing>({
     type: String,
     required: [true, listingFailedValidation.WORK_TYPE_REQUIRED_MESSAGE],
     enum: {
-      values: [WorkType.Hybrid, WorkType.On_Site, WorkType.Remote],
+      values: workTypeArray,
       message: listingFailedValidation.WORK_TYPE_INVALID_MESSAGE,
     },
   },
@@ -61,13 +61,7 @@ const listingSchema = new Schema<IListing>({
     type: String,
     required: [true, listingFailedValidation.EMPLOYMENT_TYPE_REQUIRED_MESSAGE],
     enum: {
-      values: [
-        EmploymentType.Contract,
-        EmploymentType.Full_Time,
-        EmploymentType.Part_Time,
-        EmploymentType.Temporary,
-        EmploymentType.Other,
-      ],
+      values: employmentTypeArray,
       message: listingFailedValidation.EMPLOYMENT_TYPE_INVALID_MESSAGE,
     },
   },
@@ -75,14 +69,7 @@ const listingSchema = new Schema<IListing>({
     type: String,
     required: [true, listingFailedValidation.EXPERIENCE_LEVEL_REQUIRED_MESSAGE],
     enum: {
-      values: [
-        ExperienceLevelType.Internship,
-        ExperienceLevelType.Entry_Level,
-        ExperienceLevelType.Mid_Senior_Level,
-        ExperienceLevelType.Associate,
-        ExperienceLevelType.Director,
-        ExperienceLevelType.Executive,
-      ],
+      values: experienceLevelTypeArray,
       message: listingFailedValidation.EXPERIENCE_LEVEL_INVALID_MESSAGE,
     },
   },
@@ -120,7 +107,7 @@ const listingSchema = new Schema<IListing>({
     type: String,
     required: [true, listingFailedValidation.STATUS_REQUIRED],
     enum: {
-      values: [ListingStatus.Open, ListingStatus.Closed],
+      values: listingStatusArray,
       message: listingFailedValidation.STATUS_INVALID,
     },
   },
