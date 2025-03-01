@@ -24,3 +24,5 @@ export enum RoleType {
    */
   User = "User",
 }
+
+export const roleTypeArray = [RoleType.Admin, RoleType.User];

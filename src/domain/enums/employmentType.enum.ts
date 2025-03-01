@@ -45,3 +45,11 @@ export enum EmploymentType {
    */
   Other = "Other",
 }
+
+export const employmentTypeArray = [
+  EmploymentType.Contract,
+  EmploymentType.Full_Time,
+  EmploymentType.Part_Time,
+  EmploymentType.Temporary,
+  EmploymentType.Other,
+];

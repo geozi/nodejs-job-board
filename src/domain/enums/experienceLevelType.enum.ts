@@ -53,3 +53,12 @@ export enum ExperienceLevelType {
    */
   Executive = "Executive",
 }
+
+export const experienceLevelTypeArray = [
+  ExperienceLevelType.Internship,
+  ExperienceLevelType.Entry_Level,
+  ExperienceLevelType.Mid_Senior_Level,
+  ExperienceLevelType.Associate,
+  ExperienceLevelType.Director,
+  ExperienceLevelType.Executive,
+];

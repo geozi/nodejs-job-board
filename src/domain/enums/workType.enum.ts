@@ -31,3 +31,9 @@ export enum WorkType {
    */
   Remote = "Remote",
 }
+
+export const workTypeArray = [
+  WorkType.Hybrid,
+  WorkType.On_Site,
+  WorkType.Remote,
+];
