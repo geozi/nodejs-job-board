@@ -78,7 +78,7 @@ export const validTaskInputs = [
 export const validListingInput = {
   title: "Senior Software Engineer",
   organizationName: "Tech Innovators Inc.",
-  datePosted: new Date("2025-02-19"),
+  datePosted: "2025-02-19",
   workType: WorkType.Hybrid,
   employmentType: EmploymentType.Full_Time,
   experienceLevel: ExperienceLevelType.Mid_Senior_Level,
@@ -86,8 +86,8 @@ export const validListingInput = {
   country: "Greece",
   listingDesc: `We are seeking a Senior Software Engineer to join our dynamic team at Tech Innovators Inc. The ideal candidate will have 5+ years of experience in software development, proficiency in JavaScript, and a passion for building innovative solutions. Responsibilities include designing, coding, and testing software applications, collaborating with cross-functional teams, and mentoring junior developers.`,
   salaryRange: {
-    minAmount: 60000,
-    maxAmount: 80000,
+    minAmount: "2500",
+    maxAmount: "3000",
   },
   status: ListingStatus.Open,
 };
@@ -239,6 +239,7 @@ We are passionate about making a positive impact on the world through technology
 How to Apply:
 
 Please submit your resume, cover letter, and portfolio of relevant projects to [email address] with the subject line "Senior Software Engineer Application - [Your Name]." We look forward to reviewing your application and discussing how you can contribute to our team's success.`,
+  INVALID_DATE_POSTED: "December",
 };
 
 export const validApplicationInput = {

@@ -19,7 +19,7 @@ export const listingCreationMiddlewareArray = [
       }));
 
       appLogger.error(
-        `Person controller: ${callListingCreation.name} -> Express validation errors detected and caught`
+        `Listing controller: ${callListingCreation.name} -> Express validation errors detected and caught`
       );
 
       res.status(httpCodes.BAD_REQUEST).json({
@@ -40,7 +40,7 @@ export const listingCreationMiddlewareArray = [
     } catch (error) {
       if (error instanceof ServerError) {
         appLogger.error(
-          `User controller: ${callListingCreation.name} -> ${error.name} detected and caught`
+          `Listing controller: ${callListingCreation.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });

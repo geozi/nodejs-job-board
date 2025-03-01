@@ -1,4 +1,4 @@
-import { check, ValidationChain } from "express-validator";
+import { body, check, ValidationChain } from "express-validator";
 import { listingFailedValidation } from "../../../../domain/messages/listingValidation.message";
 import { commonFailedValidation } from "../../../../domain/messages/commonValidation.message";
 import { commonConstants } from "../../../../domain/constants/common.constant";
@@ -63,10 +63,10 @@ export const listingCreationRules = (): ValidationChain[] => {
         listingFailedValidation.LISTING_DESCRIPTION_ABOVE_MAX_LENGTH_MESSAGE
       ),
     check("salaryRange.minAmount")
-      .optional()
+      .if(body("salaryRange").exists())
       .isNumeric()
       .withMessage(salaryRangeFailedValidation.MIN_AMOUNT_INVALID_MESSAGE)
-      .custom((value) => {
+      .custom(async (value) => {
         if (value < 0) {
           throw new Error(
             salaryRangeFailedValidation.MIN_AMOUNT_NEGATIVE_MESSAGE
@@ -74,10 +74,10 @@ export const listingCreationRules = (): ValidationChain[] => {
         }
       }),
     check("salaryRange.maxAmount")
-      .optional()
+      .if(body("salaryRange").exists())
       .isNumeric()
       .withMessage(salaryRangeFailedValidation.MAX_AMOUNT_INVALID_MESSAGE)
-      .custom((value) => {
+      .custom(async (value) => {
         if (value < 0) {
           throw new Error(
             salaryRangeFailedValidation.MAX_AMOUNT_NEGATIVE_MESSAGE
