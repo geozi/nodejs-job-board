@@ -10,6 +10,8 @@ import { userFailedValidation } from "../../src/domain/messages/userValidation.m
 import { userControllerResponseMessages } from "../../src/business/messages/userControllerResponse.message";
 import { User } from "../../src/domain/models/user.model";
 import { commonServiceMessages } from "../../src/service/messages/commonService.message";
+import { Error } from "mongoose";
+import { userServiceMessages } from "../service/messages/userService.message";
 
 describe("User registration integration tests", () => {
   let req: Partial<Request>;
@@ -389,6 +391,25 @@ describe("User registration integration tests", () => {
         assert.strictEqual(
           jsonSpy.calledWith({
             message: commonServiceMessages.SERVER_ERROR,
+          }),
+          true
+        );
+      });
+
+      it("unique constraint error", async () => {
+        functionStub.rejects(new Error.ValidationError());
+
+        for (const middleware of registrationMiddlewareArray) {
+          await middleware(req as Request, res as Response, next);
+        }
+
+        statusStub = res.status as SinonStub;
+        jsonSpy = res.json as SinonSpy;
+
+        assert.strictEqual(statusStub.calledWith(httpCodes.CONFLICT), true);
+        assert.strictEqual(
+          jsonSpy.calledWith({
+            message: "Validation failed",
           }),
           true
         );
