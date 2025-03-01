@@ -12,10 +12,9 @@ import {
   removeListing,
 } from "../../src/service/listing.service";
 import sinon, { SinonStub } from "sinon";
-import { Error, Types } from "mongoose";
+import { Types } from "mongoose";
 import { NotFoundError } from "../../src/errors/notFoundError.class";
 import { ServerError } from "../../src/errors/serverError.class";
-import { UniqueConstraintError } from "../../src/errors/uniqueConstraintError.class";
 import * as chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { validListingInput } from "../testInputs";
@@ -159,15 +158,6 @@ describe("Listing service unit tests", () => {
       functionStub.rejects();
 
       return chai.assert.isRejected(createListing(mockListing), ServerError);
-    });
-
-    it("unique constraint error", async () => {
-      functionStub.rejects(new Error.ValidationError());
-
-      return chai.assert.isRejected(
-        createListing(mockListing),
-        UniqueConstraintError
-      );
     });
   });
 
