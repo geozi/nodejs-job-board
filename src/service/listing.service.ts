@@ -2,7 +2,7 @@
  * Listing service.
  * @module src/service/listing.service
  */
-import { Error, Types } from "mongoose";
+import { Types } from "mongoose";
 import { EmploymentType } from "../domain/enums/employmentType.enum";
 import { ExperienceLevelType } from "../domain/enums/experienceLevelType.enum";
 import { ListingStatus } from "../domain/enums/listingStatus.enum";
@@ -24,7 +24,6 @@ import {
   updateListing,
 } from "../persistence/listing.repository";
 import { listingServiceMessages } from "./messages/listingService.message";
-import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
 
 /**
  * Calls on the persistence layer to retrieve the listings with the specified status.
@@ -206,7 +205,7 @@ export const retrieveListingById = async (
  *
  * @param {IListing} newListing - The new listing to be persisted.
  * @returns {Promise<IListing>} A promise that resolves to an IListing object representing the newly created listing.
- * @throws - {@link UniqueConstraintError} | {@link ServerError}
+ * @throws - {@link ServerError}
  */
 export const createListing = async (
   newListing: IListing
@@ -214,14 +213,6 @@ export const createListing = async (
   try {
     return await addListing(newListing);
   } catch (error) {
-    if (error instanceof Error.ValidationError) {
-      appLogger.error(
-        `Listing service: ${createListing.name} -> ${error.name} detected and re-thrown`
-      );
-
-      throw new UniqueConstraintError(error.message);
-    }
-
     appLogger.error(
       `Listing service: ${createListing.name} -> ServerError detected and re-thrown`
     );
