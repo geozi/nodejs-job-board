@@ -16,6 +16,7 @@ export const personInfoCreationRules = (): ValidationChain[] => {
     check("firstName")
       .notEmpty()
       .withMessage(personFailedValidation.FIRST_NAME_REQUIRED_MESSAGE)
+      .bail()
       .isLength({ min: personConstants.PERSON_NAME_MIN_LENGTH })
       .withMessage(personFailedValidation.FIRST_NAME_BELOW_MIN_LENGTH_MESSAGE)
       .matches(NAME_REGEX)
@@ -23,6 +24,7 @@ export const personInfoCreationRules = (): ValidationChain[] => {
     check("lastName")
       .notEmpty()
       .withMessage(personFailedValidation.LAST_NAME_REQUIRED_MESSAGE)
+      .bail()
       .isLength({ min: personConstants.PERSON_NAME_MIN_LENGTH })
       .withMessage(personFailedValidation.LAST_NAME_BELOW_MIN_LENGTH_MESSAGE)
       .matches(NAME_REGEX)
@@ -30,11 +32,13 @@ export const personInfoCreationRules = (): ValidationChain[] => {
     check("phoneNumber")
       .notEmpty()
       .withMessage(personFailedValidation.PHONE_NUMBER_REQUIRED_MESSAGE)
+      .bail()
       .matches(PHONE_REGEX)
       .withMessage(personFailedValidation.PHONE_NUMBER_INVALID_MESSAGE),
     check("address")
       .notEmpty()
       .withMessage(personFailedValidation.ADDRESS_REQUIRED_MESSAGE)
+      .bail()
       .isLength({ min: commonConstants.GENERIC_MIN_LENGTH })
       .withMessage(personFailedValidation.ADDRESS_BELOW_MIN_LENGTH_MESSAGE),
     check("dateOfBirth")
@@ -50,6 +54,7 @@ export const personInfoCreationRules = (): ValidationChain[] => {
     check("username")
       .notEmpty()
       .withMessage(userFailedValidation.USERNAME_REQUIRED_MESSAGE)
+      .bail()
       .isLength({ min: userConstants.USERNAME_MIN_LENGTH })
       .withMessage(userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE)
       .isLength({ max: userConstants.USERNAME_MAX_LENGTH })
@@ -62,6 +67,7 @@ export const personInfoUpdateRules = (): ValidationChain[] => {
     check("id")
       .notEmpty()
       .withMessage(personFailedValidation.PERSON_ID_REQUIRED_MESSAGE)
+      .bail()
       .isLength({
         min: commonConstants.MONGODB_ID_LENGTH,
         max: commonConstants.MONGODB_ID_LENGTH,
@@ -109,6 +115,7 @@ export const personInfoRetrievalByUsernameRules = (): ValidationChain[] => {
     check("username")
       .notEmpty()
       .withMessage(userFailedValidation.USERNAME_REQUIRED_MESSAGE)
+      .bail()
       .isLength({ min: userConstants.USERNAME_MIN_LENGTH })
       .withMessage(userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE)
       .isLength({ max: userConstants.USERNAME_MAX_LENGTH })

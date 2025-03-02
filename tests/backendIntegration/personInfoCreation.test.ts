@@ -111,11 +111,6 @@ describe("Person info creation integration tests", () => {
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
                 { message: personFailedValidation.FIRST_NAME_REQUIRED_MESSAGE },
-                {
-                  message:
-                    personFailedValidation.FIRST_NAME_BELOW_MIN_LENGTH_MESSAGE,
-                },
-                { message: personFailedValidation.FIRST_NAME_INVALID_MESSAGE },
               ],
             }),
             true
@@ -196,11 +191,6 @@ describe("Person info creation integration tests", () => {
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
                 { message: personFailedValidation.LAST_NAME_REQUIRED_MESSAGE },
-                {
-                  message:
-                    personFailedValidation.LAST_NAME_BELOW_MIN_LENGTH_MESSAGE,
-                },
-                { message: personFailedValidation.LAST_NAME_INVALID_MESSAGE },
               ],
             }),
             true
@@ -283,9 +273,6 @@ describe("Person info creation integration tests", () => {
                 {
                   message: personFailedValidation.PHONE_NUMBER_REQUIRED_MESSAGE,
                 },
-                {
-                  message: personFailedValidation.PHONE_NUMBER_INVALID_MESSAGE,
-                },
               ],
             }),
             true
@@ -338,10 +325,6 @@ describe("Person info creation integration tests", () => {
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
                 { message: personFailedValidation.ADDRESS_REQUIRED_MESSAGE },
-                {
-                  message:
-                    personFailedValidation.ADDRESS_BELOW_MIN_LENGTH_MESSAGE,
-                },
               ],
             }),
             true
@@ -450,10 +433,6 @@ describe("Person info creation integration tests", () => {
               errors: [
                 {
                   message: userFailedValidation.USERNAME_REQUIRED_MESSAGE,
-                },
-                {
-                  message:
-                    userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE,
                 },
               ],
             }),

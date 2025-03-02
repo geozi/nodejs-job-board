@@ -94,10 +94,6 @@ describe("Person info update integration tests", () => {
             message: commonResponseMessages.BAD_REQUEST,
             errors: [
               { message: personFailedValidation.PERSON_ID_REQUIRED_MESSAGE },
-              {
-                message: personFailedValidation.PERSON_ID_OUT_OF_LENGTH_MESSAGE,
-              },
-              { message: personFailedValidation.PERSON_ID_INVALID_MESSAGE },
             ],
           }),
           true
