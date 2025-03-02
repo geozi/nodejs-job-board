@@ -96,10 +96,6 @@ describe("User retrieval by username integration tests", () => {
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
                 { message: userFailedValidation.USERNAME_REQUIRED_MESSAGE },
-                {
-                  message:
-                    userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE,
-                },
               ],
             }),
             true

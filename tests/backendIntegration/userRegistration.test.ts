@@ -93,10 +93,6 @@ describe("User registration integration tests", () => {
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
                 { message: userFailedValidation.USERNAME_REQUIRED_MESSAGE },
-                {
-                  message:
-                    userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE,
-                },
               ],
             }),
             true
@@ -178,7 +174,6 @@ describe("User registration integration tests", () => {
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
                 { message: userFailedValidation.EMAIL_REQUIRED_MESSAGE },
-                { message: userFailedValidation.EMAIL_INVALID_MESSAGE },
               ],
             }),
             true
@@ -233,14 +228,6 @@ describe("User registration integration tests", () => {
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
                 { message: userFailedValidation.PASSWORD_REQUIRED_MESSAGE },
-                {
-                  message:
-                    userFailedValidation.PASSWORD_BELOW_MIN_LENGTH_MESSAGE,
-                },
-                {
-                  message:
-                    userFailedValidation.PASSWORD_MUST_HAVE_CHARACTERS_MESSAGE,
-                },
               ],
             }),
             true
@@ -324,10 +311,7 @@ describe("User registration integration tests", () => {
           assert.strictEqual(
             jsonSpy.calledWith({
               message: commonResponseMessages.BAD_REQUEST,
-              errors: [
-                { message: userFailedValidation.ROLE_REQUIRED_MESSAGE },
-                { message: userFailedValidation.ROLE_INVALID_MESSAGE },
-              ],
+              errors: [{ message: userFailedValidation.ROLE_REQUIRED_MESSAGE }],
             }),
             true
           );

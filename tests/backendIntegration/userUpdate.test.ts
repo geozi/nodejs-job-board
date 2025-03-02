@@ -93,8 +93,6 @@ describe("User update integration tests", () => {
             message: commonResponseMessages.BAD_REQUEST,
             errors: [
               { message: userFailedValidation.USER_ID_REQUIRED_MESSAGE },
-              { message: userFailedValidation.USER_ID_OUT_OF_LENGTH_MESSAGE },
-              { message: userFailedValidation.USER_ID_INVALID_MESSAGE },
             ],
           }),
           true

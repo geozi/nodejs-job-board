@@ -14,6 +14,7 @@ export const userRegistrationRules = (): ValidationChain[] => {
     check("username")
       .notEmpty()
       .withMessage(userFailedValidation.USERNAME_REQUIRED_MESSAGE)
+      .bail()
       .isLength({ min: userConstants.USERNAME_MIN_LENGTH })
       .withMessage(userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE)
       .isLength({ max: userConstants.USERNAME_MAX_LENGTH })
@@ -21,11 +22,13 @@ export const userRegistrationRules = (): ValidationChain[] => {
     check("email")
       .notEmpty()
       .withMessage(userFailedValidation.EMAIL_REQUIRED_MESSAGE)
+      .bail()
       .matches(EMAIL_REGEX)
       .withMessage(userFailedValidation.EMAIL_INVALID_MESSAGE),
     check("password")
       .notEmpty()
       .withMessage(userFailedValidation.PASSWORD_REQUIRED_MESSAGE)
+      .bail()
       .isLength({ min: userConstants.PASSWORD_MIN_LENGTH })
       .withMessage(userFailedValidation.PASSWORD_BELOW_MIN_LENGTH_MESSAGE)
       .matches(PASSWORD_REGEX)
@@ -33,6 +36,7 @@ export const userRegistrationRules = (): ValidationChain[] => {
     check("role")
       .notEmpty()
       .withMessage(userFailedValidation.ROLE_REQUIRED_MESSAGE)
+      .bail()
       .isIn([RoleType.Admin, RoleType.User])
       .withMessage(userFailedValidation.ROLE_INVALID_MESSAGE),
   ];
@@ -43,6 +47,7 @@ export const userUpdateRules = (): ValidationChain[] => {
     check("id")
       .notEmpty()
       .withMessage(userFailedValidation.USER_ID_REQUIRED_MESSAGE)
+      .bail()
       .isLength({
         min: commonConstants.MONGODB_ID_LENGTH,
         max: commonConstants.MONGODB_ID_LENGTH,
@@ -74,6 +79,7 @@ export const userRetrievalByUsernameRules = (): ValidationChain[] => {
     check("username")
       .notEmpty()
       .withMessage(userFailedValidation.USERNAME_REQUIRED_MESSAGE)
+      .bail()
       .isLength({ min: userConstants.USERNAME_MIN_LENGTH })
       .withMessage(userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE)
       .isLength({ max: userConstants.USERNAME_MAX_LENGTH })
@@ -86,6 +92,7 @@ export const userRetrievalByEmailRules = (): ValidationChain[] => {
     check("email")
       .notEmpty()
       .withMessage(userFailedValidation.EMAIL_REQUIRED_MESSAGE)
+      .bail()
       .matches(EMAIL_REGEX)
       .withMessage(userFailedValidation.EMAIL_INVALID_MESSAGE),
   ];
@@ -96,6 +103,7 @@ export const userRetrievalByRoleRules = (): ValidationChain[] => {
     check("role")
       .notEmpty()
       .withMessage(userFailedValidation.ROLE_REQUIRED_MESSAGE)
+      .bail()
       .isIn([RoleType.Admin, RoleType.User])
       .withMessage(userFailedValidation.ROLE_INVALID_MESSAGE),
   ];

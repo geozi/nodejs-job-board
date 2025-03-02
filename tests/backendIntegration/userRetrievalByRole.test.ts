@@ -94,10 +94,7 @@ describe("User retrieval by role integration tests", () => {
           assert.strictEqual(
             jsonSpy.calledWith({
               message: commonResponseMessages.BAD_REQUEST,
-              errors: [
-                { message: userFailedValidation.ROLE_REQUIRED_MESSAGE },
-                { message: userFailedValidation.ROLE_INVALID_MESSAGE },
-              ],
+              errors: [{ message: userFailedValidation.ROLE_REQUIRED_MESSAGE }],
             }),
             true
           );

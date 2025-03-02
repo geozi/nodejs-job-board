@@ -96,7 +96,6 @@ describe("User retrieval by email integration tests", () => {
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
                 { message: userFailedValidation.EMAIL_REQUIRED_MESSAGE },
-                { message: userFailedValidation.EMAIL_INVALID_MESSAGE },
               ],
             }),
             true
