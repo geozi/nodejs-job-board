@@ -2,11 +2,14 @@ import assert from "assert";
 import { Request, Response } from "express";
 import sinon, { SinonSpy, SinonStub } from "sinon";
 import {
+  invalidCommonInputs,
   invalidEducationInputs,
   invalidPersonInputs,
   invalidUserInputs,
+  invalidWorkExperienceInputs,
   validEducationInput,
   validPersonInput,
+  validWorkExperienceInput,
 } from "../testInputs";
 import { infoCreationMiddlewareArray } from "../../src/business/api/v1/controllers/person.controller";
 import { httpCodes } from "../../src/business/codes/responseStatusCodes";
@@ -20,6 +23,7 @@ import { Error } from "mongoose";
 import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
 import { educationFailedValidation } from "../../src/domain/messages/educationValidation.message";
 import { commonFailedValidation } from "../../src/domain/messages/commonValidation.message";
+import { workExperienceFailedValidation } from "../../src/domain/messages/workExperienceValidation.message";
 
 describe.only("Person info creation integration tests", () => {
   let req: Partial<Request>;
@@ -548,7 +552,7 @@ describe.only("Person info creation integration tests", () => {
           let test = { ...validEducationInput };
           req.body.education.push(test);
           req.body.education[0].startingDate =
-            invalidEducationInputs.INVALID_STARTING_DATE;
+            invalidCommonInputs.INVALID_STARTING_DATE;
 
           for (const middleware of infoCreationMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
@@ -639,7 +643,7 @@ describe.only("Person info creation integration tests", () => {
           let test = { ...validEducationInput };
           req.body.education.push(test);
           req.body.education[0].isOngoing =
-            invalidEducationInputs.INVALID_IS_ONGOING;
+            invalidCommonInputs.INVALID_IS_ONGOING;
 
           for (const middleware of infoCreationMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
@@ -685,6 +689,341 @@ describe.only("Person info creation integration tests", () => {
               errors: [
                 {
                   message: personFailedValidation.WORK_EXPERIENCE_REQUIRED,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("workExp jobTitle is undefined", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].jobTitle = undefined;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    workExperienceFailedValidation.JOB_TITLE_REQUIRED_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("workExp jobTitle is too short", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].jobTitle =
+            invalidWorkExperienceInputs.TOO_SHORT_JOB_TITLE;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    workExperienceFailedValidation.JOB_TITLE_MIN_LENGTH_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("workExp organizationName is undefined", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].organizationName = undefined;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    commonFailedValidation.ORGANIZATION_NAME_REQUIRED_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("workExp organizationName is too short", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].organizationName =
+            invalidCommonInputs.TOO_SHORT_ORGANIZATION_NAME;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    commonFailedValidation.ORGANIZATION_NAME_MIN_LENGTH_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("workExp city is undefined", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].city = undefined;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message: workExperienceFailedValidation.CITY_REQUIRED_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        invalidCommonInputs.INVALID_COUNTRY_CASES.forEach(
+          ([testName, invalidCountryName]) => {
+            it(testName, async () => {
+              let test = { ...validWorkExperienceInput };
+              req.body.workExperience.push(test);
+              req.body.workExperience[0].country = invalidCountryName;
+
+              for (const middleware of infoCreationMiddlewareArray) {
+                await middleware(req as Request, res as Response, next);
+              }
+
+              statusStub = res.status as SinonStub;
+              jsonSpy = res.json as SinonSpy;
+
+              assert.strictEqual(
+                statusStub.calledWith(httpCodes.BAD_REQUEST),
+                true
+              );
+              assert.strictEqual(
+                jsonSpy.calledWith({
+                  message: commonResponseMessages.BAD_REQUEST,
+                  errors: [
+                    {
+                      message: commonFailedValidation.COUNTRY_INVALID_MESSAGE,
+                    },
+                  ],
+                }),
+                true
+              );
+            });
+          }
+        );
+
+        it("workExp startingDate is undefined", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].startingDate = undefined;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    workExperienceFailedValidation.STARTING_DATE_REQUIRED_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("workExp startingDate is invalid", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].startingDate =
+            invalidCommonInputs.INVALID_STARTING_DATE;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    workExperienceFailedValidation.STARTING_DATE_INVALID_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("workExp endingDate is invalid", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].endingDate =
+            invalidWorkExperienceInputs.INVALID_ENDING_DATE;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    workExperienceFailedValidation.ENDING_DATE_INVALID_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("workExp isOngoing is undefined", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].isOngoing = undefined;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message: commonFailedValidation.IS_ONGOING_REQUIRED_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("workExp isOngoing is invalid", async () => {
+          let test = { ...validWorkExperienceInput };
+          req.body.workExperience.push(test);
+          req.body.workExperience[0].isOngoing =
+            invalidCommonInputs.INVALID_IS_ONGOING;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message: commonFailedValidation.IS_ONGOING_INVALID_MESSAGE,
                 },
               ],
             }),

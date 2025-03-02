@@ -109,7 +109,7 @@ export const personInfoCreationRules = (): ValidationChain[] => {
               );
             }
 
-            if (!DATE_REGEX.test(item.graduationDate)) {
+            if (item.graduationDate && !DATE_REGEX.test(item.graduationDate)) {
               throw new Error(
                 educationFailedValidation.GRADUATION_DATE_INVALID_MESSAGE
               );
@@ -133,7 +133,78 @@ export const personInfoCreationRules = (): ValidationChain[] => {
       .withMessage(personFailedValidation.WORK_EXPERIENCE_REQUIRED)
       .bail()
       .isArray()
-      .withMessage(personFailedValidation.WORK_EXPERIENCE_INVALID_FORMAT),
+      .withMessage(personFailedValidation.WORK_EXPERIENCE_INVALID_FORMAT)
+      .custom(async (workExperienceArray) => {
+        if (
+          Array.isArray(workExperienceArray) &&
+          workExperienceArray.length > 0
+        ) {
+          for (let i = 0; i < workExperienceArray.length; i++) {
+            const item = workExperienceArray[i];
+
+            if (!item.jobTitle) {
+              throw new Error(
+                workExperienceFailedValidation.JOB_TITLE_REQUIRED_MESSAGE
+              );
+            } else if (
+              item.jobTitle.length <
+              workExperienceConstants.JOB_TITLE_MIN_LENGTH
+            ) {
+              throw new Error(
+                workExperienceFailedValidation.JOB_TITLE_MIN_LENGTH_MESSAGE
+              );
+            }
+
+            if (!item.organizationName) {
+              throw new Error(
+                commonFailedValidation.ORGANIZATION_NAME_REQUIRED_MESSAGE
+              );
+            } else if (
+              item.organizationName.length < commonConstants.GENERIC_MIN_LENGTH
+            ) {
+              throw new Error(
+                commonFailedValidation.ORGANIZATION_NAME_MIN_LENGTH_MESSAGE
+              );
+            }
+
+            if (!item.city) {
+              throw new Error(
+                workExperienceFailedValidation.CITY_REQUIRED_MESSAGE
+              );
+            }
+
+            if (item.country && !COUNTRY_REGEX.test(item.country)) {
+              throw new Error(commonFailedValidation.COUNTRY_INVALID_MESSAGE);
+            }
+
+            if (!item.startingDate) {
+              throw new Error(
+                workExperienceFailedValidation.STARTING_DATE_REQUIRED_MESSAGE
+              );
+            } else if (!DATE_REGEX.test(item.startingDate)) {
+              throw new Error(
+                workExperienceFailedValidation.STARTING_DATE_INVALID_MESSAGE
+              );
+            }
+
+            if (item.endingDate && !DATE_REGEX.test(item.endingDate)) {
+              throw new Error(
+                workExperienceFailedValidation.ENDING_DATE_INVALID_MESSAGE
+              );
+            }
+
+            if (!item.isOngoing) {
+              throw new Error(
+                commonFailedValidation.IS_ONGOING_REQUIRED_MESSAGE
+              );
+            } else if (!isBoolean(item.isOngoing)) {
+              throw new Error(
+                commonFailedValidation.IS_ONGOING_INVALID_MESSAGE
+              );
+            }
+          }
+        }
+      }),
 
     check("username")
       .notEmpty()

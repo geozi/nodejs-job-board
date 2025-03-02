@@ -104,9 +104,7 @@ export const invalidPersonInputs = {
 export const invalidEducationInputs = {
   TOO_SHORT_DEGREE_TITLE: "Degree",
   TOO_SHORT_INSTITUTION: "Inst",
-  INVALID_STARTING_DATE: "February",
   INVALID_GRADUATION_DATE: "March",
-  INVALID_IS_ONGOING: "lol",
 };
 
 export const invalidCommonInputs = {
@@ -118,10 +116,13 @@ export const invalidCommonInputs = {
     ["country name contains underscores", "Papua_New_Guinea"],
     ["country name contains dollar sign", "Curaçao$"],
   ],
+  INVALID_STARTING_DATE: "February",
+  INVALID_IS_ONGOING: "lol",
 };
 
 export const invalidWorkExperienceInputs = {
   TOO_SHORT_JOB_TITLE: "IT",
+  INVALID_ENDING_DATE: "March 2",
 };
 
 export const invalidTaskInputs = {
