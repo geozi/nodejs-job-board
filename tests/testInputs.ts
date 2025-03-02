@@ -240,6 +240,10 @@ How to Apply:
 
 Please submit your resume, cover letter, and portfolio of relevant projects to [email address] with the subject line "Senior Software Engineer Application - [Your Name]." We look forward to reviewing your application and discussing how you can contribute to our team's success.`,
   INVALID_DATE_POSTED: "December",
+  INVALID_MIN_AMOUNT: "one thousand",
+  INVALID_MAX_AMOUNT: "three thousand",
+  NEGATIVE_MIN_AMOUNT: "-100",
+  NEGATIVE_MAX_AMOUNT: "-1000",
 };
 
 export const validApplicationInput = {
