@@ -1,4 +1,3 @@
-import { Schema } from "mongoose";
 import { RoleType } from "../src/domain/enums/roleType.enum";
 import { WorkType } from "../src/domain/enums/workType.enum";
 import { EmploymentType } from "../src/domain/enums/employmentType.enum";

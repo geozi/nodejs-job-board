@@ -1,4 +1,4 @@
-import { body, check, ValidationChain } from "express-validator";
+import { check, ValidationChain } from "express-validator";
 import { personFailedValidation } from "../../../../domain/messages/personValidation.message";
 import { personConstants } from "../../../../domain/constants/person.constant";
 import {
@@ -70,6 +70,12 @@ export const personInfoCreationRules = (): ValidationChain[] => {
       .bail()
       .isArray()
       .withMessage(personFailedValidation.EDUCATION_INVALID_FORMAT)
+      .custom((educationArray) => {
+        if (educationArray.length > 5) {
+          throw new Error(personFailedValidation.EDUCATION_TOO_LONG);
+        }
+        return true;
+      })
       .custom(async (educationArray) => {
         if (Array.isArray(educationArray) && educationArray.length > 0) {
           for (let i = 0; i < educationArray.length; i++) {
@@ -126,6 +132,7 @@ export const personInfoCreationRules = (): ValidationChain[] => {
             }
           }
         }
+        return true;
       }),
 
     check("workExperience")
@@ -134,6 +141,12 @@ export const personInfoCreationRules = (): ValidationChain[] => {
       .bail()
       .isArray()
       .withMessage(personFailedValidation.WORK_EXPERIENCE_INVALID_FORMAT)
+      .custom((workExperienceArray) => {
+        if (workExperienceArray.length > 5) {
+          throw new Error(personFailedValidation.WORK_EXPERIENCE_TOO_LONG);
+        }
+        return true;
+      })
       .custom(async (workExperienceArray) => {
         if (
           Array.isArray(workExperienceArray) &&
@@ -204,6 +217,8 @@ export const personInfoCreationRules = (): ValidationChain[] => {
             }
           }
         }
+
+        return true;
       }),
 
     check("username")
