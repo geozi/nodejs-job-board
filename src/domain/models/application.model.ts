@@ -8,6 +8,7 @@ import { commonConstants } from "../constants/common.constant";
 import { personFailedValidation } from "../messages/personValidation.message";
 import { listingFailedValidation } from "../messages/listingValidation.message";
 import { ID_REGEX } from "../resources/validationRegExp";
+import mongooseUniqueValidator from "mongoose-unique-validator";
 
 /**
  * Application schema for persistence in MongoDB.
@@ -48,6 +49,11 @@ const applicationSchema = new Schema<IApplication>(
 );
 
 applicationSchema.index({ personId: 1, listingId: 1 }, { unique: true });
+
+applicationSchema.plugin(mongooseUniqueValidator, {
+  message: "{PATH} already exists in the database",
+  type: "UniqueConstraintError",
+});
 
 export const Application = model<IApplication>(
   "Application",
