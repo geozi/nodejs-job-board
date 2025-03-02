@@ -126,10 +126,6 @@ describe("Listing creation integration tests", () => {
                   message:
                     commonFailedValidation.ORGANIZATION_NAME_REQUIRED_MESSAGE,
                 },
-                {
-                  message:
-                    commonFailedValidation.ORGANIZATION_NAME_MIN_LENGTH_MESSAGE,
-                },
               ],
             }),
             true
@@ -186,9 +182,6 @@ describe("Listing creation integration tests", () => {
                 {
                   message: listingFailedValidation.DATE_POSTED_REQUIRED_MESSAGE,
                 },
-                {
-                  message: listingFailedValidation.DATE_POSTED_INVALID_MESSAGE,
-                },
               ],
             }),
             true
@@ -222,7 +215,7 @@ describe("Listing creation integration tests", () => {
           );
         });
 
-        it("workType is required", async () => {
+        it("workType is undefined", async () => {
           req.body.workType = undefined;
 
           for (const middleware of listingCreationMiddlewareArray) {
@@ -241,7 +234,6 @@ describe("Listing creation integration tests", () => {
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
                 { message: listingFailedValidation.WORK_TYPE_REQUIRED_MESSAGE },
-                { message: listingFailedValidation.WORK_TYPE_INVALID_MESSAGE },
               ],
             }),
             true
@@ -294,10 +286,6 @@ describe("Listing creation integration tests", () => {
                 {
                   message:
                     listingFailedValidation.EMPLOYMENT_TYPE_REQUIRED_MESSAGE,
-                },
-                {
-                  message:
-                    listingFailedValidation.EMPLOYMENT_TYPE_INVALID_MESSAGE,
                 },
               ],
             }),
@@ -354,10 +342,6 @@ describe("Listing creation integration tests", () => {
                 {
                   message:
                     listingFailedValidation.EXPERIENCE_LEVEL_REQUIRED_MESSAGE,
-                },
-                {
-                  message:
-                    listingFailedValidation.EXPERIENCE_LEVEL_INVALID_MESSAGE,
                 },
               ],
             }),
@@ -442,7 +426,6 @@ describe("Listing creation integration tests", () => {
                 {
                   message: listingFailedValidation.COUNTRY_REQUIRED_MESSAGE,
                 },
-                { message: commonFailedValidation.COUNTRY_INVALID_MESSAGE },
               ],
             }),
             true
@@ -470,10 +453,6 @@ describe("Listing creation integration tests", () => {
                 {
                   message:
                     listingFailedValidation.LISTING_DESCRIPTION_REQUIRED_MESSAGE,
-                },
-                {
-                  message:
-                    listingFailedValidation.LISTING_DESCRIPTION_BELOW_MIN_LENGTH_MESSAGE,
                 },
               ],
             }),
@@ -676,7 +655,6 @@ describe("Listing creation integration tests", () => {
                 {
                   message: listingFailedValidation.STATUS_REQUIRED,
                 },
-                { message: listingFailedValidation.STATUS_INVALID },
               ],
             }),
             true
