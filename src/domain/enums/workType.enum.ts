@@ -37,3 +37,9 @@ export const workTypeArray = [
   WorkType.On_Site,
   WorkType.Remote,
 ];
+
+export const workTypeMap: { [key: string]: WorkType } = {
+  [WorkType.Hybrid.toString()]: WorkType.Hybrid,
+  [WorkType.On_Site.toString()]: WorkType.On_Site,
+  [WorkType.Remote.toString()]: WorkType.Remote,
+};

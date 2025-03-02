@@ -53,3 +53,11 @@ export const employmentTypeArray = [
   EmploymentType.Temporary,
   EmploymentType.Other,
 ];
+
+export const employmentTypeMap: { [key: string]: EmploymentType } = {
+  [EmploymentType.Contract.toString()]: EmploymentType.Contract,
+  [EmploymentType.Full_Time.toString()]: EmploymentType.Full_Time,
+  [EmploymentType.Part_Time.toString()]: EmploymentType.Part_Time,
+  [EmploymentType.Temporary.toString()]: EmploymentType.Temporary,
+  [EmploymentType.Other.toString()]: EmploymentType.Other,
+};

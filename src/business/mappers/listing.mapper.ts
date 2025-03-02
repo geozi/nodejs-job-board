@@ -1,8 +1,8 @@
 import { Request } from "express";
 import { Listing } from "../../domain/models/listing.model";
-import { WorkType } from "../../domain/enums/workType.enum";
-import { EmploymentType } from "../../domain/enums/employmentType.enum";
-import { ExperienceLevelType } from "../../domain/enums/experienceLevelType.enum";
+import { workTypeMap } from "../../domain/enums/workType.enum";
+import { employmentTypeMap } from "../../domain/enums/employmentType.enum";
+import { experienceLevelMap } from "../../domain/enums/experienceLevelType.enum";
 import { ISalaryRange } from "../../domain/interfaces/secondary/iSalaryRange.interface";
 import { ListingStatus } from "../../domain/enums/listingStatus.enum";
 import { Types } from "mongoose";
@@ -33,35 +33,8 @@ export const reqBodyToListing = function (req: Request): IListing {
     listingDesc: listingDesc,
   });
 
-  const workTypeMap: { [key: string]: WorkType } = {
-    [WorkType.Hybrid.toString()]: WorkType.Hybrid,
-    [WorkType.On_Site.toString()]: WorkType.On_Site,
-    [WorkType.Remote.toString()]: WorkType.Remote,
-  };
-
   listing.workType = workTypeMap[workType];
-
-  const employmentTypeMap: { [key: string]: EmploymentType } = {
-    [EmploymentType.Contract.toString()]: EmploymentType.Contract,
-    [EmploymentType.Full_Time.toString()]: EmploymentType.Full_Time,
-    [EmploymentType.Part_Time.toString()]: EmploymentType.Part_Time,
-    [EmploymentType.Temporary.toString()]: EmploymentType.Temporary,
-    [EmploymentType.Other.toString()]: EmploymentType.Other,
-  };
-
   listing.employmentType = employmentTypeMap[employmentType];
-
-  const experienceLevelMap: { [key: string]: ExperienceLevelType } = {
-    [ExperienceLevelType.Internship.toString()]: ExperienceLevelType.Internship,
-    [ExperienceLevelType.Entry_Level.toString()]:
-      ExperienceLevelType.Entry_Level,
-    [ExperienceLevelType.Mid_Senior_Level.toString()]:
-      ExperienceLevelType.Mid_Senior_Level,
-    [ExperienceLevelType.Associate.toString()]: ExperienceLevelType.Associate,
-    [ExperienceLevelType.Director.toString()]: ExperienceLevelType.Director,
-    [ExperienceLevelType.Executive.toString()]: ExperienceLevelType.Executive,
-  };
-
   listing.experienceLevel = experienceLevelMap[experienceLevel];
 
   if (salaryRange) {
@@ -112,35 +85,8 @@ export const reqBodyToListingUpdate = function (req: Request): IListingUpdate {
     listingDesc: listingDesc,
   };
 
-  const workTypeMap: { [key: string]: WorkType } = {
-    [WorkType.Hybrid.toString()]: WorkType.Hybrid,
-    [WorkType.On_Site.toString()]: WorkType.On_Site,
-    [WorkType.Remote.toString()]: WorkType.Remote,
-  };
-
   listingToUpdate.workType = workTypeMap[workType];
-
-  const employmentTypeMap: { [key: string]: EmploymentType } = {
-    [EmploymentType.Contract.toString()]: EmploymentType.Contract,
-    [EmploymentType.Full_Time.toString()]: EmploymentType.Full_Time,
-    [EmploymentType.Part_Time.toString()]: EmploymentType.Part_Time,
-    [EmploymentType.Temporary.toString()]: EmploymentType.Temporary,
-    [EmploymentType.Other.toString()]: EmploymentType.Other,
-  };
-
   listingToUpdate.employmentType = employmentTypeMap[employmentType];
-
-  const experienceLevelMap: { [key: string]: ExperienceLevelType } = {
-    [ExperienceLevelType.Internship.toString()]: ExperienceLevelType.Internship,
-    [ExperienceLevelType.Entry_Level.toString()]:
-      ExperienceLevelType.Entry_Level,
-    [ExperienceLevelType.Mid_Senior_Level.toString()]:
-      ExperienceLevelType.Mid_Senior_Level,
-    [ExperienceLevelType.Associate.toString()]: ExperienceLevelType.Associate,
-    [ExperienceLevelType.Director.toString()]: ExperienceLevelType.Director,
-    [ExperienceLevelType.Executive.toString()]: ExperienceLevelType.Executive,
-  };
-
   listingToUpdate.experienceLevel = experienceLevelMap[experienceLevel];
 
   if (salaryRange) {

@@ -62,3 +62,13 @@ export const experienceLevelTypeArray = [
   ExperienceLevelType.Director,
   ExperienceLevelType.Executive,
 ];
+
+export const experienceLevelMap: { [key: string]: ExperienceLevelType } = {
+  [ExperienceLevelType.Internship.toString()]: ExperienceLevelType.Internship,
+  [ExperienceLevelType.Entry_Level.toString()]: ExperienceLevelType.Entry_Level,
+  [ExperienceLevelType.Mid_Senior_Level.toString()]:
+    ExperienceLevelType.Mid_Senior_Level,
+  [ExperienceLevelType.Associate.toString()]: ExperienceLevelType.Associate,
+  [ExperienceLevelType.Director.toString()]: ExperienceLevelType.Director,
+  [ExperienceLevelType.Executive.toString()]: ExperienceLevelType.Executive,
+};
