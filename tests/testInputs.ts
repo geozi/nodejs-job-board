@@ -45,9 +45,9 @@ export const validPersonInput = {
 export const validEducationInput = {
   degreeTitle: "Software Engineering",
   institution: "Central University",
-  startingDate: new Date("2018-09-17"),
-  graduationDate: new Date("2022-06-22"),
-  isOngoing: new Schema.Types.Boolean("false"),
+  startingDate: "2018-09-17",
+  graduationDate: "2022-06-22",
+  isOngoing: "false",
 };
 
 export const validWorkExperienceInput = {
@@ -57,7 +57,7 @@ export const validWorkExperienceInput = {
   country: "Greece",
   startingDate: "2022-09-09",
   endingDate: undefined,
-  isOngoing: new Boolean("true"),
+  isOngoing: "true",
 };
 
 export const validTaskInputs = [
@@ -104,6 +104,9 @@ export const invalidPersonInputs = {
 export const invalidEducationInputs = {
   TOO_SHORT_DEGREE_TITLE: "Degree",
   TOO_SHORT_INSTITUTION: "Inst",
+  INVALID_STARTING_DATE: "February",
+  INVALID_GRADUATION_DATE: "March",
+  INVALID_IS_ONGOING: "lol",
 };
 
 export const invalidCommonInputs = {

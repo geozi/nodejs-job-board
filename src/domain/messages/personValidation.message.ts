@@ -27,7 +27,9 @@ import {
  * @property {string} ADDRESS_BELOW_MIN_LENGTH_MESSAGE - Message sent when the provided address is shorter than the accepted minimum length.
  * @property {string} DATE_OF_BIRTH_INVALID_MESSAGE - Message sent when the provided date of birth does not match the {@link DATE_REGEX}.
  * @property {string} EDUCATION_REQUIRED - Message sent when the education field is not provided.
+ * @property {string} EDUCATION_INVALID_FORMAT - Message sent when the education field is not an array.
  * @property {string} WORK_EXPERIENCE_REQUIRED - Message sent when the work experience field is not provided.
+ * @property {string} WORK_EXPERIENCE_INVALID_FORMAT - Message sent when the work experience field is not an array.
  * @property {string} PERSON_ID_REQUIRED_MESSAGE - Message sent when no person ID is provided for application, person info update and/or deletion operations.
  * @property {string} PERSON_ID_INVALID_MESSAGE - Message sent when the provided person ID does not match the {@link ID_REGEX}.
  * @property {string} PERSON_ID_OUT_OF_LENGTH_MESSAGE - Message sent when the provided person ID is either longer or shorter than the accepted length.
@@ -106,10 +108,22 @@ export const personFailedValidation = {
   EDUCATION_REQUIRED: "Education is a required field",
 
   /**
+   * Message sent when the education field is not an array.
+   * @type {string}
+   */
+  EDUCATION_INVALID_FORMAT: "Education field must be an array",
+
+  /**
    * Message sent when the work experience field is not provided.
    * @type {string}
    */
   WORK_EXPERIENCE_REQUIRED: "Work experience is a required field",
+
+  /**
+   * Message sent when the work experience field is not an array.
+   * @type {string}
+   */
+  WORK_EXPERIENCE_INVALID_FORMAT: "Work experience field must be an array",
 
   /**
    * Message sent when no person ID is provided for application, person info update and/or deletion operations.

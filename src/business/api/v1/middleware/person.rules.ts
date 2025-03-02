@@ -1,7 +1,8 @@
-import { check, ValidationChain } from "express-validator";
+import { body, check, ValidationChain } from "express-validator";
 import { personFailedValidation } from "../../../../domain/messages/personValidation.message";
 import { personConstants } from "../../../../domain/constants/person.constant";
 import {
+  COUNTRY_REGEX,
   DATE_REGEX,
   ID_REGEX,
   NAME_REGEX,
@@ -10,6 +11,19 @@ import {
 import { commonConstants } from "../../../../domain/constants/common.constant";
 import { userFailedValidation } from "../../../../domain/messages/userValidation.message";
 import { userConstants } from "../../../../domain/constants/user.constant";
+import { educationFailedValidation } from "../../../../domain/messages/educationValidation.message";
+import { commonFailedValidation } from "../../../../domain/messages/commonValidation.message";
+import { workExperienceFailedValidation } from "../../../../domain/messages/workExperienceValidation.message";
+import { workExperienceConstants } from "../../../../domain/constants/workExperience.constant";
+
+function isBoolean(value: string) {
+  let result = false;
+  if (value === "true" || value === "false") {
+    result = true;
+  }
+
+  return result;
+}
 
 export const personInfoCreationRules = (): ValidationChain[] => {
   return [
@@ -21,6 +35,7 @@ export const personInfoCreationRules = (): ValidationChain[] => {
       .withMessage(personFailedValidation.FIRST_NAME_BELOW_MIN_LENGTH_MESSAGE)
       .matches(NAME_REGEX)
       .withMessage(personFailedValidation.FIRST_NAME_INVALID_MESSAGE),
+
     check("lastName")
       .notEmpty()
       .withMessage(personFailedValidation.LAST_NAME_REQUIRED_MESSAGE)
@@ -29,28 +44,97 @@ export const personInfoCreationRules = (): ValidationChain[] => {
       .withMessage(personFailedValidation.LAST_NAME_BELOW_MIN_LENGTH_MESSAGE)
       .matches(NAME_REGEX)
       .withMessage(personFailedValidation.LAST_NAME_INVALID_MESSAGE),
+
     check("phoneNumber")
       .notEmpty()
       .withMessage(personFailedValidation.PHONE_NUMBER_REQUIRED_MESSAGE)
       .bail()
       .matches(PHONE_REGEX)
       .withMessage(personFailedValidation.PHONE_NUMBER_INVALID_MESSAGE),
+
     check("address")
       .notEmpty()
       .withMessage(personFailedValidation.ADDRESS_REQUIRED_MESSAGE)
       .bail()
       .isLength({ min: commonConstants.GENERIC_MIN_LENGTH })
       .withMessage(personFailedValidation.ADDRESS_BELOW_MIN_LENGTH_MESSAGE),
+
     check("dateOfBirth")
       .optional()
       .matches(DATE_REGEX)
       .withMessage(personFailedValidation.DATE_OF_BIRTH_INVALID_MESSAGE),
+
     check("education")
       .notEmpty()
-      .withMessage(personFailedValidation.EDUCATION_REQUIRED),
+      .withMessage(personFailedValidation.EDUCATION_REQUIRED)
+      .bail()
+      .isArray()
+      .withMessage(personFailedValidation.EDUCATION_INVALID_FORMAT)
+      .custom(async (educationArray) => {
+        if (Array.isArray(educationArray) && educationArray.length > 0) {
+          for (let i = 0; i < educationArray.length; i++) {
+            const item = educationArray[i];
+
+            if (!item.degreeTitle) {
+              throw new Error(
+                educationFailedValidation.DEGREE_TITLE_REQUIRED_MESSAGE
+              );
+            } else if (
+              item.degreeTitle.length < commonConstants.GENERIC_MIN_LENGTH
+            ) {
+              throw new Error(
+                educationFailedValidation.DEGREE_TITLE_MIN_LENGTH_MESSAGE
+              );
+            }
+
+            if (!item.institution) {
+              throw new Error(
+                educationFailedValidation.INSTITUTION_REQUIRED_MESSAGE
+              );
+            } else if (
+              item.institution.length < commonConstants.GENERIC_MIN_LENGTH
+            ) {
+              throw new Error(
+                educationFailedValidation.INSTITUTION_MIN_LENGTH_MESSAGE
+              );
+            }
+
+            if (!item.startingDate) {
+              throw new Error(
+                educationFailedValidation.STARTING_DATE_REQUIRED_MESSAGE
+              );
+            } else if (!DATE_REGEX.test(item.startingDate)) {
+              throw new Error(
+                educationFailedValidation.STARTING_DATE_INVALID_MESSAGE
+              );
+            }
+
+            if (!DATE_REGEX.test(item.graduationDate)) {
+              throw new Error(
+                educationFailedValidation.GRADUATION_DATE_INVALID_MESSAGE
+              );
+            }
+
+            if (!item.isOngoing) {
+              throw new Error(
+                commonFailedValidation.IS_ONGOING_REQUIRED_MESSAGE
+              );
+            } else if (!isBoolean(item.isOngoing)) {
+              throw new Error(
+                commonFailedValidation.IS_ONGOING_INVALID_MESSAGE
+              );
+            }
+          }
+        }
+      }),
+
     check("workExperience")
       .notEmpty()
-      .withMessage(personFailedValidation.WORK_EXPERIENCE_REQUIRED),
+      .withMessage(personFailedValidation.WORK_EXPERIENCE_REQUIRED)
+      .bail()
+      .isArray()
+      .withMessage(personFailedValidation.WORK_EXPERIENCE_INVALID_FORMAT),
+
     check("username")
       .notEmpty()
       .withMessage(userFailedValidation.USERNAME_REQUIRED_MESSAGE)

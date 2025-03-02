@@ -2,8 +2,10 @@ import assert from "assert";
 import { Request, Response } from "express";
 import sinon, { SinonSpy, SinonStub } from "sinon";
 import {
+  invalidEducationInputs,
   invalidPersonInputs,
   invalidUserInputs,
+  validEducationInput,
   validPersonInput,
 } from "../testInputs";
 import { infoCreationMiddlewareArray } from "../../src/business/api/v1/controllers/person.controller";
@@ -16,8 +18,10 @@ import { personFailedValidation } from "../../src/domain/messages/personValidati
 import { commonServiceMessages } from "../../src/service/messages/commonService.message";
 import { Error } from "mongoose";
 import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
+import { educationFailedValidation } from "../../src/domain/messages/educationValidation.message";
+import { commonFailedValidation } from "../../src/domain/messages/commonValidation.message";
 
-describe("Person info creation integration tests", () => {
+describe.only("Person info creation integration tests", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: SinonSpy;
@@ -42,10 +46,12 @@ describe("Person info creation integration tests", () => {
 
       next = sinon.spy();
       req = {
-        body: {
-          dateOfBirth: "2001-02-18",
-          ...validPersonInput,
-        },
+        body: JSON.parse(
+          JSON.stringify({
+            dateOfBirth: "2001-02-18",
+            ...validPersonInput,
+          })
+        ),
       };
     });
 
@@ -85,10 +91,12 @@ describe("Person info creation integration tests", () => {
 
           next = sinon.spy();
           req = {
-            body: {
-              dateOfBirth: "2001-02-18",
-              ...validPersonInput,
-            },
+            body: JSON.parse(
+              JSON.stringify({
+                dateOfBirth: "2001-02-18",
+                ...validPersonInput,
+              })
+            ),
           };
         });
 
@@ -379,6 +387,277 @@ describe("Person info creation integration tests", () => {
               errors: [
                 {
                   message: personFailedValidation.EDUCATION_REQUIRED,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("edu degreeTitle title is undefined", async () => {
+          req.body.education.push({ degreeTitle: undefined });
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    educationFailedValidation.DEGREE_TITLE_REQUIRED_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("edu degreeTitle is too short", async () => {
+          let test = { ...validEducationInput };
+          req.body.education.push(test);
+          req.body.education[0].degreeTitle =
+            invalidEducationInputs.TOO_SHORT_DEGREE_TITLE;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    educationFailedValidation.DEGREE_TITLE_MIN_LENGTH_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("edu institution is undefined", async () => {
+          let test = { ...validEducationInput };
+          req.body.education.push(test);
+          req.body.education[0].institution = undefined;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    educationFailedValidation.INSTITUTION_REQUIRED_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("edu institution is too short", async () => {
+          let test = { ...validEducationInput };
+          req.body.education.push(test);
+          req.body.education[0].institution =
+            invalidEducationInputs.TOO_SHORT_INSTITUTION;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    educationFailedValidation.INSTITUTION_MIN_LENGTH_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("edu startingDate is undefined", async () => {
+          let test = { ...validEducationInput };
+          req.body.education.push(test);
+          req.body.education[0].startingDate = undefined;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    educationFailedValidation.STARTING_DATE_REQUIRED_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("edu startingDate is invalid", async () => {
+          let test = { ...validEducationInput };
+          req.body.education.push(test);
+          req.body.education[0].startingDate =
+            invalidEducationInputs.INVALID_STARTING_DATE;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    educationFailedValidation.STARTING_DATE_INVALID_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("edu graduationDate is invalid", async () => {
+          let test = { ...validEducationInput };
+          req.body.education.push(test);
+          req.body.education[0].graduationDate =
+            invalidEducationInputs.INVALID_GRADUATION_DATE;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message:
+                    educationFailedValidation.GRADUATION_DATE_INVALID_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("edu isOngoing is undefined", async () => {
+          let test = { ...validEducationInput };
+          req.body.education.push(test);
+          req.body.education[0].isOngoing = undefined;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message: commonFailedValidation.IS_ONGOING_REQUIRED_MESSAGE,
+                },
+              ],
+            }),
+            true
+          );
+        });
+
+        it("edu isOngoing is invalid", async () => {
+          let test = { ...validEducationInput };
+          req.body.education.push(test);
+          req.body.education[0].isOngoing =
+            invalidEducationInputs.INVALID_IS_ONGOING;
+
+          for (const middleware of infoCreationMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
+
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
+
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                {
+                  message: commonFailedValidation.IS_ONGOING_INVALID_MESSAGE,
                 },
               ],
             }),
