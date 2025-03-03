@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   listingCreationRules,
   listingRetrievalByStatusRules,
+  listingRetrievalByWorkTypeRules,
   listingUpdateRules,
 } from "../middleware/listing.rules";
 import { validationResult } from "express-validator";
@@ -12,11 +13,14 @@ import { ServerError } from "../../../../errors/serverError.class";
 import {
   reqBodyToListing,
   reqBodyToListingUpdate,
+  reqBodyToStatus,
+  reqBodyToWorkType,
 } from "../../../mappers/listing.mapper";
 import {
   bringListingToDate,
   createListing,
   retrieveListingsByStatus,
+  retrieveListingsByWorkType,
 } from "../../../../service/listing.service";
 import { listingControllerResponseMessages } from "../../../messages/listingControllerResponse.message";
 import { NotFoundError } from "../../../../errors/notFoundError.class";
@@ -124,7 +128,7 @@ export const retrievalByStatusMiddlewareArray = [
     }
 
     try {
-      const { status } = req.body;
+      const status = reqBodyToStatus(req);
       const listings = await retrieveListingsByStatus(status);
 
       res.status(httpCodes.OK).json({
@@ -135,6 +139,47 @@ export const retrievalByStatusMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `Listing controller: ${callListingRetrievalByStatus.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const retrievalByWorkTypeMiddlewareArray = [
+  ...listingRetrievalByWorkTypeRules(),
+  async function callListingRetrievalByWorkType(req: Request, res: Response) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `Listing controller: ${callListingRetrievalByWorkType.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+
+    try {
+      const workType = reqBodyToWorkType(req);
+      const listings = await retrieveListingsByWorkType(workType);
+
+      res.status(httpCodes.OK).json({
+        message: listingControllerResponseMessages.LISTING_S_RETRIEVED,
+        data: listings,
+      });
+    } catch (error) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
+        appLogger.error(
+          `Listing controller: ${callListingRetrievalByWorkType.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });

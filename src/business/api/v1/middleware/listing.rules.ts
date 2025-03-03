@@ -217,3 +217,14 @@ export const listingRetrievalByStatusRules = (): ValidationChain[] => {
       .withMessage(listingFailedValidation.STATUS_INVALID),
   ];
 };
+
+export const listingRetrievalByWorkTypeRules = (): ValidationChain[] => {
+  return [
+    check("workType")
+      .notEmpty()
+      .withMessage(listingFailedValidation.WORK_TYPE_REQUIRED_MESSAGE)
+      .bail()
+      .isIn(workTypeArray)
+      .withMessage(listingFailedValidation.WORK_TYPE_INVALID_MESSAGE),
+  ];
+};

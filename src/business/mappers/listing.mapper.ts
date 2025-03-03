@@ -110,3 +110,28 @@ export const reqBodyToListingUpdate = function (req: Request): IListingUpdate {
 
   return listingToUpdate;
 };
+
+export const reqBodyToStatus = function (req: Request) {
+  const { status } = req.body;
+
+  if (status === ListingStatus.Closed.toString()) {
+    return ListingStatus.Closed;
+  } else {
+    return ListingStatus.Open;
+  }
+};
+
+export const reqBodyToWorkType = function (req: Request) {
+  const { workType } = req.body;
+  return workTypeMap[workType];
+};
+
+export const reqBodyToEmploymentType = function (req: Request) {
+  const { employmentType } = req.body;
+  return employmentTypeMap[employmentType];
+};
+
+export const reqBodyToExperienceLevel = function (req: Request) {
+  const { experienceLevel } = req.body;
+  return experienceLevelMap[experienceLevel];
+};

@@ -1,18 +1,18 @@
 import assert from "assert";
-import { Request, Response } from "express";
 import sinon, { SinonSpy, SinonStub } from "sinon";
+import { Request, Response } from "express";
 import { Listing } from "../../src/domain/models/listing.model";
 import { invalidListingInputs, validListingInput } from "../testInputs";
-import { retrievalByStatusMiddlewareArray } from "../../src/business/api/v1/controllers/listing.controller";
+import { retrievalByWorkTypeMiddlewareArray } from "../../src/business/api/v1/controllers/listing.controller";
 import { httpCodes } from "../../src/business/codes/responseStatusCodes";
 import { listingControllerResponseMessages } from "../../src/business/messages/listingControllerResponse.message";
-import { retrieveListingsByStatus } from "../../src/service/listing.service";
+import { retrieveListingsByWorkType } from "../../src/service/listing.service";
 import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
 import { listingFailedValidation } from "../../src/domain/messages/listingValidation.message";
 import { commonServiceMessages } from "../../src/service/messages/commonService.message";
 import { listingServiceMessages } from "../../src/service/messages/listingService.message";
 
-describe("Listing retrieval by status integration tests", () => {
+describe("Listing retrieval by workType integration", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: SinonSpy;
@@ -33,13 +33,13 @@ describe("Listing retrieval by status integration tests", () => {
       };
 
       next = sinon.spy();
-      req = { body: { status: validListingInput.status.toString() } };
+      req = { body: { workType: validListingInput.workType.toString() } };
     });
 
-    it("status is valid", async () => {
+    it("workType is valid", async () => {
       functionStub.resolves(mockListings);
 
-      for (const middleware of retrievalByStatusMiddlewareArray) {
+      for (const middleware of retrievalByWorkTypeMiddlewareArray) {
         await middleware(req as Request, res as Response, next);
       }
 
@@ -63,8 +63,8 @@ describe("Listing retrieval by status integration tests", () => {
         beforeEach(() => {
           sinon.restore();
           sinon.replace(
-            { retrieveListingsByStatus },
-            "retrieveListingsByStatus",
+            { retrieveListingsByWorkType },
+            "retrieveListingsByWorkType",
             sinon.fake()
           );
           res = {
@@ -77,10 +77,10 @@ describe("Listing retrieval by status integration tests", () => {
           next = sinon.spy();
         });
 
-        it("status is undefined", async () => {
-          req = { body: { status: undefined } };
+        it("workType is undefined", async () => {
+          req = { body: { workType: undefined } };
 
-          for (const middleware of retrievalByStatusMiddlewareArray) {
+          for (const middleware of retrievalByWorkTypeMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
           }
 
@@ -94,16 +94,18 @@ describe("Listing retrieval by status integration tests", () => {
           assert.strictEqual(
             jsonSpy.calledWith({
               message: commonResponseMessages.BAD_REQUEST,
-              errors: [{ message: listingFailedValidation.STATUS_REQUIRED }],
+              errors: [
+                { message: listingFailedValidation.WORK_TYPE_REQUIRED_MESSAGE },
+              ],
             }),
             true
           );
         });
 
-        it("status is invalid", async () => {
-          req = { body: { status: invalidListingInputs.INVALID_STATUS } };
+        it("workType is invalid", async () => {
+          req = { body: { workType: invalidListingInputs.INVALID_WORK_TYPE } };
 
-          for (const middleware of retrievalByStatusMiddlewareArray) {
+          for (const middleware of retrievalByWorkTypeMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
           }
 
@@ -117,7 +119,9 @@ describe("Listing retrieval by status integration tests", () => {
           assert.strictEqual(
             jsonSpy.calledWith({
               message: commonResponseMessages.BAD_REQUEST,
-              errors: [{ message: listingFailedValidation.STATUS_INVALID }],
+              errors: [
+                { message: listingFailedValidation.WORK_TYPE_INVALID_MESSAGE },
+              ],
             }),
             true
           );
@@ -125,7 +129,7 @@ describe("Listing retrieval by status integration tests", () => {
       });
     });
 
-    describe("promise-oriented", async () => {
+    describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
         functionStub = sinon.stub(Listing, "find");
@@ -137,13 +141,13 @@ describe("Listing retrieval by status integration tests", () => {
         };
 
         next = sinon.spy();
-        req = { body: { status: validListingInput.status.toString() } };
+        req = { body: { workType: validListingInput.workType.toString() } };
       });
 
       it("server error (500)", async () => {
         functionStub.rejects();
 
-        for (const middleware of retrievalByStatusMiddlewareArray) {
+        for (const middleware of retrievalByWorkTypeMiddlewareArray) {
           await middleware(req as Request, res as Response, next);
         }
 
@@ -165,7 +169,7 @@ describe("Listing retrieval by status integration tests", () => {
       it("not found (404)", async () => {
         functionStub.resolves([]);
 
-        for (const middleware of retrievalByStatusMiddlewareArray) {
+        for (const middleware of retrievalByWorkTypeMiddlewareArray) {
           await middleware(req as Request, res as Response, next);
         }
 
