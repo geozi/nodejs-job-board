@@ -250,3 +250,19 @@ export const listingRetrievalByExperienceLevelRules = (): ValidationChain[] => {
       .withMessage(listingFailedValidation.EXPERIENCE_LEVEL_INVALID_MESSAGE),
   ];
 };
+
+export const listingRetrievalByIdRules = (): ValidationChain[] => {
+  return [
+    check("id")
+      .notEmpty()
+      .withMessage(listingFailedValidation.LISTING_ID_REQUIRED_MESSAGE)
+      .bail()
+      .isLength({
+        min: commonConstants.MONGODB_ID_LENGTH,
+        max: commonConstants.MONGODB_ID_LENGTH,
+      })
+      .withMessage(listingFailedValidation.LISTING_ID_OUT_OF_LENGTH_MESSAGE)
+      .matches(ID_REGEX)
+      .withMessage(listingFailedValidation.LISTING_ID_INVALID_MESSAGE),
+  ];
+};
