@@ -3,6 +3,7 @@ import {
   listingCreationRules,
   listingRetrievalByEmploymentTypeRules,
   listingRetrievalByExperienceLevelRules,
+  listingRetrievalByIdRules,
   listingRetrievalByStatusRules,
   listingRetrievalByWorkTypeRules,
   listingUpdateRules,
@@ -23,6 +24,7 @@ import {
 import {
   bringListingToDate,
   createListing,
+  retrieveListingById,
   retrieveListingsByEmploymentType,
   retrieveListingsByExperienceLevel,
   retrieveListingsByStatus,
@@ -30,6 +32,7 @@ import {
 } from "../../../../service/listing.service";
 import { listingControllerResponseMessages } from "../../../messages/listingControllerResponse.message";
 import { NotFoundError } from "../../../../errors/notFoundError.class";
+import { reqBodyToId } from "../../../mappers/common.mapper";
 
 export const listingCreationMiddlewareArray = [
   ...listingCreationRules(),
@@ -274,6 +277,47 @@ export const retrievalByExperienceLevelMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `Listing controller: ${callListingRetrievalByExperienceLevel.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const retrievalByIdMiddlewareArray = [
+  ...listingRetrievalByIdRules(),
+  async function callListingRetrievalById(req: Request, res: Response) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `Listing controller: ${callListingRetrievalById.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+
+    try {
+      const idAsObjectId = reqBodyToId(req);
+      const listing = await retrieveListingById(idAsObjectId);
+
+      res.status(httpCodes.OK).json({
+        message: listingControllerResponseMessages.LISTING_S_RETRIEVED,
+        data: listing,
+      });
+    } catch (error) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
+        appLogger.error(
+          `Listing controller: ${callListingRetrievalById.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
