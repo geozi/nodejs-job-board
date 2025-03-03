@@ -1116,7 +1116,7 @@ describe("Person info creation integration tests", () => {
       });
     });
 
-    describe("Promise-oriented", () => {
+    describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
         functionStub = sinon.stub(Person.prototype, "save");
@@ -1129,14 +1129,16 @@ describe("Person info creation integration tests", () => {
 
         next = sinon.spy();
         req = {
-          body: {
-            dateOfBirth: "2001-02-18",
-            ...validPersonInput,
-          },
+          body: JSON.parse(
+            JSON.stringify({
+              dateOfBirth: "2001-02-18",
+              ...validPersonInput,
+            })
+          ),
         };
       });
 
-      it("server error", async () => {
+      it("server error (500)", async () => {
         functionStub.rejects();
 
         for (const middleware of infoCreationMiddlewareArray) {
@@ -1158,7 +1160,7 @@ describe("Person info creation integration tests", () => {
         );
       });
 
-      it("unique constraint error", async () => {
+      it("unique constraint error (409)", async () => {
         functionStub.rejects(new Error.ValidationError());
 
         for (const middleware of infoCreationMiddlewareArray) {

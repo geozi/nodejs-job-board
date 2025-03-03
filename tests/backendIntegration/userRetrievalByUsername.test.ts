@@ -160,7 +160,7 @@ describe("User retrieval by username integration tests", () => {
       });
     });
 
-    describe("Promise-oriented", () => {
+    describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
         functionStub = sinon.stub(User, "findOne");
@@ -175,7 +175,7 @@ describe("User retrieval by username integration tests", () => {
         req = { body: { username: validUserInput.username } };
       });
 
-      it("server error", async () => {
+      it("server error (500)", async () => {
         functionStub.rejects();
 
         for (const middleware of retrievalByUsernameMiddlewareArray) {
@@ -197,7 +197,7 @@ describe("User retrieval by username integration tests", () => {
         );
       });
 
-      it("not found", async () => {
+      it("not found (404)", async () => {
         functionStub.resolves(null);
 
         for (const middleware of retrievalByUsernameMiddlewareArray) {

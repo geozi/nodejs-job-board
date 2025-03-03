@@ -33,10 +33,10 @@ describe("User retrieval by role integration tests", () => {
       };
 
       next = sinon.spy();
+      req = { body: { role: validUserInput.role } };
     });
 
     it("role is valid", async () => {
-      req = { body: { role: validUserInput.role } };
       functionStub.resolves(mockUsers);
 
       for (const middleware of retrievalByRoleMiddlewareArray) {
@@ -125,7 +125,7 @@ describe("User retrieval by role integration tests", () => {
       });
     });
 
-    describe("Promise-oriented", () => {
+    describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
         functionStub = sinon.stub(User, "find");
@@ -140,7 +140,7 @@ describe("User retrieval by role integration tests", () => {
         req = { body: { role: validUserInput.role } };
       });
 
-      it("server error", async () => {
+      it("server error (500)", async () => {
         functionStub.rejects();
 
         for (const middleware of retrievalByRoleMiddlewareArray) {
@@ -162,7 +162,7 @@ describe("User retrieval by role integration tests", () => {
         );
       });
 
-      it("not found", async () => {
+      it("not found (404)", async () => {
         functionStub.resolves([]);
 
         for (const middleware of retrievalByRoleMiddlewareArray) {

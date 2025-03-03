@@ -25,6 +25,7 @@ describe("Person info update integration tests", () => {
     firstName: validPersonInput.firstName,
     lastName: validPersonInput.lastName,
   };
+  const updatedPersonInfo = new Person(mockUpdatePerson);
   let functionStub: SinonStub;
 
   describe("Positive scenario(s)", () => {
@@ -39,11 +40,13 @@ describe("Person info update integration tests", () => {
       };
 
       next = sinon.spy();
+      req = {
+        body: JSON.parse(JSON.stringify(mockUpdatePerson)),
+      };
     });
 
     it("person ID is valid", async () => {
-      req = { body: mockUpdatePerson };
-      functionStub.resolves(mockUpdatePerson);
+      functionStub.resolves(updatedPersonInfo);
 
       for (const middleware of infoUpdateMiddlewareArray) {
         await middleware(req as Request, res as Response, next);
@@ -56,7 +59,7 @@ describe("Person info update integration tests", () => {
       assert.strictEqual(
         jsonSpy.calledWith({
           message: personControllerResponseMessages.PERSON_UPDATED,
-          data: mockUpdatePerson,
+          data: updatedPersonInfo,
         }),
         true
       );
@@ -65,106 +68,110 @@ describe("Person info update integration tests", () => {
 
   describe("Negative scenarios", () => {
     describe("validation-oriented", () => {
-      beforeEach(() => {
-        sinon.restore();
-        functionStub = sinon.stub(Person.prototype, "save");
-        res = {
-          status: sinon.stub().callsFake(() => {
-            return res;
-          }) as unknown as SinonStub,
-          json: sinon.spy(),
-        };
+      describe("bad requests (400)", () => {
+        beforeEach(() => {
+          sinon.restore();
+          res = {
+            status: sinon.stub().callsFake(() => {
+              return res;
+            }) as unknown as SinonStub,
+            json: sinon.spy(),
+          };
 
-        next = sinon.spy();
-      });
+          next = sinon.spy();
+        });
 
-      it("person ID is undefined", async () => {
-        req = { body: { id: undefined } };
+        it("person ID is undefined", async () => {
+          req = { body: { id: undefined } };
 
-        for (const middleware of infoUpdateMiddlewareArray) {
-          await middleware(req as Request, res as Response, next);
-        }
+          for (const middleware of infoUpdateMiddlewareArray) {
+            await middleware(req as Request, res as Response, next);
+          }
 
-        statusStub = res.status as SinonStub;
-        jsonSpy = res.json as SinonSpy;
+          statusStub = res.status as SinonStub;
+          jsonSpy = res.json as SinonSpy;
 
-        assert.strictEqual(statusStub.calledWith(httpCodes.BAD_REQUEST), true);
-        assert.strictEqual(
-          jsonSpy.calledWith({
-            message: commonResponseMessages.BAD_REQUEST,
-            errors: [
-              { message: personFailedValidation.PERSON_ID_REQUIRED_MESSAGE },
-            ],
-          }),
-          true
+          assert.strictEqual(
+            statusStub.calledWith(httpCodes.BAD_REQUEST),
+            true
+          );
+          assert.strictEqual(
+            jsonSpy.calledWith({
+              message: commonResponseMessages.BAD_REQUEST,
+              errors: [
+                { message: personFailedValidation.PERSON_ID_REQUIRED_MESSAGE },
+              ],
+            }),
+            true
+          );
+        });
+
+        invalidObjectIdInputs.OBJECT_ID_LENGTH_CASES.forEach(
+          ([testName, invalidLengthId]) => {
+            it(testName, async () => {
+              req = { body: { id: invalidLengthId } };
+
+              for (const middleware of infoUpdateMiddlewareArray) {
+                await middleware(req as Request, res as Response, next);
+              }
+
+              statusStub = res.status as SinonStub;
+              jsonSpy = res.json as SinonSpy;
+
+              assert.strictEqual(
+                statusStub.calledWith(httpCodes.BAD_REQUEST),
+                true
+              );
+              assert.strictEqual(
+                jsonSpy.calledWith({
+                  message: commonResponseMessages.BAD_REQUEST,
+                  errors: [
+                    {
+                      message:
+                        personFailedValidation.PERSON_ID_OUT_OF_LENGTH_MESSAGE,
+                    },
+                  ],
+                }),
+                true
+              );
+            });
+          }
+        );
+
+        invalidObjectIdInputs.OBJECT_ID_INVALID_CASES.forEach(
+          ([testName, invalidId]) => {
+            it(testName, async () => {
+              req = { body: { id: invalidId } };
+
+              for (const middleware of infoUpdateMiddlewareArray) {
+                await middleware(req as Request, res as Response, next);
+              }
+
+              statusStub = res.status as SinonStub;
+              jsonSpy = res.json as SinonSpy;
+
+              assert.strictEqual(
+                statusStub.calledWith(httpCodes.BAD_REQUEST),
+                true
+              );
+              assert.strictEqual(
+                jsonSpy.calledWith({
+                  message: commonResponseMessages.BAD_REQUEST,
+                  errors: [
+                    {
+                      message: personFailedValidation.PERSON_ID_INVALID_MESSAGE,
+                    },
+                  ],
+                }),
+                true
+              );
+            });
+          }
         );
       });
-
-      invalidObjectIdInputs.OBJECT_ID_LENGTH_CASES.forEach(
-        ([testName, invalidLengthId]) => {
-          it(testName, async () => {
-            req = { body: { id: invalidLengthId } };
-
-            for (const middleware of infoUpdateMiddlewareArray) {
-              await middleware(req as Request, res as Response, next);
-            }
-
-            statusStub = res.status as SinonStub;
-            jsonSpy = res.json as SinonSpy;
-
-            assert.strictEqual(
-              statusStub.calledWith(httpCodes.BAD_REQUEST),
-              true
-            );
-            assert.strictEqual(
-              jsonSpy.calledWith({
-                message: commonResponseMessages.BAD_REQUEST,
-                errors: [
-                  {
-                    message:
-                      personFailedValidation.PERSON_ID_OUT_OF_LENGTH_MESSAGE,
-                  },
-                ],
-              }),
-              true
-            );
-          });
-        }
-      );
-
-      invalidObjectIdInputs.OBJECT_ID_INVALID_CASES.forEach(
-        ([testName, invalidId]) => {
-          it(testName, async () => {
-            req = { body: { id: invalidId } };
-
-            for (const middleware of infoUpdateMiddlewareArray) {
-              await middleware(req as Request, res as Response, next);
-            }
-
-            statusStub = res.status as SinonStub;
-            jsonSpy = res.json as SinonSpy;
-
-            assert.strictEqual(
-              statusStub.calledWith(httpCodes.BAD_REQUEST),
-              true
-            );
-            assert.strictEqual(
-              jsonSpy.calledWith({
-                message: commonResponseMessages.BAD_REQUEST,
-                errors: [
-                  {
-                    message: personFailedValidation.PERSON_ID_INVALID_MESSAGE,
-                  },
-                ],
-              }),
-              true
-            );
-          });
-        }
-      );
     });
 
-    describe("Promise-oriented", () => {
+    describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
         functionStub = sinon.stub(Person, "findByIdAndUpdate");
@@ -176,10 +183,12 @@ describe("Person info update integration tests", () => {
         };
 
         next = sinon.spy();
-        req = { body: mockUpdatePerson };
+        req = {
+          body: JSON.parse(JSON.stringify(mockUpdatePerson)),
+        };
       });
 
-      it("server error", async () => {
+      it("server error (500)", async () => {
         functionStub.rejects();
 
         for (const middleware of infoUpdateMiddlewareArray) {
@@ -201,7 +210,7 @@ describe("Person info update integration tests", () => {
         );
       });
 
-      it("not found", async () => {
+      it("not found (404)", async () => {
         functionStub.resolves(null);
 
         for (const middleware of infoUpdateMiddlewareArray) {

@@ -178,7 +178,7 @@ describe("Person info retrieval by username integration tests", () => {
         req = { body: { username: validPersonInput.username } };
       });
 
-      it("server error", async () => {
+      it("server error (500)", async () => {
         functionStub.rejects();
 
         for (const middleware of infoRetrievalByUsernameMiddlewareArray) {
@@ -200,7 +200,7 @@ describe("Person info retrieval by username integration tests", () => {
         );
       });
 
-      it("not found", async () => {
+      it("not found (404)", async () => {
         functionStub.resolves(null);
 
         for (const middleware of infoRetrievalByUsernameMiddlewareArray) {

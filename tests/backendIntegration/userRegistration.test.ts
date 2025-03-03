@@ -33,7 +33,7 @@ describe("User registration integration tests", () => {
       };
 
       next = sinon.spy();
-      req = { body: { ...validUserInput } };
+      req = { body: JSON.parse(JSON.stringify(validUserInput)) };
     });
 
     it("has valid inputs", async () => {
@@ -71,7 +71,7 @@ describe("User registration integration tests", () => {
           };
 
           next = sinon.spy();
-          req = { body: { ...validUserInput } };
+          req = { body: JSON.parse(JSON.stringify(validUserInput)) };
         });
 
         it("username is undefined", async () => {
@@ -342,7 +342,7 @@ describe("User registration integration tests", () => {
       });
     });
 
-    describe("Promise-oriented", () => {
+    describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
         functionStub = sinon.stub(User.prototype, "save");
@@ -354,10 +354,10 @@ describe("User registration integration tests", () => {
         };
 
         next = sinon.spy();
-        req = { body: { ...validUserInput } };
+        req = { body: JSON.parse(JSON.stringify(validUserInput)) };
       });
 
-      it("server error", async () => {
+      it("server error (500)", async () => {
         functionStub.rejects();
 
         for (const middleware of registrationMiddlewareArray) {
@@ -379,7 +379,7 @@ describe("User registration integration tests", () => {
         );
       });
 
-      it("unique constraint error", async () => {
+      it("unique constraint error (409)", async () => {
         functionStub.rejects(new Error.ValidationError());
 
         for (const middleware of registrationMiddlewareArray) {

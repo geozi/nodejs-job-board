@@ -1,30 +1,38 @@
-import sinon, { SinonSpy, SinonStub } from "sinon";
-import { Request, Response } from "express";
-import { User } from "../../src/domain/models/user.model";
-import { invalidUserInputs, validUserInput } from "../testInputs";
-import { retrievalByEmailMiddlewareArray } from "../../src/business/api/v1/controllers/user.controller";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
 import assert from "assert";
-import { userControllerResponseMessages } from "../../src/business/messages/userControllerResponse.message";
-import { retrieveUserByEmail } from "../../src/service/user.service";
+import { Types } from "mongoose";
+import { Request, Response } from "express";
+import sinon, { SinonSpy, SinonStub } from "sinon";
+import { IListingUpdate } from "../../src/business/interfaces/iListingUpdate.interface";
+import { invalidObjectIdInputs, validListingInput } from "../testInputs";
+import { Listing } from "../../src/domain/models/listing.model";
+import { listingUpdateMiddlewareArray } from "../../src/business/api/v1/controllers/listing.controller";
+import { httpCodes } from "../../src/business/codes/responseStatusCodes";
+import { listingControllerResponseMessages } from "../../src/business/messages/listingControllerResponse.message";
+import { IListing } from "../../src/domain/interfaces/documents/iListing.interface";
 import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
+import { listingFailedValidation } from "../../src/domain/messages/listingValidation.message";
 import { commonServiceMessages } from "../../src/service/messages/commonService.message";
-import { userServiceMessages } from "../../src/service/messages/userService.message";
+import { listingServiceMessages } from "../../src/service/messages/listingService.message";
 
-describe("User retrieval by email integration tests", () => {
+describe("Listing update integration tests", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: SinonSpy;
   let statusStub: SinonStub;
   let jsonSpy: SinonSpy;
+  const mockId = new Types.ObjectId("67c5d1d933ab3e65bd6ac9e2");
+  const mockUpdateListing: IListingUpdate = {
+    id: mockId,
+    title: validListingInput.title,
+    organizationName: validListingInput.organizationName,
+  };
   let functionStub: SinonStub;
-  const mockUser = new User(validUserInput);
+  const updatedListing: IListing = new Listing(mockUpdateListing);
 
   describe("Positive scenario(s)", () => {
     beforeEach(() => {
       sinon.restore();
-      functionStub = sinon.stub(User, "findOne");
+      functionStub = sinon.stub(Listing, "findByIdAndUpdate");
       res = {
         status: sinon.stub().callsFake(() => {
           return res;
@@ -33,13 +41,15 @@ describe("User retrieval by email integration tests", () => {
       };
 
       next = sinon.spy();
-      req = { body: { email: validUserInput.email } };
+      req = {
+        body: JSON.parse(JSON.stringify(mockUpdateListing)),
+      };
     });
 
-    it("email is valid", async () => {
-      functionStub.resolves(mockUser);
+    it("listing ID is valid", async () => {
+      functionStub.resolves(updatedListing);
 
-      for (const middleware of retrievalByEmailMiddlewareArray) {
+      for (const middleware of listingUpdateMiddlewareArray) {
         await middleware(req as Request, res as Response, next);
       }
 
@@ -49,8 +59,8 @@ describe("User retrieval by email integration tests", () => {
       assert.strictEqual(statusStub.calledWith(httpCodes.OK), true);
       assert.strictEqual(
         jsonSpy.calledWith({
-          message: userControllerResponseMessages.USER_RETRIEVED,
-          data: mockUser,
+          message: listingControllerResponseMessages.LISTING_UPDATED,
+          data: updatedListing,
         }),
         true
       );
@@ -62,11 +72,7 @@ describe("User retrieval by email integration tests", () => {
       describe("bad requests (400)", () => {
         beforeEach(() => {
           sinon.restore();
-          sinon.replace(
-            { retrieveUserByEmail },
-            "retrieveUserByEmail",
-            sinon.fake()
-          );
+
           res = {
             status: sinon.stub().callsFake(() => {
               return res;
@@ -77,10 +83,10 @@ describe("User retrieval by email integration tests", () => {
           next = sinon.spy();
         });
 
-        it("email is undefined", async () => {
-          req = { body: { email: undefined } };
+        it("listing ID is undefined", async () => {
+          req = { body: { id: undefined } };
 
-          for (const middleware of retrievalByEmailMiddlewareArray) {
+          for (const middleware of listingUpdateMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
           }
 
@@ -95,19 +101,21 @@ describe("User retrieval by email integration tests", () => {
             jsonSpy.calledWith({
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
-                { message: userFailedValidation.EMAIL_REQUIRED_MESSAGE },
+                {
+                  message: listingFailedValidation.LISTING_ID_REQUIRED_MESSAGE,
+                },
               ],
             }),
             true
           );
         });
 
-        invalidUserInputs.EMAIL_INVALID_CASES.forEach(
-          ([testName, invalidEmail]) => {
+        invalidObjectIdInputs.OBJECT_ID_LENGTH_CASES.forEach(
+          ([testName, invalidLengthId]) => {
             it(testName, async () => {
-              req = { body: { email: invalidEmail } };
+              req = { body: { id: invalidLengthId } };
 
-              for (const middleware of retrievalByEmailMiddlewareArray) {
+              for (const middleware of listingUpdateMiddlewareArray) {
                 await middleware(req as Request, res as Response, next);
               }
 
@@ -122,7 +130,42 @@ describe("User retrieval by email integration tests", () => {
                 jsonSpy.calledWith({
                   message: commonResponseMessages.BAD_REQUEST,
                   errors: [
-                    { message: userFailedValidation.EMAIL_INVALID_MESSAGE },
+                    {
+                      message:
+                        listingFailedValidation.LISTING_ID_OUT_OF_LENGTH_MESSAGE,
+                    },
+                  ],
+                }),
+                true
+              );
+            });
+          }
+        );
+
+        invalidObjectIdInputs.OBJECT_ID_INVALID_CASES.forEach(
+          ([testName, invalidId]) => {
+            it(testName, async () => {
+              req = { body: { id: invalidId } };
+
+              for (const middleware of listingUpdateMiddlewareArray) {
+                await middleware(req as Request, res as Response, next);
+              }
+
+              statusStub = res.status as SinonStub;
+              jsonSpy = res.json as SinonSpy;
+
+              assert.strictEqual(
+                statusStub.calledWith(httpCodes.BAD_REQUEST),
+                true
+              );
+              assert.strictEqual(
+                jsonSpy.calledWith({
+                  message: commonResponseMessages.BAD_REQUEST,
+                  errors: [
+                    {
+                      message:
+                        listingFailedValidation.LISTING_ID_INVALID_MESSAGE,
+                    },
                   ],
                 }),
                 true
@@ -136,7 +179,7 @@ describe("User retrieval by email integration tests", () => {
     describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
-        functionStub = sinon.stub(User, "findOne");
+        functionStub = sinon.stub(Listing, "findByIdAndUpdate");
         res = {
           status: sinon.stub().callsFake(() => {
             return res;
@@ -145,13 +188,15 @@ describe("User retrieval by email integration tests", () => {
         };
 
         next = sinon.spy();
-        req = { body: { email: validUserInput.email } };
+        req = {
+          body: JSON.parse(JSON.stringify(mockUpdateListing)),
+        };
       });
 
       it("server error (500)", async () => {
         functionStub.rejects();
 
-        for (const middleware of retrievalByEmailMiddlewareArray) {
+        for (const middleware of listingUpdateMiddlewareArray) {
           await middleware(req as Request, res as Response, next);
         }
 
@@ -173,7 +218,7 @@ describe("User retrieval by email integration tests", () => {
       it("not found (404)", async () => {
         functionStub.resolves(null);
 
-        for (const middleware of retrievalByEmailMiddlewareArray) {
+        for (const middleware of listingUpdateMiddlewareArray) {
           await middleware(req as Request, res as Response, next);
         }
 
@@ -183,7 +228,7 @@ describe("User retrieval by email integration tests", () => {
         assert.strictEqual(statusStub.calledWith(httpCodes.NOT_FOUND), true);
         assert.strictEqual(
           jsonSpy.calledWith({
-            message: userServiceMessages.USER_NOT_FOUND,
+            message: listingServiceMessages.LISTING_NOT_FOUND,
           }),
           true
         );

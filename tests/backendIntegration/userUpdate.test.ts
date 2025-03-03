@@ -20,10 +20,11 @@ describe("User update integration tests", () => {
   let statusStub: SinonStub;
   let jsonSpy: SinonSpy;
   const mockId = new Types.ObjectId("67c0a1c259e9c44f1fe88055");
-  const mockUpdatedUser: IUserUpdate = {
+  const mockUserToUpdate: IUserUpdate = {
     id: mockId,
     username: validUserInput.username,
   };
+  const mockUpdatedUser = new User(mockUserToUpdate);
   let functionStub: SinonStub;
 
   describe("Positive scenario(s)", () => {
@@ -38,10 +39,10 @@ describe("User update integration tests", () => {
       };
 
       next = sinon.spy();
+      req = { body: JSON.parse(JSON.stringify(mockUserToUpdate)) };
     });
 
     it("user ID is valid", async () => {
-      req = { body: { id: mockId, username: validUserInput.username } };
       functionStub.resolves(mockUpdatedUser);
 
       for (const middleware of updateMiddlewareArray) {
@@ -160,7 +161,7 @@ describe("User update integration tests", () => {
       );
     });
 
-    describe("Promise-oriented", () => {
+    describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
         functionStub = sinon.stub(User, "findByIdAndUpdate");
@@ -172,10 +173,10 @@ describe("User update integration tests", () => {
         };
 
         next = sinon.spy();
+        req = { body: JSON.parse(JSON.stringify(mockUserToUpdate)) };
       });
 
-      it("server error", async () => {
-        req = { body: { id: mockId } };
+      it("server error (500)", async () => {
         functionStub.rejects();
 
         for (const middleware of updateMiddlewareArray) {
@@ -197,8 +198,7 @@ describe("User update integration tests", () => {
         );
       });
 
-      it("not found", async () => {
-        req = { body: { id: mockId } };
+      it("not found (404)", async () => {
         functionStub.resolves(null);
 
         for (const middleware of updateMiddlewareArray) {

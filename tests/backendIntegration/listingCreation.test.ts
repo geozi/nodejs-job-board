@@ -686,7 +686,7 @@ describe("Listing creation integration tests", () => {
       });
     });
 
-    describe("Promise-oriented", () => {
+    describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
         functionStub = sinon.stub(Listing.prototype, "save");
