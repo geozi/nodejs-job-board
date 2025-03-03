@@ -245,30 +245,36 @@ export const personInfoUpdateRules = (): ValidationChain[] => {
       .withMessage(personFailedValidation.PERSON_ID_OUT_OF_LENGTH_MESSAGE)
       .matches(ID_REGEX)
       .withMessage(personFailedValidation.PERSON_ID_INVALID_MESSAGE),
+
     check("firstName")
       .optional()
       .isLength({ min: personConstants.PERSON_NAME_MIN_LENGTH })
       .withMessage(personFailedValidation.FIRST_NAME_BELOW_MIN_LENGTH_MESSAGE)
       .matches(NAME_REGEX)
       .withMessage(personFailedValidation.FIRST_NAME_INVALID_MESSAGE),
+
     check("lastName")
       .optional()
       .isLength({ min: personConstants.PERSON_NAME_MIN_LENGTH })
       .withMessage(personFailedValidation.LAST_NAME_BELOW_MIN_LENGTH_MESSAGE)
       .matches(NAME_REGEX)
       .withMessage(personFailedValidation.LAST_NAME_INVALID_MESSAGE),
+
     check("phoneNumber")
       .optional()
       .matches(PHONE_REGEX)
       .withMessage(personFailedValidation.PHONE_NUMBER_INVALID_MESSAGE),
+
     check("address")
       .optional()
       .isLength({ min: commonConstants.GENERIC_MIN_LENGTH })
       .withMessage(personFailedValidation.ADDRESS_BELOW_MIN_LENGTH_MESSAGE),
+
     check("dateOfBirth")
       .optional()
       .matches(DATE_REGEX)
       .withMessage(personFailedValidation.DATE_OF_BIRTH_INVALID_MESSAGE),
+
     check("education")
       .optional()
       .isArray()
@@ -337,6 +343,7 @@ export const personInfoUpdateRules = (): ValidationChain[] => {
         }
         return true;
       }),
+
     check("workExperience")
       .optional()
       .isArray()

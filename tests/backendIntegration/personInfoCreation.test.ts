@@ -25,7 +25,7 @@ import { educationFailedValidation } from "../../src/domain/messages/educationVa
 import { commonFailedValidation } from "../../src/domain/messages/commonValidation.message";
 import { workExperienceFailedValidation } from "../../src/domain/messages/workExperienceValidation.message";
 
-describe.only("Person info creation integration tests", () => {
+describe("Person info creation integration tests", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: SinonSpy;
