@@ -206,3 +206,14 @@ export const listingUpdateRules = (): ValidationChain[] => {
       .withMessage(listingFailedValidation.STATUS_INVALID),
   ];
 };
+
+export const listingRetrievalByStatusRules = (): ValidationChain[] => {
+  return [
+    check("status")
+      .notEmpty()
+      .withMessage(listingFailedValidation.STATUS_REQUIRED)
+      .bail()
+      .isIn(listingStatusArray)
+      .withMessage(listingFailedValidation.STATUS_INVALID),
+  ];
+};

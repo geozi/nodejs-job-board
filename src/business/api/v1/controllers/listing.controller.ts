@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   listingCreationRules,
+  listingRetrievalByStatusRules,
   listingUpdateRules,
 } from "../middleware/listing.rules";
 import { validationResult } from "express-validator";
@@ -15,6 +16,7 @@ import {
 import {
   bringListingToDate,
   createListing,
+  retrieveListingsByStatus,
 } from "../../../../service/listing.service";
 import { listingControllerResponseMessages } from "../../../messages/listingControllerResponse.message";
 import { NotFoundError } from "../../../../errors/notFoundError.class";
@@ -92,6 +94,47 @@ export const listingUpdateMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `Listing controller: ${callListingUpdate.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const retrievalByStatusMiddlewareArray = [
+  ...listingRetrievalByStatusRules(),
+  async function callListingRetrievalByStatus(req: Request, res: Response) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `Listing controller: ${callListingRetrievalByStatus.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+
+    try {
+      const { status } = req.body;
+      const listings = await retrieveListingsByStatus(status);
+
+      res.status(httpCodes.OK).json({
+        message: listingControllerResponseMessages.LISTING_S_RETRIEVED,
+        data: listings,
+      });
+    } catch (error) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
+        appLogger.error(
+          `Listing controller: ${callListingRetrievalByStatus.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
