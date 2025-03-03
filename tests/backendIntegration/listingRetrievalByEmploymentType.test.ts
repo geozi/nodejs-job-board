@@ -1,18 +1,18 @@
-import assert from "assert";
 import sinon, { SinonSpy, SinonStub } from "sinon";
-import { Request, Response } from "express";
+import assert from "assert";
 import { Listing } from "../../src/domain/models/listing.model";
 import { invalidListingInputs, validListingInput } from "../testInputs";
-import { retrievalByWorkTypeMiddlewareArray } from "../../src/business/api/v1/controllers/listing.controller";
+import { Request, Response } from "express";
+import { retrievalByEmploymentTypeMiddlewareArray } from "../../src/business/api/v1/controllers/listing.controller";
 import { httpCodes } from "../../src/business/codes/responseStatusCodes";
 import { listingControllerResponseMessages } from "../../src/business/messages/listingControllerResponse.message";
-import { retrieveListingsByWorkType } from "../../src/service/listing.service";
+import { retrieveListingsByEmploymentType } from "../../src/service/listing.service";
 import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
 import { listingFailedValidation } from "../../src/domain/messages/listingValidation.message";
 import { commonServiceMessages } from "../../src/service/messages/commonService.message";
 import { listingServiceMessages } from "../../src/service/messages/listingService.message";
 
-describe("Listing retrieval by workType integration tests", () => {
+describe("Listing retrieval by employmentType integration tests", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: SinonSpy;
@@ -33,13 +33,15 @@ describe("Listing retrieval by workType integration tests", () => {
       };
 
       next = sinon.spy();
-      req = { body: { workType: validListingInput.workType.toString() } };
+      req = {
+        body: { employmentType: validListingInput.employmentType.toString() },
+      };
     });
 
-    it("workType is valid", async () => {
+    it("employmentType is valid", async () => {
       functionStub.resolves(mockListings);
 
-      for (const middleware of retrievalByWorkTypeMiddlewareArray) {
+      for (const middleware of retrievalByEmploymentTypeMiddlewareArray) {
         await middleware(req as Request, res as Response, next);
       }
 
@@ -57,14 +59,14 @@ describe("Listing retrieval by workType integration tests", () => {
     });
   });
 
-  describe("Negative scenarios", () => {
+  describe("Negative scenarios", async () => {
     describe("validation-oriented", () => {
       describe("bad requests (400)", () => {
         beforeEach(() => {
           sinon.restore();
           sinon.replace(
-            { retrieveListingsByWorkType },
-            "retrieveListingsByWorkType",
+            { retrieveListingsByEmploymentType },
+            "retrieveListingsByEmploymentType",
             sinon.fake()
           );
           res = {
@@ -77,10 +79,10 @@ describe("Listing retrieval by workType integration tests", () => {
           next = sinon.spy();
         });
 
-        it("workType is undefined", async () => {
-          req = { body: { workType: undefined } };
+        it("employmentType is undefined", async () => {
+          req = { body: { employmentType: undefined } };
 
-          for (const middleware of retrievalByWorkTypeMiddlewareArray) {
+          for (const middleware of retrievalByEmploymentTypeMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
           }
 
@@ -95,17 +97,24 @@ describe("Listing retrieval by workType integration tests", () => {
             jsonSpy.calledWith({
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
-                { message: listingFailedValidation.WORK_TYPE_REQUIRED_MESSAGE },
+                {
+                  message:
+                    listingFailedValidation.EMPLOYMENT_TYPE_REQUIRED_MESSAGE,
+                },
               ],
             }),
             true
           );
         });
 
-        it("workType is invalid", async () => {
-          req = { body: { workType: invalidListingInputs.INVALID_WORK_TYPE } };
+        it("employmentType is invalid", async () => {
+          req = {
+            body: {
+              employmentType: invalidListingInputs.INVALID_EMPLOYMENT_TYPE,
+            },
+          };
 
-          for (const middleware of retrievalByWorkTypeMiddlewareArray) {
+          for (const middleware of retrievalByEmploymentTypeMiddlewareArray) {
             await middleware(req as Request, res as Response, next);
           }
 
@@ -120,7 +129,10 @@ describe("Listing retrieval by workType integration tests", () => {
             jsonSpy.calledWith({
               message: commonResponseMessages.BAD_REQUEST,
               errors: [
-                { message: listingFailedValidation.WORK_TYPE_INVALID_MESSAGE },
+                {
+                  message:
+                    listingFailedValidation.EMPLOYMENT_TYPE_INVALID_MESSAGE,
+                },
               ],
             }),
             true
@@ -129,7 +141,7 @@ describe("Listing retrieval by workType integration tests", () => {
       });
     });
 
-    describe("promise-oriented", () => {
+    describe("promise-oriented", async () => {
       beforeEach(() => {
         sinon.restore();
         functionStub = sinon.stub(Listing, "find");
@@ -141,13 +153,15 @@ describe("Listing retrieval by workType integration tests", () => {
         };
 
         next = sinon.spy();
-        req = { body: { workType: validListingInput.workType.toString() } };
+        req = {
+          body: { employmentType: validListingInput.employmentType.toString() },
+        };
       });
 
       it("server error (500)", async () => {
         functionStub.rejects();
 
-        for (const middleware of retrievalByWorkTypeMiddlewareArray) {
+        for (const middleware of retrievalByEmploymentTypeMiddlewareArray) {
           await middleware(req as Request, res as Response, next);
         }
 
@@ -159,9 +173,7 @@ describe("Listing retrieval by workType integration tests", () => {
           true
         );
         assert.strictEqual(
-          jsonSpy.calledWith({
-            message: commonServiceMessages.SERVER_ERROR,
-          }),
+          jsonSpy.calledWith({ message: commonServiceMessages.SERVER_ERROR }),
           true
         );
       });
@@ -169,7 +181,7 @@ describe("Listing retrieval by workType integration tests", () => {
       it("not found (404)", async () => {
         functionStub.resolves([]);
 
-        for (const middleware of retrievalByWorkTypeMiddlewareArray) {
+        for (const middleware of retrievalByEmploymentTypeMiddlewareArray) {
           await middleware(req as Request, res as Response, next);
         }
 

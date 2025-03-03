@@ -228,3 +228,14 @@ export const listingRetrievalByWorkTypeRules = (): ValidationChain[] => {
       .withMessage(listingFailedValidation.WORK_TYPE_INVALID_MESSAGE),
   ];
 };
+
+export const listingRetrievalByEmploymentTypeRules = (): ValidationChain[] => {
+  return [
+    check("employmentType")
+      .notEmpty()
+      .withMessage(listingFailedValidation.EMPLOYMENT_TYPE_REQUIRED_MESSAGE)
+      .bail()
+      .isIn(employmentTypeArray)
+      .withMessage(listingFailedValidation.EMPLOYMENT_TYPE_INVALID_MESSAGE),
+  ];
+};

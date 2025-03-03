@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   listingCreationRules,
+  listingRetrievalByEmploymentTypeRules,
   listingRetrievalByStatusRules,
   listingRetrievalByWorkTypeRules,
   listingUpdateRules,
@@ -11,6 +12,7 @@ import { commonResponseMessages } from "../../../messages/commonResponse.message
 import { httpCodes } from "../../../codes/responseStatusCodes";
 import { ServerError } from "../../../../errors/serverError.class";
 import {
+  reqBodyToEmploymentType,
   reqBodyToListing,
   reqBodyToListingUpdate,
   reqBodyToStatus,
@@ -19,6 +21,7 @@ import {
 import {
   bringListingToDate,
   createListing,
+  retrieveListingsByEmploymentType,
   retrieveListingsByStatus,
   retrieveListingsByWorkType,
 } from "../../../../service/listing.service";
@@ -180,6 +183,50 @@ export const retrievalByWorkTypeMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `Listing controller: ${callListingRetrievalByWorkType.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const retrievalByEmploymentTypeMiddlewareArray = [
+  ...listingRetrievalByEmploymentTypeRules(),
+  async function callListingRetrievalByEmploymentType(
+    req: Request,
+    res: Response
+  ) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `Listing controller: ${callListingRetrievalByEmploymentType.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+
+    try {
+      const employmentType = reqBodyToEmploymentType(req);
+      const listings = await retrieveListingsByEmploymentType(employmentType);
+
+      res.status(httpCodes.OK).json({
+        message: listingControllerResponseMessages.LISTING_S_RETRIEVED,
+        data: listings,
+      });
+    } catch (error) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
+        appLogger.error(
+          `Listing controller: ${callListingRetrievalByEmploymentType.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
