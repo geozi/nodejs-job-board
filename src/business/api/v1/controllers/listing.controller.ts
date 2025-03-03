@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   listingCreationRules,
   listingRetrievalByEmploymentTypeRules,
+  listingRetrievalByExperienceLevelRules,
   listingRetrievalByStatusRules,
   listingRetrievalByWorkTypeRules,
   listingUpdateRules,
@@ -13,6 +14,7 @@ import { httpCodes } from "../../../codes/responseStatusCodes";
 import { ServerError } from "../../../../errors/serverError.class";
 import {
   reqBodyToEmploymentType,
+  reqBodyToExperienceLevel,
   reqBodyToListing,
   reqBodyToListingUpdate,
   reqBodyToStatus,
@@ -22,6 +24,7 @@ import {
   bringListingToDate,
   createListing,
   retrieveListingsByEmploymentType,
+  retrieveListingsByExperienceLevel,
   retrieveListingsByStatus,
   retrieveListingsByWorkType,
 } from "../../../../service/listing.service";
@@ -227,6 +230,50 @@ export const retrievalByEmploymentTypeMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `Listing controller: ${callListingRetrievalByEmploymentType.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const retrievalByExperienceLevelMiddlewareArray = [
+  ...listingRetrievalByExperienceLevelRules(),
+  async function callListingRetrievalByExperienceLevel(
+    req: Request,
+    res: Response
+  ) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `Listing controller: ${callListingRetrievalByExperienceLevel.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+
+    try {
+      const experienceLevel = reqBodyToExperienceLevel(req);
+      const listings = await retrieveListingsByExperienceLevel(experienceLevel);
+
+      res.status(httpCodes.OK).json({
+        message: listingControllerResponseMessages.LISTING_S_RETRIEVED,
+        data: listings,
+      });
+    } catch (error) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
+        appLogger.error(
+          `Listing controller: ${callListingRetrievalByExperienceLevel.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });

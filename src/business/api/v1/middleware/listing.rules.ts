@@ -239,3 +239,14 @@ export const listingRetrievalByEmploymentTypeRules = (): ValidationChain[] => {
       .withMessage(listingFailedValidation.EMPLOYMENT_TYPE_INVALID_MESSAGE),
   ];
 };
+
+export const listingRetrievalByExperienceLevelRules = (): ValidationChain[] => {
+  return [
+    check("experienceLevel")
+      .notEmpty()
+      .withMessage(listingFailedValidation.EXPERIENCE_LEVEL_REQUIRED_MESSAGE)
+      .bail()
+      .isIn(experienceLevelTypeArray)
+      .withMessage(listingFailedValidation.EXPERIENCE_LEVEL_INVALID_MESSAGE),
+  ];
+};
