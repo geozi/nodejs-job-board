@@ -269,8 +269,157 @@ export const personInfoUpdateRules = (): ValidationChain[] => {
       .optional()
       .matches(DATE_REGEX)
       .withMessage(personFailedValidation.DATE_OF_BIRTH_INVALID_MESSAGE),
-    check("education").optional(),
-    check("workExperience").optional(),
+    check("education")
+      .optional()
+      .isArray()
+      .withMessage(personFailedValidation.EDUCATION_INVALID_FORMAT)
+      .custom((educationArray) => {
+        if (educationArray.length > 5) {
+          throw new Error(personFailedValidation.EDUCATION_TOO_LONG);
+        }
+        return true;
+      })
+      .custom(async (educationArray) => {
+        if (Array.isArray(educationArray) && educationArray.length > 0) {
+          for (let i = 0; i < educationArray.length; i++) {
+            const item = educationArray[i];
+
+            if (!item.degreeTitle) {
+              throw new Error(
+                educationFailedValidation.DEGREE_TITLE_REQUIRED_MESSAGE
+              );
+            } else if (
+              item.degreeTitle.length < commonConstants.GENERIC_MIN_LENGTH
+            ) {
+              throw new Error(
+                educationFailedValidation.DEGREE_TITLE_MIN_LENGTH_MESSAGE
+              );
+            }
+
+            if (!item.institution) {
+              throw new Error(
+                educationFailedValidation.INSTITUTION_REQUIRED_MESSAGE
+              );
+            } else if (
+              item.institution.length < commonConstants.GENERIC_MIN_LENGTH
+            ) {
+              throw new Error(
+                educationFailedValidation.INSTITUTION_MIN_LENGTH_MESSAGE
+              );
+            }
+
+            if (!item.startingDate) {
+              throw new Error(
+                educationFailedValidation.STARTING_DATE_REQUIRED_MESSAGE
+              );
+            } else if (!DATE_REGEX.test(item.startingDate)) {
+              throw new Error(
+                educationFailedValidation.STARTING_DATE_INVALID_MESSAGE
+              );
+            }
+
+            if (item.graduationDate && !DATE_REGEX.test(item.graduationDate)) {
+              throw new Error(
+                educationFailedValidation.GRADUATION_DATE_INVALID_MESSAGE
+              );
+            }
+
+            if (!item.isOngoing) {
+              throw new Error(
+                commonFailedValidation.IS_ONGOING_REQUIRED_MESSAGE
+              );
+            } else if (!isBoolean(item.isOngoing)) {
+              throw new Error(
+                commonFailedValidation.IS_ONGOING_INVALID_MESSAGE
+              );
+            }
+          }
+        }
+        return true;
+      }),
+    check("workExperience")
+      .optional()
+      .isArray()
+      .withMessage(personFailedValidation.WORK_EXPERIENCE_INVALID_FORMAT)
+      .custom((workExperienceArray) => {
+        if (workExperienceArray.length > 5) {
+          throw new Error(personFailedValidation.WORK_EXPERIENCE_TOO_LONG);
+        }
+        return true;
+      })
+      .custom(async (workExperienceArray) => {
+        if (
+          Array.isArray(workExperienceArray) &&
+          workExperienceArray.length > 0
+        ) {
+          for (let i = 0; i < workExperienceArray.length; i++) {
+            const item = workExperienceArray[i];
+
+            if (!item.jobTitle) {
+              throw new Error(
+                workExperienceFailedValidation.JOB_TITLE_REQUIRED_MESSAGE
+              );
+            } else if (
+              item.jobTitle.length <
+              workExperienceConstants.JOB_TITLE_MIN_LENGTH
+            ) {
+              throw new Error(
+                workExperienceFailedValidation.JOB_TITLE_MIN_LENGTH_MESSAGE
+              );
+            }
+
+            if (!item.organizationName) {
+              throw new Error(
+                commonFailedValidation.ORGANIZATION_NAME_REQUIRED_MESSAGE
+              );
+            } else if (
+              item.organizationName.length < commonConstants.GENERIC_MIN_LENGTH
+            ) {
+              throw new Error(
+                commonFailedValidation.ORGANIZATION_NAME_MIN_LENGTH_MESSAGE
+              );
+            }
+
+            if (!item.city) {
+              throw new Error(
+                workExperienceFailedValidation.CITY_REQUIRED_MESSAGE
+              );
+            }
+
+            if (item.country && !COUNTRY_REGEX.test(item.country)) {
+              throw new Error(commonFailedValidation.COUNTRY_INVALID_MESSAGE);
+            }
+
+            if (!item.startingDate) {
+              throw new Error(
+                workExperienceFailedValidation.STARTING_DATE_REQUIRED_MESSAGE
+              );
+            } else if (!DATE_REGEX.test(item.startingDate)) {
+              throw new Error(
+                workExperienceFailedValidation.STARTING_DATE_INVALID_MESSAGE
+              );
+            }
+
+            if (item.endingDate && !DATE_REGEX.test(item.endingDate)) {
+              throw new Error(
+                workExperienceFailedValidation.ENDING_DATE_INVALID_MESSAGE
+              );
+            }
+
+            if (!item.isOngoing) {
+              throw new Error(
+                commonFailedValidation.IS_ONGOING_REQUIRED_MESSAGE
+              );
+            } else if (!isBoolean(item.isOngoing)) {
+              throw new Error(
+                commonFailedValidation.IS_ONGOING_INVALID_MESSAGE
+              );
+            }
+          }
+        }
+
+        return true;
+      }),
     check("username")
       .optional()
       .isLength({ min: userConstants.USERNAME_MIN_LENGTH })
