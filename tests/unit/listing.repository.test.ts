@@ -1,5 +1,5 @@
-import { Listing } from "../../src/domain/models/listing.model";
-import { IListingUpdate } from "../../src/business/interfaces/iListingUpdate.interface";
+import { Listing } from "domain/models/listing.model";
+import { IListingUpdate } from "business/interfaces/iListingUpdate.interface";
 import sinon, { SinonStub } from "sinon";
 import assert from "assert";
 import { Types } from "mongoose";
@@ -13,7 +13,7 @@ import {
   addListing,
   updateListing,
   deleteListing,
-} from "../../src/persistence/listing.repository";
+} from "persistence/listing.repository";
 
 describe("Listing repository unit tests", () => {
   const mockListing = new Listing();

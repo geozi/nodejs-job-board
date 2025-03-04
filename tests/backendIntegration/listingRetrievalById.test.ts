@@ -1,17 +1,17 @@
 import assert from "assert";
 import sinon, { SinonSpy, SinonStub } from "sinon";
 import { Request, Response } from "express";
-import { Listing } from "../../src/domain/models/listing.model";
-import { retrievalByIdMiddlewareArray } from "../../src/business/api/v1/controllers/listing.controller";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
+import { Listing } from "domain/models/listing.model";
+import { retrievalByIdMiddlewareArray } from "business/api/v1/controllers/listing.controller";
+import { httpCodes } from "business/codes/responseStatusCodes";
 import { Types } from "mongoose";
-import { listingControllerResponseMessages } from "../../src/business/messages/listingControllerResponse.message";
-import { retrieveListingById } from "../../src/service/listing.service";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { listingFailedValidation } from "../../src/domain/messages/listingValidation.message";
+import { listingControllerResponseMessages } from "business/messages/listingControllerResponse.message";
+import { retrieveListingById } from "service/listing.service";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
 import { invalidObjectIdInputs } from "../testInputs";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
-import { listingServiceMessages } from "../../src/service/messages/listingService.message";
+import { commonServiceMessages } from "service/messages/commonService.message";
+import { listingServiceMessages } from "service/messages/listingService.message";
 
 describe("Listing retrieval by ID integration tests", () => {
   let req: Partial<Request>;

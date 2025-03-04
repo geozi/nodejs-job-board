@@ -1,9 +1,9 @@
-import { User } from "../../src/domain/models/user.model";
-import { IUser } from "../../src/domain/interfaces/documents/iUser.interface";
+import { User } from "domain/models/user.model";
+import { IUser } from "domain/interfaces/documents/iUser.interface";
 import sinon, { SinonStub } from "sinon";
 import { Error, Types } from "mongoose";
-import { NotFoundError } from "../../src/errors/notFoundError.class";
-import { ServerError } from "../../src/errors/serverError.class";
+import { NotFoundError } from "errors/notFoundError.class";
+import { ServerError } from "errors/serverError.class";
 import { validUserInput } from "../testInputs";
 import {
   retrieveUserByEmail,
@@ -12,9 +12,9 @@ import {
   createUser,
   bringUserToDate,
   removeUser,
-} from "../../src/service/user.service";
-import { IUserUpdate } from "../business/interfaces/iUserUpdate.interface";
-import { UniqueConstraintError } from "../../src/errors/uniqueConstraintError.class";
+} from "service/user.service";
+import { IUserUpdate } from "business/interfaces/iUserUpdate.interface";
+import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import * as chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);

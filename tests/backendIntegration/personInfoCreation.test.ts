@@ -11,19 +11,19 @@ import {
   validPersonInput,
   validWorkExperienceInput,
 } from "../testInputs";
-import { infoCreationMiddlewareArray } from "../../src/business/api/v1/controllers/person.controller";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
-import { personControllerResponseMessages } from "../../src/business/messages/personControllerResponse.message";
-import { Person } from "../../src/domain/models/person.model";
-import { createPersonInfo } from "../../src/service/person.service";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { personFailedValidation } from "../../src/domain/messages/personValidation.message";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
+import { infoCreationMiddlewareArray } from "business/api/v1/controllers/person.controller";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { personControllerResponseMessages } from "business/messages/personControllerResponse.message";
+import { Person } from "domain/models/person.model";
+import { createPersonInfo } from "service/person.service";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { personFailedValidation } from "domain/messages/personValidation.message";
+import { commonServiceMessages } from "service/messages/commonService.message";
 import { Error } from "mongoose";
-import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
-import { educationFailedValidation } from "../../src/domain/messages/educationValidation.message";
-import { commonFailedValidation } from "../../src/domain/messages/commonValidation.message";
-import { workExperienceFailedValidation } from "../../src/domain/messages/workExperienceValidation.message";
+import { userFailedValidation } from "domain/messages/userValidation.message";
+import { educationFailedValidation } from "domain/messages/educationValidation.message";
+import { commonFailedValidation } from "domain/messages/commonValidation.message";
+import { workExperienceFailedValidation } from "domain/messages/workExperienceValidation.message";
 
 describe("Person info creation integration tests", () => {
   let req: Partial<Request>;

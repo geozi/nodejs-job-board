@@ -1,21 +1,21 @@
 import sinon, { SinonSpy, SinonStub } from "sinon";
 import { Request, Response } from "express";
-import { Listing } from "../../src/domain/models/listing.model";
+import { Listing } from "domain/models/listing.model";
 import {
   invalidCommonInputs,
   invalidListingInputs,
   validListingInput,
 } from "../testInputs";
-import { listingCreationMiddlewareArray } from "../../src/business/api/v1/controllers/listing.controller";
+import { listingCreationMiddlewareArray } from "business/api/v1/controllers/listing.controller";
 import assert from "assert";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
-import { listingControllerResponseMessages } from "../../src/business/messages/listingControllerResponse.message";
-import { createListing } from "../../src/service/listing.service";
-import { listingFailedValidation } from "../../src/domain/messages/listingValidation.message";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { commonFailedValidation } from "../../src/domain/messages/commonValidation.message";
-import { salaryRangeFailedValidation } from "../../src/domain/messages/salaryRangeValidation.message";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { listingControllerResponseMessages } from "business/messages/listingControllerResponse.message";
+import { createListing } from "service/listing.service";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { commonFailedValidation } from "domain/messages/commonValidation.message";
+import { salaryRangeFailedValidation } from "domain/messages/salaryRangeValidation.message";
+import { commonServiceMessages } from "service/messages/commonService.message";
 
 describe("Listing creation integration tests", () => {
   let req: Partial<Request>;

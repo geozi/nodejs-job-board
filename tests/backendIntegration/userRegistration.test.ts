@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import sinon, { SinonSpy, SinonStub } from "sinon";
-import { createUser } from "../../src/service/user.service";
+import { createUser } from "service/user.service";
 import { invalidUserInputs, validUserInput } from "../testInputs";
-import { registrationMiddlewareArray } from "../../src/business/api/v1/controllers/user.controller";
+import { registrationMiddlewareArray } from "business/api/v1/controllers/user.controller";
 import assert from "assert";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
-import { userControllerResponseMessages } from "../../src/business/messages/userControllerResponse.message";
-import { User } from "../../src/domain/models/user.model";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { userFailedValidation } from "domain/messages/userValidation.message";
+import { userControllerResponseMessages } from "business/messages/userControllerResponse.message";
+import { User } from "domain/models/user.model";
+import { commonServiceMessages } from "service/messages/commonService.message";
 import { Error } from "mongoose";
 
 describe("User registration integration tests", () => {

@@ -1,5 +1,5 @@
-import { Listing } from "../../src/domain/models/listing.model";
-import { IListing } from "../../src/domain/interfaces/documents/iListing.interface";
+import { Listing } from "domain/models/listing.model";
+import { IListing } from "domain/interfaces/documents/iListing.interface";
 import {
   validListingInput,
   invalidListingInputs,
@@ -8,8 +8,8 @@ import {
 import sinon, { SinonStub } from "sinon";
 import assert from "assert";
 import { Error } from "mongoose";
-import { listingFailedValidation } from "../../src/domain/messages/listingValidation.message";
-import { commonFailedValidation } from "../../src/domain/messages/commonValidation.message";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
+import { commonFailedValidation } from "domain/messages/commonValidation.message";
 
 describe("Listing model unit tests", () => {
   let newListing: IListing;

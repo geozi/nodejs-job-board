@@ -1,4 +1,4 @@
-import { Application } from "../../src/domain/models/application.model";
+import { Application } from "domain/models/application.model";
 import sinon, { SinonStub } from "sinon";
 import assert from "assert";
 import { Types } from "mongoose";
@@ -10,7 +10,7 @@ import {
   addApplication,
   deleteApplicationById,
   deleteApplicationByUniqueIndex,
-} from "../../src/persistence/application.repository";
+} from "persistence/application.repository";
 
 describe("Application repository unit tests", () => {
   const mockApplication = new Application(validApplicationInput);

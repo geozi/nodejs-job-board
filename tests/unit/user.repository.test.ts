@@ -1,4 +1,4 @@
-import { User } from "../../src/domain/models/user.model";
+import { User } from "domain/models/user.model";
 import sinon, { SinonStub } from "sinon";
 import assert from "assert";
 import { Types } from "mongoose";
@@ -10,8 +10,8 @@ import {
   addUser,
   updateUser,
   deleteUser,
-} from "../../src/persistence/user.repository";
-import { IUserUpdate } from "../business/interfaces/iUserUpdate.interface";
+} from "persistence/user.repository";
+import { IUserUpdate } from "business/interfaces/iUserUpdate.interface";
 
 describe("User repository unit tests", () => {
   const mockUser = new User();

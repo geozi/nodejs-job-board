@@ -2,15 +2,15 @@ import sinon, { SinonSpy, SinonStub } from "sinon";
 import assert from "assert";
 import { Request, Response } from "express";
 import { invalidUserInputs, validPersonInput } from "../testInputs";
-import { Person } from "../../src/domain/models/person.model";
-import { infoRetrievalByUsernameMiddlewareArray } from "../../src/business/api/v1/controllers/person.controller";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
-import { personControllerResponseMessages } from "../../src/business/messages/personControllerResponse.message";
-import { retrievePersonInfoByUsername } from "../../src/service/person.service";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
-import { personServiceMessages } from "../../src/service/messages/personService.message";
+import { Person } from "domain/models/person.model";
+import { infoRetrievalByUsernameMiddlewareArray } from "business/api/v1/controllers/person.controller";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { personControllerResponseMessages } from "business/messages/personControllerResponse.message";
+import { retrievePersonInfoByUsername } from "service/person.service";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { userFailedValidation } from "domain/messages/userValidation.message";
+import { commonServiceMessages } from "service/messages/commonService.message";
+import { personServiceMessages } from "service/messages/personService.message";
 
 describe("Person info retrieval by username integration tests", () => {
   let req: Partial<Request>;

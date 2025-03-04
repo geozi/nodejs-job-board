@@ -2,17 +2,17 @@ import assert from "assert";
 import { Types } from "mongoose";
 import { Request, Response } from "express";
 import sinon, { SinonSpy, SinonStub } from "sinon";
-import { IListingUpdate } from "../../src/business/interfaces/iListingUpdate.interface";
+import { IListingUpdate } from "business/interfaces/iListingUpdate.interface";
 import { invalidObjectIdInputs, validListingInput } from "../testInputs";
-import { Listing } from "../../src/domain/models/listing.model";
-import { listingUpdateMiddlewareArray } from "../../src/business/api/v1/controllers/listing.controller";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
-import { listingControllerResponseMessages } from "../../src/business/messages/listingControllerResponse.message";
-import { IListing } from "../../src/domain/interfaces/documents/iListing.interface";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { listingFailedValidation } from "../../src/domain/messages/listingValidation.message";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
-import { listingServiceMessages } from "../../src/service/messages/listingService.message";
+import { Listing } from "domain/models/listing.model";
+import { listingUpdateMiddlewareArray } from "business/api/v1/controllers/listing.controller";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { listingControllerResponseMessages } from "business/messages/listingControllerResponse.message";
+import { IListing } from "domain/interfaces/documents/iListing.interface";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
+import { commonServiceMessages } from "service/messages/commonService.message";
+import { listingServiceMessages } from "service/messages/listingService.message";
 
 describe("Listing update integration tests", () => {
   let req: Partial<Request>;

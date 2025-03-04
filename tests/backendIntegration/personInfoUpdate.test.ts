@@ -2,16 +2,16 @@ import assert from "assert";
 import { Types } from "mongoose";
 import sinon, { SinonSpy, SinonStub } from "sinon";
 import { Request, Response } from "express";
-import { Person } from "../../src/domain/models/person.model";
-import { IPersonUpdate } from "../../src/business/interfaces/iPersonUpdate.interface";
+import { Person } from "domain/models/person.model";
+import { IPersonUpdate } from "business/interfaces/iPersonUpdate.interface";
 import { invalidObjectIdInputs, validPersonInput } from "../testInputs";
-import { infoUpdateMiddlewareArray } from "../../src/business/api/v1/controllers/person.controller";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
-import { personControllerResponseMessages } from "../../src/business/messages/personControllerResponse.message";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { personFailedValidation } from "../../src/domain/messages/personValidation.message";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
-import { personServiceMessages } from "../../src/service/messages/personService.message";
+import { infoUpdateMiddlewareArray } from "business/api/v1/controllers/person.controller";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { personControllerResponseMessages } from "business/messages/personControllerResponse.message";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { personFailedValidation } from "domain/messages/personValidation.message";
+import { commonServiceMessages } from "service/messages/commonService.message";
+import { personServiceMessages } from "service/messages/personService.message";
 
 describe("Person info update integration tests", () => {
   let req: Partial<Request>;

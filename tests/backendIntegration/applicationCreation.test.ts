@@ -1,16 +1,16 @@
 import assert from "assert";
 import sinon, { SinonSpy, SinonStub } from "sinon";
 import { Request, Response } from "express";
-import { Application } from "../../src/domain/models/application.model";
+import { Application } from "domain/models/application.model";
 import { invalidObjectIdInputs, validApplicationInput } from "../testInputs";
-import { applicationCreationMiddlewareArray } from "../../src/business/api/v1/controllers/application.controller";
-import { applicationControllerResponseMessages } from "../../src/business/messages/applicationControllerResponse.message";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
-import { addApplication } from "../../src/persistence/application.repository";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { personFailedValidation } from "../../src/domain/messages/personValidation.message";
-import { listingFailedValidation } from "../../src/domain/messages/listingValidation.message";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
+import { applicationCreationMiddlewareArray } from "business/api/v1/controllers/application.controller";
+import { applicationControllerResponseMessages } from "business/messages/applicationControllerResponse.message";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { addApplication } from "persistence/application.repository";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { personFailedValidation } from "domain/messages/personValidation.message";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
+import { commonServiceMessages } from "service/messages/commonService.message";
 import { Error } from "mongoose";
 
 describe("Application creation integration tests", () => {

@@ -1,16 +1,16 @@
-import { Person } from "../../src/domain/models/person.model";
-import { IPersonUpdate } from "../../src/business/interfaces/iPersonUpdate.interface";
+import { Person } from "domain/models/person.model";
+import { IPersonUpdate } from "business/interfaces/iPersonUpdate.interface";
 import sinon, { SinonStub } from "sinon";
 import { Error, Types } from "mongoose";
-import { NotFoundError } from "../../src/errors/notFoundError.class";
-import { ServerError } from "../../src/errors/serverError.class";
-import { UniqueConstraintError } from "../../src/errors/uniqueConstraintError.class";
+import { NotFoundError } from "errors/notFoundError.class";
+import { ServerError } from "errors/serverError.class";
+import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import {
   retrievePersonInfoByUsername,
   createPersonInfo,
   bringPersonInfoToDate,
   removePersonInfo,
-} from "../../src/service/person.service";
+} from "service/person.service";
 import { validPersonInput } from "../testInputs";
 import * as chai from "chai";
 import chaiAsPromised from "chai-as-promised";

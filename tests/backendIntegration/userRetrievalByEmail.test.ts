@@ -1,16 +1,16 @@
 import sinon, { SinonSpy, SinonStub } from "sinon";
 import { Request, Response } from "express";
-import { User } from "../../src/domain/models/user.model";
+import { User } from "domain/models/user.model";
 import { invalidUserInputs, validUserInput } from "../testInputs";
-import { retrievalByEmailMiddlewareArray } from "../../src/business/api/v1/controllers/user.controller";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
+import { retrievalByEmailMiddlewareArray } from "business/api/v1/controllers/user.controller";
+import { httpCodes } from "business/codes/responseStatusCodes";
 import assert from "assert";
-import { userControllerResponseMessages } from "../../src/business/messages/userControllerResponse.message";
-import { retrieveUserByEmail } from "../../src/service/user.service";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
-import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
-import { userServiceMessages } from "../../src/service/messages/userService.message";
+import { userControllerResponseMessages } from "business/messages/userControllerResponse.message";
+import { retrieveUserByEmail } from "service/user.service";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { userFailedValidation } from "domain/messages/userValidation.message";
+import { commonServiceMessages } from "service/messages/commonService.message";
+import { userServiceMessages } from "service/messages/userService.message";
 
 describe("User retrieval by email integration tests", () => {
   let req: Partial<Request>;

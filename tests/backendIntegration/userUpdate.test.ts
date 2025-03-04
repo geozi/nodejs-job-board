@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 import sinon, { SinonSpy, SinonStub } from "sinon";
 import { Types } from "mongoose";
-import { User } from "../../src/domain/models/user.model";
-import { updateMiddlewareArray } from "../../src/business/api/v1/controllers/user.controller";
+import { User } from "domain/models/user.model";
+import { updateMiddlewareArray } from "business/api/v1/controllers/user.controller";
 import assert from "assert";
-import { httpCodes } from "../../src/business/codes/responseStatusCodes";
-import { userFailedValidation } from "../../src/domain/messages/userValidation.message";
-import { commonResponseMessages } from "../../src/business/messages/commonResponse.message";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { userFailedValidation } from "domain/messages/userValidation.message";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
 import { invalidObjectIdInputs, validUserInput } from "../testInputs";
-import { userControllerResponseMessages } from "../../src/business/messages/userControllerResponse.message";
-import { IUserUpdate } from "../../src/business/interfaces/iUserUpdate.interface";
-import { commonServiceMessages } from "../../src/service/messages/commonService.message";
-import { userServiceMessages } from "../../src/service/messages/userService.message";
+import { userControllerResponseMessages } from "business/messages/userControllerResponse.message";
+import { IUserUpdate } from "business/interfaces/iUserUpdate.interface";
+import { commonServiceMessages } from "service/messages/commonService.message";
+import { userServiceMessages } from "service/messages/userService.message";
 
 describe("User update integration tests", () => {
   let req: Partial<Request>;

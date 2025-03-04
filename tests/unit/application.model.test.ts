@@ -1,11 +1,11 @@
-import { Application } from "../../src/domain/models/application.model";
-import { IApplication } from "../../src/domain/interfaces/documents/iApplication.interface";
+import { Application } from "domain/models/application.model";
+import { IApplication } from "domain/interfaces/documents/iApplication.interface";
 import { validApplicationInput, invalidObjectIdInputs } from "../testInputs";
 import sinon, { SinonStub } from "sinon";
 import assert from "assert";
 import { Error } from "mongoose";
-import { personFailedValidation } from "../../src/domain/messages/personValidation.message";
-import { listingFailedValidation } from "../../src/domain/messages/listingValidation.message";
+import { personFailedValidation } from "domain/messages/personValidation.message";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
 
 describe("Application model unit tests", () => {
   let newApplication: IApplication;

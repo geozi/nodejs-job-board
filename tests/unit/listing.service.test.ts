@@ -1,6 +1,6 @@
-import { Listing } from "../../src/domain/models/listing.model";
-import { IListing } from "../../src/domain/interfaces/documents/iListing.interface";
-import { IListingUpdate } from "../../src/business/interfaces/iListingUpdate.interface";
+import { Listing } from "domain/models/listing.model";
+import { IListing } from "domain/interfaces/documents/iListing.interface";
+import { IListingUpdate } from "business/interfaces/iListingUpdate.interface";
 import {
   retrieveListingById,
   retrieveListingsByEmploymentType,
@@ -10,11 +10,11 @@ import {
   createListing,
   bringListingToDate,
   removeListing,
-} from "../../src/service/listing.service";
+} from "service/listing.service";
 import sinon, { SinonStub } from "sinon";
 import { Types } from "mongoose";
-import { NotFoundError } from "../../src/errors/notFoundError.class";
-import { ServerError } from "../../src/errors/serverError.class";
+import { NotFoundError } from "errors/notFoundError.class";
+import { ServerError } from "errors/serverError.class";
 import * as chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { validListingInput } from "../testInputs";

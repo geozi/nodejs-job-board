@@ -1,7 +1,7 @@
 import sinon, { SinonStub } from "sinon";
 import assert from "assert";
-import { Person } from "../../src/domain/models/person.model";
-import { IPersonUpdate } from "../../src/business/interfaces/iPersonUpdate.interface";
+import { Person } from "domain/models/person.model";
+import { IPersonUpdate } from "business/interfaces/iPersonUpdate.interface";
 import { Types } from "mongoose";
 import { validPersonInput } from "../testInputs";
 import {
@@ -9,7 +9,7 @@ import {
   addPerson,
   updatePerson,
   deletePerson,
-} from "../../src/persistence/person.repository";
+} from "persistence/person.repository";
 
 describe("Person repository unit tests", () => {
   const mockPerson = new Person();
