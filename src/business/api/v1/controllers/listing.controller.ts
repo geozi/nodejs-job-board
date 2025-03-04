@@ -311,7 +311,7 @@ export const retrievalByIdMiddlewareArray = [
       const listing = await retrieveListingById(idAsObjectId);
 
       res.status(httpCodes.OK).json({
-        message: listingControllerResponseMessages.LISTING_S_RETRIEVED,
+        message: listingControllerResponseMessages.LISTING_RETRIEVED,
         data: listing,
       });
     } catch (error) {
