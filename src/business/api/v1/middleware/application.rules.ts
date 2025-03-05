@@ -30,3 +30,7 @@ export const applicationCreationRules = (): ValidationChain[] => {
       .withMessage(listingFailedValidation.LISTING_ID_INVALID_MESSAGE),
   ];
 };
+
+export const applicationRetrievalByIdRules = (): ValidationChain[] => {
+  return [check("id")];
+};
