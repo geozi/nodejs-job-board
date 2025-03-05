@@ -48,6 +48,22 @@ export const applicationRetrievalByPersonIdRules = (): ValidationChain[] => {
   ];
 };
 
+export const applicationRetrievalByListingIdRules = (): ValidationChain[] => {
+  return [
+    check("listingId")
+      .notEmpty()
+      .withMessage(listingFailedValidation.LISTING_ID_REQUIRED_MESSAGE)
+      .bail()
+      .isLength({
+        min: commonConstants.MONGODB_ID_LENGTH,
+        max: commonConstants.MONGODB_ID_LENGTH,
+      })
+      .withMessage(listingFailedValidation.LISTING_ID_OUT_OF_LENGTH_MESSAGE)
+      .matches(ID_REGEX)
+      .withMessage(listingFailedValidation.LISTING_ID_INVALID_MESSAGE),
+  ];
+};
+
 export const applicationRemovalByIdRules = (): ValidationChain[] => {
   return [
     check("id")
