@@ -18,3 +18,11 @@ export const reqBodyToApplicationId = function (req: Request) {
   const { id } = req.body;
   return new Types.ObjectId(id);
 };
+
+export const reqBodyToUniqueIndex = function (req: Request) {
+  const { personId, listingId } = req.body;
+  return {
+    personId: new Types.ObjectId(personId),
+    listingId: new Types.ObjectId(listingId),
+  };
+};

@@ -10,9 +10,13 @@ import { httpCodes } from "business/codes/responseStatusCodes";
 import { commonResponseMessages } from "business/messages/commonResponse.message";
 import { ServerError } from "errors/serverError.class";
 import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
-import { reqBodyToApplication } from "business/mappers/application.mapper";
+import {
+  reqBodyToApplication,
+  reqBodyToUniqueIndex,
+} from "business/mappers/application.mapper";
 import {
   createApplication,
+  retrieveApplicationByUniqueIndex,
   retrieveApplicationsByListingId,
   retrieveApplicationsByPersonId,
 } from "service/application.service";
@@ -143,6 +147,56 @@ export const retrievalByListingIdMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `Application controller: ${callApplicationRetrievalByListingId.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const retrievalByUniqueIndexMiddlewareArray = [
+  ...applicationCreationAndUniqueIndexRetrievalRules(),
+  async function callApplicationRetrievalByUniqueIndex(
+    req: Request,
+    res: Response
+  ) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `Application controller: ${callApplicationRetrievalByUniqueIndex.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+
+    try {
+      const { personId, listingId } = reqBodyToUniqueIndex(req.body);
+      const application = await retrieveApplicationByUniqueIndex(
+        personId,
+        listingId
+      );
+
+      res.status(httpCodes.OK).json({
+        message: applicationControllerResponseMessages.APPLICATION_RETRIEVED,
+        data: application,
+      });
+    } catch (error) {
+      if (
+        error instanceof ServerError ||
+        error instanceof UniqueConstraintError
+      ) {
+        appLogger.error(
+          `Application controller: ${callApplicationRetrievalByUniqueIndex.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
