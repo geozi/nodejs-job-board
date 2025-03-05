@@ -16,7 +16,6 @@ import {
   getApplicationsByListingId,
   getApplicationsByPersonId,
 } from "persistence/application.repository";
-import { listingServiceMessages } from "./messages/listingService.message";
 import { applicationServiceMessages } from "./messages/applicationService.message";
 import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 
@@ -34,7 +33,9 @@ export const retrieveApplicationsByPersonId = async (
     const retrievedApplications = await getApplicationsByPersonId(personId);
 
     if (retrievedApplications.length === 0) {
-      throw new NotFoundError(listingServiceMessages.LISTINGS_NOT_FOUND);
+      throw new NotFoundError(
+        applicationServiceMessages.APPLICATIONS_NOT_FOUND
+      );
     }
 
     return retrievedApplications;
