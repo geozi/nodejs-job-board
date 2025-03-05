@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import {
-  applicationCreationRules,
+  applicationCreationAndUniqueIndexRetrievalRules,
   applicationRetrievalByListingIdRules,
   applicationRetrievalByPersonIdRules,
 } from "../middleware/application.rules";
@@ -21,7 +21,7 @@ import { NotFoundError } from "errors/notFoundError.class";
 import { reqBodyToId } from "business/mappers/common.mapper";
 
 export const applicationCreationMiddlewareArray = [
-  ...applicationCreationRules(),
+  ...applicationCreationAndUniqueIndexRetrievalRules(),
   async function callApplicationCreation(req: Request, res: Response) {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
