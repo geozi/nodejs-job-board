@@ -3,6 +3,7 @@ import { personFailedValidation } from "domain/messages/personValidation.message
 import { commonConstants } from "domain/constants/common.constant";
 import { ID_REGEX } from "domain/resources/validationRegExp";
 import { listingFailedValidation } from "domain/messages/listingValidation.message";
+import { applicationFailedValidation } from "domain/messages/applicationValidation.message";
 
 export const applicationCreationRules = (): ValidationChain[] => {
   return [
@@ -28,5 +29,23 @@ export const applicationCreationRules = (): ValidationChain[] => {
       .withMessage(listingFailedValidation.LISTING_ID_OUT_OF_LENGTH_MESSAGE)
       .matches(ID_REGEX)
       .withMessage(listingFailedValidation.LISTING_ID_INVALID_MESSAGE),
+  ];
+};
+
+export const applicationRemovalByIdRules = (): ValidationChain[] => {
+  return [
+    check("id")
+      .notEmpty()
+      .withMessage(applicationFailedValidation.APPLICATION_ID_REQUIRED_MESSAGE)
+      .bail()
+      .isLength({
+        min: commonConstants.MONGODB_ID_LENGTH,
+        max: commonConstants.MONGODB_ID_LENGTH,
+      })
+      .withMessage(
+        applicationFailedValidation.APPLICATION_ID_OUT_OF_LENGTH_MESSAGE
+      )
+      .matches(ID_REGEX)
+      .withMessage(applicationFailedValidation.APPLICATION_ID_INVALID_MESSAGE),
   ];
 };
