@@ -180,7 +180,7 @@ export const retrievalByUniqueIndexMiddlewareArray = [
     }
 
     try {
-      const { personId, listingId } = reqBodyToUniqueIndex(req.body);
+      const { personId, listingId } = reqBodyToUniqueIndex(req);
       const application = await retrieveApplicationByUniqueIndex(
         personId,
         listingId
@@ -191,10 +191,7 @@ export const retrievalByUniqueIndexMiddlewareArray = [
         data: application,
       });
     } catch (error) {
-      if (
-        error instanceof ServerError ||
-        error instanceof UniqueConstraintError
-      ) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `Application controller: ${callApplicationRetrievalByUniqueIndex.name} -> ${error.name} detected and caught`
         );
