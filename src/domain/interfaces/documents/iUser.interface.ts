@@ -3,7 +3,7 @@
  * @module src/domain/interfaces/documents/iUser.interface
  */
 import { Document } from "mongoose";
-import { RoleType } from "../../enums/roleType.enum";
+import { RoleType } from "domain/enums/roleType.enum";
 
 /**
  * Represents a user.

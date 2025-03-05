@@ -3,7 +3,7 @@
  * @module src/domain/errors/uniqueConstraintError.class
  */
 
-import { httpCodes } from "../business/codes/responseStatusCodes";
+import { httpCodes } from "business/codes/responseStatusCodes";
 import { AbstractError } from "./abstractError.class";
 
 /**

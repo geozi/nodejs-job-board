@@ -4,10 +4,10 @@
  */
 import { Error, Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
-import { RoleType } from "../domain/enums/roleType.enum";
-import { IUser } from "../domain/interfaces/documents/iUser.interface";
-import { NotFoundError } from "../errors/notFoundError.class";
-import { ServerError } from "../errors/serverError.class";
+import { RoleType } from "domain/enums/roleType.enum";
+import { IUser } from "domain/interfaces/documents/iUser.interface";
+import { NotFoundError } from "errors/notFoundError.class";
+import { ServerError } from "errors/serverError.class";
 import {
   addUser,
   deleteUser,
@@ -15,11 +15,11 @@ import {
   getUserByUsername,
   getUsersByRole,
   updateUser,
-} from "../persistence/user.repository";
+} from "persistence/user.repository";
 import { commonServiceMessages } from "./messages/commonService.message";
 import { userServiceMessages } from "./messages/userService.message";
-import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
-import { IUserUpdate } from "../business/interfaces/iUserUpdate.interface";
+import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
+import { IUserUpdate } from "business/interfaces/iUserUpdate.interface";
 
 /**
  * Calls on the persistence layer to retrieve the user with the specified username.

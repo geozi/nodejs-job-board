@@ -2,13 +2,13 @@
  * Listing validation error messages.
  * @module src/domain/messages/listingValidation.message
  */
-import { commonConstants } from "../constants/common.constant";
-import { listingConstants } from "../constants/listing.constant";
-import { EmploymentType } from "../enums/employmentType.enum";
-import { ExperienceLevelType } from "../enums/experienceLevelType.enum";
-import { WorkType } from "../enums/workType.enum";
-import { DATE_REGEX, ID_REGEX } from "../resources/validationRegExp";
-import { ListingStatus } from "../enums/listingStatus.enum";
+import { commonConstants } from "domain/constants/common.constant";
+import { listingConstants } from "domain/constants/listing.constant";
+import { EmploymentType } from "domain/enums/employmentType.enum";
+import { ExperienceLevelType } from "domain/enums/experienceLevelType.enum";
+import { WorkType } from "domain/enums/workType.enum";
+import { DATE_REGEX, ID_REGEX } from "domain/resources/validationRegExp";
+import { ListingStatus } from "domain/enums/listingStatus.enum";
 
 /**
  * Contains error message(s) that are used when listing validation fails.

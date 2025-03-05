@@ -2,9 +2,9 @@
  * Work experience validation error messages.
  * @module src/domain/messages/workExperienceValidation.message
  */
-import { workExperienceConstants } from "../constants/workExperience.constant";
-import { IWorkExperience } from "../interfaces/secondary/iWorkExperience.interface";
-import { DATE_REGEX } from "../resources/validationRegExp";
+import { workExperienceConstants } from "domain/constants/workExperience.constant";
+import { IWorkExperience } from "domain/interfaces/secondary/iWorkExperience.interface";
+import { DATE_REGEX } from "domain/resources/validationRegExp";
 
 /**
  * Contains error message(s) that are used when validation of {@link IWorkExperience}-complied objects fails.

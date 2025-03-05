@@ -4,11 +4,11 @@
  */
 import { model, Schema } from "mongoose";
 import mongooseUniqueValidator from "mongoose-unique-validator";
-import { userConstants } from "../constants/user.constant";
-import { userFailedValidation } from "../messages/userValidation.message";
-import { RoleType } from "../enums/roleType.enum";
-import { IUser } from "../interfaces/documents/iUser.interface";
-import { EMAIL_REGEX, PASSWORD_REGEX } from "../resources/validationRegExp";
+import { userConstants } from "domain/constants/user.constant";
+import { userFailedValidation } from "domain/messages/userValidation.message";
+import { RoleType } from "domain/enums/roleType.enum";
+import { IUser } from "domain/interfaces/documents/iUser.interface";
+import { EMAIL_REGEX, PASSWORD_REGEX } from "domain/resources/validationRegExp";
 
 /**
  * User schema for persistence in MongoDB.

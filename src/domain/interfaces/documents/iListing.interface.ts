@@ -3,11 +3,11 @@
  * @module src/domain/interfaces/documents/iListing.interface
  */
 import { Document } from "mongoose";
-import { EmploymentType } from "../../enums/employmentType.enum";
-import { WorkType } from "../../enums/workType.enum";
-import { ExperienceLevelType } from "../../enums/experienceLevelType.enum";
-import { ISalaryRange } from "../secondary/iSalaryRange.interface";
-import { ListingStatus } from "../../enums/listingStatus.enum";
+import { EmploymentType } from "domain/enums/employmentType.enum";
+import { WorkType } from "domain/enums/workType.enum";
+import { ExperienceLevelType } from "domain/enums/experienceLevelType.enum";
+import { ISalaryRange } from "domain/interfaces/secondary/iSalaryRange.interface";
+import { ListingStatus } from "domain/enums/listingStatus.enum";
 
 /**
  * Represents a job listing.

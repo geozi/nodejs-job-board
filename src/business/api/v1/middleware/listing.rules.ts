@@ -1,18 +1,18 @@
 import { body, check, ValidationChain } from "express-validator";
-import { listingFailedValidation } from "../../../../domain/messages/listingValidation.message";
-import { commonFailedValidation } from "../../../../domain/messages/commonValidation.message";
-import { commonConstants } from "../../../../domain/constants/common.constant";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
+import { commonFailedValidation } from "domain/messages/commonValidation.message";
+import { commonConstants } from "domain/constants/common.constant";
 import {
   COUNTRY_REGEX,
   DATE_REGEX,
   ID_REGEX,
-} from "../../../../domain/resources/validationRegExp";
-import { workTypeArray } from "../../../../domain/enums/workType.enum";
-import { employmentTypeArray } from "../../../../domain/enums/employmentType.enum";
-import { experienceLevelTypeArray } from "../../../../domain/enums/experienceLevelType.enum";
-import { listingConstants } from "../../../../domain/constants/listing.constant";
-import { listingStatusArray } from "../../../../domain/enums/listingStatus.enum";
-import { salaryRangeFailedValidation } from "../../../../domain/messages/salaryRangeValidation.message";
+} from "domain/resources/validationRegExp";
+import { workTypeArray } from "domain/enums/workType.enum";
+import { employmentTypeArray } from "domain/enums/employmentType.enum";
+import { experienceLevelTypeArray } from "domain/enums/experienceLevelType.enum";
+import { listingConstants } from "domain/constants/listing.constant";
+import { listingStatusArray } from "domain/enums/listingStatus.enum";
+import { salaryRangeFailedValidation } from "domain/messages/salaryRangeValidation.message";
 
 export const listingCreationRules = (): ValidationChain[] => {
   return [

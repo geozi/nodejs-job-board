@@ -5,22 +5,22 @@ import {
   personInfoUpdateRules,
 } from "../middleware/person.rules";
 import { validationResult } from "express-validator";
-import { httpCodes } from "../../../codes/responseStatusCodes";
+import { httpCodes } from "business/codes/responseStatusCodes";
 import { appLogger } from "../../../../../logs/logger.config";
-import { commonResponseMessages } from "../../../messages/commonResponse.message";
-import { ServerError } from "../../../../errors/serverError.class";
-import { UniqueConstraintError } from "../../../../errors/uniqueConstraintError.class";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { ServerError } from "errors/serverError.class";
+import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import {
   reqBodyToPerson,
   reqBodyToPersonUpdate,
-} from "../../../mappers/person.mapper";
-import { personControllerResponseMessages } from "../../../messages/personControllerResponse.message";
+} from "business/mappers/person.mapper";
+import { personControllerResponseMessages } from "business/messages/personControllerResponse.message";
 import {
   bringPersonInfoToDate,
   createPersonInfo,
   retrievePersonInfoByUsername,
-} from "../../../../service/person.service";
-import { NotFoundError } from "../../../../errors/notFoundError.class";
+} from "service/person.service";
+import { NotFoundError } from "errors/notFoundError.class";
 
 export const infoCreationMiddlewareArray = [
   ...personInfoCreationRules(),

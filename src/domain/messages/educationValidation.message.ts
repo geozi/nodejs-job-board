@@ -2,9 +2,9 @@
  * Education validation error messages.
  * @module src/domain/messages/educationValidation.message
  */
-import { commonConstants } from "../constants/common.constant";
-import { DATE_REGEX } from "../resources/validationRegExp";
-import { IEducation } from "../interfaces/secondary/iEducation.interface";
+import { commonConstants } from "domain/constants/common.constant";
+import { DATE_REGEX } from "domain/resources/validationRegExp";
+import { IEducation } from "domain/interfaces/secondary/iEducation.interface";
 
 /**
  * Contains error message(s) that are used when validation of {@link IEducation}-complied objects fails.

@@ -2,15 +2,15 @@
  * Listing repository.
  * @module src/persistence/listing.repository
  */
-import { Listing } from "../domain/models/listing.model";
-import { IListing } from "../domain/interfaces/documents/iListing.interface";
-import { IListingUpdate } from "../business/interfaces/iListingUpdate.interface";
+import { Listing } from "domain/models/listing.model";
+import { IListing } from "domain/interfaces/documents/iListing.interface";
+import { IListingUpdate } from "business/interfaces/iListingUpdate.interface";
 import { Types } from "mongoose";
-import { WorkType } from "../domain/enums/workType.enum";
-import { EmploymentType } from "../domain/enums/employmentType.enum";
-import { ExperienceLevelType } from "../domain/enums/experienceLevelType.enum";
+import { WorkType } from "domain/enums/workType.enum";
+import { EmploymentType } from "domain/enums/employmentType.enum";
+import { ExperienceLevelType } from "domain/enums/experienceLevelType.enum";
 import { appLogger } from "../../logs/logger.config";
-import { ListingStatus } from "../domain/enums/listingStatus.enum";
+import { ListingStatus } from "domain/enums/listingStatus.enum";
 
 /**
  * Returns an array of listings with the specified status.

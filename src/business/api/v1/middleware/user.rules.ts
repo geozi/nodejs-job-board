@@ -1,13 +1,13 @@
 import { check, ValidationChain } from "express-validator";
-import { userFailedValidation } from "../../../../domain/messages/userValidation.message";
-import { userConstants } from "../../../../domain/constants/user.constant";
+import { userFailedValidation } from "domain/messages/userValidation.message";
+import { userConstants } from "domain/constants/user.constant";
 import {
   EMAIL_REGEX,
   ID_REGEX,
   PASSWORD_REGEX,
-} from "../../../../domain/resources/validationRegExp";
-import { RoleType } from "../../../../domain/enums/roleType.enum";
-import { commonConstants } from "../../../../domain/constants/common.constant";
+} from "domain/resources/validationRegExp";
+import { RoleType } from "domain/enums/roleType.enum";
+import { commonConstants } from "domain/constants/common.constant";
 
 export const userRegistrationRules = (): ValidationChain[] => {
   return [

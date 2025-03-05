@@ -2,8 +2,8 @@
  * Common validation error messages.
  * @module src/domain/messages/commonValidation.message
  */
-import { commonConstants } from "../constants/common.constant";
-import { COUNTRY_REGEX } from "../resources/validationRegExp";
+import { commonConstants } from "domain/constants/common.constant";
+import { COUNTRY_REGEX } from "domain/resources/validationRegExp";
 
 /**
  * Contains error response message(s) that are used when common validation operations fail.

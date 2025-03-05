@@ -1,20 +1,20 @@
 import { check, ValidationChain } from "express-validator";
-import { personFailedValidation } from "../../../../domain/messages/personValidation.message";
-import { personConstants } from "../../../../domain/constants/person.constant";
+import { personFailedValidation } from "domain/messages/personValidation.message";
+import { personConstants } from "domain/constants/person.constant";
 import {
   COUNTRY_REGEX,
   DATE_REGEX,
   ID_REGEX,
   NAME_REGEX,
   PHONE_REGEX,
-} from "../../../../domain/resources/validationRegExp";
-import { commonConstants } from "../../../../domain/constants/common.constant";
-import { userFailedValidation } from "../../../../domain/messages/userValidation.message";
-import { userConstants } from "../../../../domain/constants/user.constant";
-import { educationFailedValidation } from "../../../../domain/messages/educationValidation.message";
-import { commonFailedValidation } from "../../../../domain/messages/commonValidation.message";
-import { workExperienceFailedValidation } from "../../../../domain/messages/workExperienceValidation.message";
-import { workExperienceConstants } from "../../../../domain/constants/workExperience.constant";
+} from "domain/resources/validationRegExp";
+import { commonConstants } from "domain/constants/common.constant";
+import { userFailedValidation } from "domain/messages/userValidation.message";
+import { userConstants } from "domain/constants/user.constant";
+import { educationFailedValidation } from "domain/messages/educationValidation.message";
+import { commonFailedValidation } from "domain/messages/commonValidation.message";
+import { workExperienceFailedValidation } from "domain/messages/workExperienceValidation.message";
+import { workExperienceConstants } from "domain/constants/workExperience.constant";
 
 function isBoolean(value: string) {
   let result = false;

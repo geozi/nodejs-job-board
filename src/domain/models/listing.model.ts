@@ -3,16 +3,16 @@
  * @module src/domain/models/listing.model
  */
 import { Schema, model } from "mongoose";
-import { IListing } from "../interfaces/documents/iListing.interface";
-import { listingConstants } from "../constants/listing.constant";
-import { listingFailedValidation } from "../messages/listingValidation.message";
-import { commonConstants } from "../constants/common.constant";
-import { commonFailedValidation } from "../messages/commonValidation.message";
-import { workTypeArray } from "../enums/workType.enum";
-import { employmentTypeArray } from "../enums/employmentType.enum";
-import { experienceLevelTypeArray } from "../enums/experienceLevelType.enum";
-import { COUNTRY_REGEX } from "../resources/validationRegExp";
-import { listingStatusArray } from "../enums/listingStatus.enum";
+import { IListing } from "domain/interfaces/documents/iListing.interface";
+import { listingConstants } from "domain/constants/listing.constant";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
+import { commonConstants } from "domain/constants/common.constant";
+import { commonFailedValidation } from "domain/messages/commonValidation.message";
+import { workTypeArray } from "domain/enums/workType.enum";
+import { employmentTypeArray } from "domain/enums/employmentType.enum";
+import { experienceLevelTypeArray } from "domain/enums/experienceLevelType.enum";
+import { COUNTRY_REGEX } from "domain/resources/validationRegExp";
+import { listingStatusArray } from "domain/enums/listingStatus.enum";
 
 /**
  * Listing schema for persistence in MongoDB.

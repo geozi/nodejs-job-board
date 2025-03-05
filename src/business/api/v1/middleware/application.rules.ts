@@ -1,8 +1,8 @@
 import { check, ValidationChain } from "express-validator";
-import { personFailedValidation } from "../../../../domain/messages/personValidation.message";
-import { commonConstants } from "../../../../domain/constants/common.constant";
-import { ID_REGEX } from "../../../../domain/resources/validationRegExp";
-import { listingFailedValidation } from "../../../../domain/messages/listingValidation.message";
+import { personFailedValidation } from "domain/messages/personValidation.message";
+import { commonConstants } from "domain/constants/common.constant";
+import { ID_REGEX } from "domain/resources/validationRegExp";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
 
 export const applicationCreationRules = (): ValidationChain[] => {
   return [
@@ -29,8 +29,4 @@ export const applicationCreationRules = (): ValidationChain[] => {
       .matches(ID_REGEX)
       .withMessage(listingFailedValidation.LISTING_ID_INVALID_MESSAGE),
   ];
-};
-
-export const applicationRetrievalByIdRules = (): ValidationChain[] => {
-  return [check("id")];
 };

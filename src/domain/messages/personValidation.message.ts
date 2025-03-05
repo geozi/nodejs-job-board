@@ -2,14 +2,14 @@
  * Person validation error messages.
  * @module src/domain/messages/personValidation.message
  */
-import { commonConstants } from "../constants/common.constant";
-import { personConstants } from "../constants/person.constant";
+import { commonConstants } from "domain/constants/common.constant";
+import { personConstants } from "domain/constants/person.constant";
 import {
   NAME_REGEX,
   PHONE_REGEX,
   DATE_REGEX,
   ID_REGEX,
-} from "../resources/validationRegExp";
+} from "domain/resources/validationRegExp";
 
 /**
  * Contains error message(s) that are used when person validation fails.

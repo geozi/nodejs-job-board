@@ -3,13 +3,13 @@
  * @module src/domain/models/person.model
  */
 import { Schema, model } from "mongoose";
-import { IPerson } from "../interfaces/documents/iPerson.interface";
-import { personConstants } from "../constants/person.constant";
-import { commonConstants } from "../constants/common.constant";
-import { personFailedValidation } from "../messages/personValidation.message";
-import { NAME_REGEX, PHONE_REGEX } from "../resources/validationRegExp";
-import { userFailedValidation } from "../messages/userValidation.message";
-import { userConstants } from "../constants/user.constant";
+import { IPerson } from "domain/interfaces/documents/iPerson.interface";
+import { personConstants } from "domain/constants/person.constant";
+import { commonConstants } from "domain/constants/common.constant";
+import { personFailedValidation } from "domain/messages/personValidation.message";
+import { NAME_REGEX, PHONE_REGEX } from "domain/resources/validationRegExp";
+import { userFailedValidation } from "domain/messages/userValidation.message";
+import { userConstants } from "domain/constants/user.constant";
 import mongooseUniqueValidator from "mongoose-unique-validator";
 
 /**

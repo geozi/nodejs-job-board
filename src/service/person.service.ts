@@ -4,19 +4,19 @@
  */
 import { Error, Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
-import { IPerson } from "../domain/interfaces/documents/iPerson.interface";
-import { NotFoundError } from "../errors/notFoundError.class";
-import { ServerError } from "../errors/serverError.class";
+import { IPerson } from "domain/interfaces/documents/iPerson.interface";
+import { NotFoundError } from "errors/notFoundError.class";
+import { ServerError } from "errors/serverError.class";
 import {
   addPerson,
   deletePerson,
   getPersonByUsername,
   updatePerson,
-} from "../persistence/person.repository";
+} from "persistence/person.repository";
 import { commonServiceMessages } from "./messages/commonService.message";
 import { personServiceMessages } from "./messages/personService.message";
-import { IPersonUpdate } from "../business/interfaces/iPersonUpdate.interface";
-import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
+import { IPersonUpdate } from "business/interfaces/iPersonUpdate.interface";
+import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 
 /**
  * Calls on the persistence layer to retrieve a person's information with the specified username.

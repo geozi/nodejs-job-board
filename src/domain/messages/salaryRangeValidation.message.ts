@@ -2,7 +2,7 @@
  * Salary range validation error messages.
  * @module src/domain/messages/salaryRangeValidation.message
  */
-import { ISalaryRange } from "../interfaces/secondary/iSalaryRange.interface";
+import { ISalaryRange } from "domain/interfaces/secondary/iSalaryRange.interface";
 
 /**
  * Contains error message(s) that are used when validation of {@link ISalaryRange}-complied objects fails.

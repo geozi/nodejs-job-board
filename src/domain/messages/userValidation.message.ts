@@ -2,14 +2,14 @@
  * User validation error messages.
  * @module src/domain/messages/userValidation.message
  */
-import { commonConstants } from "../constants/common.constant";
-import { userConstants } from "../constants/user.constant";
-import { RoleType } from "../enums/roleType.enum";
+import { commonConstants } from "domain/constants/common.constant";
+import { userConstants } from "domain/constants/user.constant";
+import { RoleType } from "domain/enums/roleType.enum";
 import {
   EMAIL_REGEX,
   ID_REGEX,
   PASSWORD_REGEX,
-} from "../resources/validationRegExp";
+} from "domain/resources/validationRegExp";
 
 /**
  * Contains error message(s) that are used when user validation fails.

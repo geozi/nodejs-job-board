@@ -2,12 +2,12 @@
  * User repository.
  * @module src/persistence/user.repository
  */
-import { User } from "../domain/models/user.model";
-import { IUser } from "../domain/interfaces/documents/iUser.interface";
-import { RoleType } from "../domain/enums/roleType.enum";
+import { User } from "domain/models/user.model";
+import { IUser } from "domain/interfaces/documents/iUser.interface";
+import { RoleType } from "domain/enums/roleType.enum";
 import { Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
-import { IUserUpdate } from "../business/interfaces/iUserUpdate.interface";
+import { IUserUpdate } from "business/interfaces/iUserUpdate.interface";
 
 /**
  * Returns a user with the specified username.

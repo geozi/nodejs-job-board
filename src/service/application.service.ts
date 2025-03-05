@@ -3,11 +3,11 @@
  * @module src/service/application.service
  */
 import { Error, Types } from "mongoose";
-import { IApplication } from "../domain/interfaces/documents/iApplication.interface";
-import { NotFoundError } from "../errors/notFoundError.class";
+import { IApplication } from "domain/interfaces/documents/iApplication.interface";
+import { NotFoundError } from "errors/notFoundError.class";
 import { appLogger } from "../../logs/logger.config";
 import { commonServiceMessages } from "./messages/commonService.message";
-import { ServerError } from "../errors/serverError.class";
+import { ServerError } from "errors/serverError.class";
 import {
   addApplication,
   deleteApplicationById,
@@ -15,10 +15,10 @@ import {
   getApplicationByUniqueIndex,
   getApplicationsByListingId,
   getApplicationsByPersonId,
-} from "../persistence/application.repository";
+} from "persistence/application.repository";
 import { listingServiceMessages } from "./messages/listingService.message";
 import { applicationServiceMessages } from "./messages/applicationService.message";
-import { UniqueConstraintError } from "../errors/uniqueConstraintError.class";
+import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 
 /**
  * Calls on the persistence layer to retrieve applications with the specified person ID.

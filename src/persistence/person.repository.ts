@@ -2,11 +2,11 @@
  * Person repository.
  * @module src/persistence/person.repository
  */
-import { Person } from "../domain/models/person.model";
-import { IPerson } from "../domain/interfaces/documents/iPerson.interface";
+import { Person } from "domain/models/person.model";
+import { IPerson } from "domain/interfaces/documents/iPerson.interface";
 import { Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
-import { IPersonUpdate } from "../business/interfaces/iPersonUpdate.interface";
+import { IPersonUpdate } from "business/interfaces/iPersonUpdate.interface";
 
 /**
  * Returns a person with the specified username.

@@ -10,9 +10,9 @@ import {
 } from "../middleware/listing.rules";
 import { validationResult } from "express-validator";
 import { appLogger } from "../../../../../logs/logger.config";
-import { commonResponseMessages } from "../../../messages/commonResponse.message";
-import { httpCodes } from "../../../codes/responseStatusCodes";
-import { ServerError } from "../../../../errors/serverError.class";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { ServerError } from "errors/serverError.class";
 import {
   reqBodyToEmploymentType,
   reqBodyToExperienceLevel,
@@ -20,7 +20,7 @@ import {
   reqBodyToListingUpdate,
   reqBodyToStatus,
   reqBodyToWorkType,
-} from "../../../mappers/listing.mapper";
+} from "business/mappers/listing.mapper";
 import {
   bringListingToDate,
   createListing,
@@ -29,10 +29,10 @@ import {
   retrieveListingsByExperienceLevel,
   retrieveListingsByStatus,
   retrieveListingsByWorkType,
-} from "../../../../service/listing.service";
-import { listingControllerResponseMessages } from "../../../messages/listingControllerResponse.message";
-import { NotFoundError } from "../../../../errors/notFoundError.class";
-import { reqBodyToId } from "../../../mappers/common.mapper";
+} from "service/listing.service";
+import { listingControllerResponseMessages } from "business/messages/listingControllerResponse.message";
+import { NotFoundError } from "errors/notFoundError.class";
+import { reqBodyToId } from "business/mappers/common.mapper";
 
 export const listingCreationMiddlewareArray = [
   ...listingCreationRules(),

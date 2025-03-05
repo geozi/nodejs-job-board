@@ -2,7 +2,7 @@
  * ServerError class.
  * @module src/errors/serverError.class
  */
-import { httpCodes } from "../business/codes/responseStatusCodes";
+import { httpCodes } from "business/codes/responseStatusCodes";
 import { AbstractError } from "./abstractError.class";
 
 /**

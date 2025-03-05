@@ -3,11 +3,11 @@
  * @module src/domain/models/application.model
  */
 import { Schema, model } from "mongoose";
-import { IApplication } from "../interfaces/documents/iApplication.interface";
-import { commonConstants } from "../constants/common.constant";
-import { personFailedValidation } from "../messages/personValidation.message";
-import { listingFailedValidation } from "../messages/listingValidation.message";
-import { ID_REGEX } from "../resources/validationRegExp";
+import { IApplication } from "domain/interfaces/documents/iApplication.interface";
+import { commonConstants } from "domain/constants/common.constant";
+import { personFailedValidation } from "domain/messages/personValidation.message";
+import { listingFailedValidation } from "domain/messages/listingValidation.message";
+import { ID_REGEX } from "domain/resources/validationRegExp";
 import mongooseUniqueValidator from "mongoose-unique-validator";
 
 /**

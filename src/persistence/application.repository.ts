@@ -2,8 +2,8 @@
  * Application repository.
  * @module src/persistence/application.repository
  */
-import { Application } from "../domain/models/application.model";
-import { IApplication } from "../domain/interfaces/documents/iApplication.interface";
+import { Application } from "domain/models/application.model";
+import { IApplication } from "domain/interfaces/documents/iApplication.interface";
 import { Types } from "mongoose";
 import { appLogger } from "../../logs/logger.config";
 

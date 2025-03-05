@@ -2,7 +2,7 @@
  * NotFoundError class.
  * @module src/errors/notFoundError.class
  */
-import { httpCodes } from "../business/codes/responseStatusCodes";
+import { httpCodes } from "business/codes/responseStatusCodes";
 import { AbstractError } from "./abstractError.class";
 
 /**

@@ -3,15 +3,15 @@
  * @module src/service/listing.service
  */
 import { Types } from "mongoose";
-import { EmploymentType } from "../domain/enums/employmentType.enum";
-import { ExperienceLevelType } from "../domain/enums/experienceLevelType.enum";
-import { ListingStatus } from "../domain/enums/listingStatus.enum";
-import { WorkType } from "../domain/enums/workType.enum";
-import { IListing } from "../domain/interfaces/documents/iListing.interface";
-import { IListingUpdate } from "../business/interfaces/iListingUpdate.interface";
-import { NotFoundError } from "../errors/notFoundError.class";
+import { EmploymentType } from "domain/enums/employmentType.enum";
+import { ExperienceLevelType } from "domain/enums/experienceLevelType.enum";
+import { ListingStatus } from "domain/enums/listingStatus.enum";
+import { WorkType } from "domain/enums/workType.enum";
+import { IListing } from "domain/interfaces/documents/iListing.interface";
+import { IListingUpdate } from "business/interfaces/iListingUpdate.interface";
+import { NotFoundError } from "errors/notFoundError.class";
 import { appLogger } from "../../logs/logger.config";
-import { ServerError } from "../errors/serverError.class";
+import { ServerError } from "errors/serverError.class";
 import { commonServiceMessages } from "./messages/commonService.message";
 import {
   addListing,
@@ -22,7 +22,7 @@ import {
   getListingsByStatus,
   getListingsByWorkType,
   updateListing,
-} from "../persistence/listing.repository";
+} from "persistence/listing.repository";
 import { listingServiceMessages } from "./messages/listingService.message";
 
 /**

@@ -2,13 +2,13 @@ import { validationResult } from "express-validator";
 import { applicationCreationRules } from "../middleware/application.rules";
 import { Request, Response } from "express";
 import { appLogger } from "../../../../../logs/logger.config";
-import { httpCodes } from "../../../codes/responseStatusCodes";
-import { commonResponseMessages } from "../../../messages/commonResponse.message";
-import { ServerError } from "../../../../errors/serverError.class";
-import { UniqueConstraintError } from "../../../../errors/uniqueConstraintError.class";
-import { reqBodyToApplication } from "../../../mappers/application.mapper";
-import { createApplication } from "../../../../service/application.service";
-import { applicationControllerResponseMessages } from "../../../messages/applicationControllerResponse.message";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { ServerError } from "errors/serverError.class";
+import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
+import { reqBodyToApplication } from "business/mappers/application.mapper";
+import { createApplication } from "service/application.service";
+import { applicationControllerResponseMessages } from "business/messages/applicationControllerResponse.message";
 
 export const applicationCreationMiddlewareArray = [
   ...applicationCreationRules(),
@@ -34,12 +34,10 @@ export const applicationCreationMiddlewareArray = [
       const newApplication = reqBodyToApplication(req);
       const savedApplication = await createApplication(newApplication);
 
-      res
-        .status(httpCodes.CREATED)
-        .json({
-          message: applicationControllerResponseMessages.APPLICATION_CREATED,
-          data: savedApplication,
-        });
+      res.status(httpCodes.CREATED).json({
+        message: applicationControllerResponseMessages.APPLICATION_CREATED,
+        data: savedApplication,
+      });
     } catch (error) {
       if (
         error instanceof ServerError ||

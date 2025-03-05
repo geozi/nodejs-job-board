@@ -8,24 +8,24 @@ import {
 } from "../middleware/user.rules";
 import { validationResult } from "express-validator";
 import { appLogger } from "../../../../../logs/logger.config";
-import { httpCodes } from "../../../codes/responseStatusCodes";
-import { commonResponseMessages } from "../../../messages/commonResponse.message";
-import { ServerError } from "../../../../errors/serverError.class";
-import { UniqueConstraintError } from "../../../../errors/uniqueConstraintError.class";
+import { httpCodes } from "business/codes/responseStatusCodes";
+import { commonResponseMessages } from "business/messages/commonResponse.message";
+import { ServerError } from "errors/serverError.class";
+import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import {
   reqBodyToRole,
   reqBodyToUser,
   reqBodyToUserUpdate,
-} from "../../../mappers/user.mapper";
+} from "business/mappers/user.mapper";
 import {
   bringUserToDate,
   createUser,
   retrieveUserByEmail,
   retrieveUserByUsername,
   retrieveUsersByRole,
-} from "../../../../service/user.service";
-import { userControllerResponseMessages } from "../../../messages/userControllerResponse.message";
-import { NotFoundError } from "../../../../errors/notFoundError.class";
+} from "service/user.service";
+import { userControllerResponseMessages } from "business/messages/userControllerResponse.message";
+import { NotFoundError } from "errors/notFoundError.class";
 
 export const registrationMiddlewareArray = [
   ...userRegistrationRules(),

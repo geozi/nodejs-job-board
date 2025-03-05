@@ -2,9 +2,9 @@
  * Task validation error messages.
  * @module src/domain/messages/taskValidation.message
  */
-import { commonConstants } from "../constants/common.constant";
-import { taskConstants } from "../constants/task.constant";
-import { ITask } from "../interfaces/secondary/iTask.interface";
+import { commonConstants } from "domain/constants/common.constant";
+import { taskConstants } from "domain/constants/task.constant";
+import { ITask } from "domain/interfaces/secondary/iTask.interface";
 
 /**
  * Contains error message(s) that are used when validation of {@link ITask}-complied objects fails.
