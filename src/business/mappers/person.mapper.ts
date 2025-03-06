@@ -1,3 +1,7 @@
+/**
+ * Person mapper.
+ * @module src/business/mappers/person.mapper
+ */
 import { Request } from "express";
 import { Person } from "../../domain/models/person.model";
 import { IEducation } from "../../domain/interfaces/secondary/iEducation.interface";
@@ -6,6 +10,12 @@ import { Types } from "mongoose";
 import { IPerson } from "../../domain/interfaces/documents/iPerson.interface";
 import { IPersonUpdate } from "../interfaces/iPersonUpdate.interface";
 
+/**
+ * Maps an HTTP request body to an {@link IPerson} object.
+ *
+ * @param {Request} req - An HTTP request.
+ * @returns {IPerson} An {@link IPerson} object.
+ */
 export const reqBodyToPerson = function (req: Request): IPerson {
   const {
     firstName,
@@ -80,6 +90,12 @@ export const reqBodyToPerson = function (req: Request): IPerson {
   return person;
 };
 
+/**
+ * Maps an HTTP request body to an {@link IPersonUpdate} object.
+ *
+ * @param {Request} req - An HTTP request.
+ * @returns {IPersonUpdate} An {@link IPersonUpdate} object.
+ */
 export const reqBodyToPersonUpdate = function (req: Request): IPersonUpdate {
   const {
     id,

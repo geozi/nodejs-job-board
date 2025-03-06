@@ -1,3 +1,7 @@
+/**
+ * User mapper.
+ * @module src/business/mappers/user.mapper
+ */
 import { Request } from "express";
 import bcrypt from "bcryptjs";
 import { RoleType } from "../../domain/enums/roleType.enum";
@@ -6,6 +10,12 @@ import { IUserUpdate } from "../interfaces/iUserUpdate.interface";
 import { IUser } from "../../domain/interfaces/documents/iUser.interface";
 import { Types } from "mongoose";
 
+/**
+ * Maps an HTTP request body to an {@link IUser} object.
+ *
+ * @param {Request} req - An HTTP request.
+ * @returns {Promise<IUser>} A promise that resolves to an IUser object.
+ */
 export const reqBodyToUser = async (req: Request): Promise<IUser> => {
   const { username, email, password, role } = req.body;
   const user = new User({
@@ -28,6 +38,12 @@ export const reqBodyToUser = async (req: Request): Promise<IUser> => {
   return user;
 };
 
+/**
+ * Maps an HTTP request body to an {@link IUserUpdate} object.
+ *
+ * @param {Request} req - An HTTP request.
+ * @returns {Promise<IUserUpdate>} A promise that resolves to an {@link IUserUpdate} object.
+ */
 export const reqBodyToUserUpdate = async (
   req: Request
 ): Promise<IUserUpdate> => {
@@ -45,7 +61,13 @@ export const reqBodyToUserUpdate = async (
   return userToUpdate;
 };
 
-export const reqBodyToRole = (req: Request) => {
+/**
+ * Maps an HTTP request body to a {@link RoleType} enum.
+ *
+ * @param {Request} req - An HTTP request.
+ * @returns {RoleType} A {@link RoleType} enum
+ */
+export const reqBodyToRole = (req: Request): RoleType => {
   const { roleAsString } = req.body;
 
   if (roleAsString === RoleType.Admin.toString()) {
