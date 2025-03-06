@@ -4,7 +4,7 @@
  */
 
 /**
- * Contains HTTP response messages sent by the application controller.
+ * Contains HTTP response messages sent by the Application controller.
  *
  * @type {object}
  * @property {string} APPLICATION_CREATED - Message sent when a new application is created and successfully added to database.

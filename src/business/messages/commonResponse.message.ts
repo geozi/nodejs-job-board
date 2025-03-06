@@ -4,7 +4,7 @@
  */
 
 /**
- * Contains HTTP response message(s) sent by user, group, and contact controllers.
+ * Contains HTTP response message(s) sent by User, Person, Listing and Application controllers.
  *
  * @type {object}
  * @property {string} BAD_REQUEST - Message sent when an HTTP request is invalid.

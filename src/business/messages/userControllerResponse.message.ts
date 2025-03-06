@@ -4,7 +4,7 @@
  */
 
 /**
- * Contains HTTP response messages sent by the user controller.
+ * Contains HTTP response messages sent by the User controller.
  *
  * @type {object}
  * @property {string} USER_REGISTERED - Message sent when a new user is created and successfully added to database.
