@@ -105,38 +105,3 @@ export const deleteApplicationById = async (
 
   return deletedApplication;
 };
-
-/**
- * Deletes an application with the specified combination of person and listing IDs.
- *
- * @param {Types.ObjectId} personId - The ID of a person.
- * @param {Types.ObjectId} listingId - The ID of a listing.
- * @returns {Promise<IApplication | null>} A promise that resolves to an Application object representing the deleted document or null.
- */
-export const deleteApplicationByUniqueIndex = async (
-  personId: Types.ObjectId,
-  listingId: Types.ObjectId
-): Promise<IApplication | null> => {
-  const foundApplication = await Application.findOne({
-    personId: personId,
-    listingId: listingId,
-  });
-
-  if (foundApplication) {
-    const deletedApplication = await Application.findByIdAndDelete(
-      foundApplication._id
-    );
-
-    appLogger.info(
-      `Application repository: ${deleteApplicationByUniqueIndex.name} called successfully`
-    );
-
-    return deletedApplication;
-  }
-
-  appLogger.info(
-    `Application repository: ${deleteApplicationByUniqueIndex.name} called successfully`
-  );
-
-  return foundApplication;
-};

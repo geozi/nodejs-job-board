@@ -9,7 +9,6 @@ import {
   getApplicationsByPersonId,
   addApplication,
   deleteApplicationById,
-  deleteApplicationByUniqueIndex,
 } from "persistence/application.repository";
 
 describe("Application repository unit tests", () => {
@@ -133,40 +132,6 @@ describe("Application repository unit tests", () => {
       functionStub.resolves(null);
 
       const deletedApplication = await deleteApplicationById(mockApplicationId);
-
-      assert.strictEqual(deletedApplication, null);
-    });
-  });
-
-  describe(`${deleteApplicationByUniqueIndex.name}`, () => {
-    let findOneStub: SinonStub;
-    let findByIdAndDeleteStub: SinonStub;
-
-    beforeEach(() => {
-      sinon.restore();
-      findOneStub = sinon.stub(Application, "findOne");
-      findByIdAndDeleteStub = sinon.stub(Application, "findByIdAndDelete");
-    });
-
-    it("Promise resolves to an Application object", async () => {
-      findOneStub.resolves(mockApplication);
-      findByIdAndDeleteStub.resolves(mockApplication);
-
-      const deletedApplication = await deleteApplicationByUniqueIndex(
-        mockPersonId,
-        mockListingId
-      );
-
-      assert(deletedApplication instanceof Application);
-    });
-
-    it("Promise resolves to null", async () => {
-      findOneStub.resolves(null);
-
-      const deletedApplication = await deleteApplicationByUniqueIndex(
-        mockPersonId,
-        mockListingId
-      );
 
       assert.strictEqual(deletedApplication, null);
     });

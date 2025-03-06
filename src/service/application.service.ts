@@ -11,7 +11,6 @@ import { ServerError } from "errors/serverError.class";
 import {
   addApplication,
   deleteApplicationById,
-  deleteApplicationByUniqueIndex,
   getApplicationByUniqueIndex,
   getApplicationsByListingId,
   getApplicationsByPersonId,
@@ -191,46 +190,6 @@ export const removeApplicationById = async (
 
     appLogger.error(
       `Application service: ${removeApplicationById.name} -> ServerError detected and re-thrown`
-    );
-
-    throw new ServerError(commonServiceMessages.SERVER_ERROR);
-  }
-};
-
-/**
- * Calls on the persistence layer to remove an application with the specified combination of person and listing IDs.
- *
- * @param {Types.ObjectId} personId - The ID assigned to a person.
- * @param {Types.ObjectId} listingId - The ID assigned to a listing.
- * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the removed application.
- * @throws - {@link NotFoundError} | {@link ServerError}
- */
-export const removeApplicationByUniqueIndex = async (
-  personId: Types.ObjectId,
-  listingId: Types.ObjectId
-): Promise<IApplication> => {
-  try {
-    const removedApplication = await deleteApplicationByUniqueIndex(
-      personId,
-      listingId
-    );
-
-    if (removedApplication === null) {
-      throw new NotFoundError(applicationServiceMessages.APPLICATION_NOT_FOUND);
-    }
-
-    return removedApplication;
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      appLogger.error(
-        `Application service: ${removeApplicationByUniqueIndex.name} -> ${error.name} detected and re-thrown`
-      );
-
-      throw error;
-    }
-
-    appLogger.error(
-      `Application service: ${removeApplicationByUniqueIndex.name} -> ServerError detected and re-thrown`
     );
 
     throw new ServerError(commonServiceMessages.SERVER_ERROR);

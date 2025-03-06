@@ -12,7 +12,6 @@ import {
   retrieveApplicationsByPersonId,
   createApplication,
   removeApplicationById,
-  removeApplicationByUniqueIndex,
 } from "service/application.service";
 import * as chai from "chai";
 import chaiAsPromised from "chai-as-promised";
@@ -146,31 +145,6 @@ describe("Application service unit tests", () => {
 
       return chai.assert.isRejected(
         removeApplicationById(mockApplicationId),
-        NotFoundError
-      );
-    });
-  });
-
-  describe(`${removeApplicationByUniqueIndex.name}`, () => {
-    beforeEach(() => {
-      sinon.restore();
-      functionStub = sinon.stub(Application, "findOne");
-    });
-
-    it("server error", async () => {
-      functionStub.rejects();
-
-      return chai.assert.isRejected(
-        removeApplicationByUniqueIndex(mockPersonId, mockListingId),
-        ServerError
-      );
-    });
-
-    it("not found", async () => {
-      functionStub.resolves(null);
-
-      return chai.assert.isRejected(
-        removeApplicationByUniqueIndex(mockPersonId, mockListingId),
         NotFoundError
       );
     });
