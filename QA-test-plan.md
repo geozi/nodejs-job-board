@@ -1,6 +1,6 @@
 # Job Board API test plan
 
-Document version 1.0.2
+Document version 1.0.3
 
 ## Introduction
 
@@ -86,6 +86,73 @@ Compared to the persistence layer unit tests, the service layer unit tests perfo
 - is resolved to null or an empty array.
 
 The purpose of the tests is to check the behavior of the try/catch blocks as well as the triggering of errors.
+
+## Integration tests
+
+### Backend integration tests
+
+Backend integration test suites:
+
+- Application creation [✔],
+- Application removal by ID [✔],
+- Application retrieval by listing ID [✔],
+- Application retrieval by person ID [✔],
+- Application retrieval by unique index [✔],
+- Listing creation [✔],
+- Listing retrieval by employment type [✔],
+- Listing retrieval by experience level [✔],
+- Listing retrieval by ID [✔],
+- Listing retrieval by status [✔],
+- Listing retrieval by work type [✔],
+- Listing update [✔],
+- Person info creation [✔],
+- Person info retrieval by username [✔],
+- Person info update [✔],
+- User registration [✔],
+- User retrieval by email [✔],
+- User retrieval by role [✔],
+- User retrieval by username [✔],
+- User update [✔]
+
+```text
+├── src
+└── tests
+    └── backendIntegration
+        ├── applicationCreation.test.ts
+        ├── applicationRemovalById.test.ts
+        ├── applicationRetrievalByListingId.test.ts
+        ├── applicationRetrievalByPersonId.test.ts
+        ├── applicationRetrievalByUniqueIndex.test.ts
+        ├── listingCreation.test.ts
+        ├── listingRetrievalByEmploymentType.test.ts
+        ├── listingRetrievalByExperienceLevel.test.ts
+        ├── listingRetrievalById.test.ts
+        ├── listingRetrievalByStatus.test.ts
+        ├── listingRetrievalByWorkType.test.ts
+        ├── listingUpdate.test.ts
+        ├── personInfoCreation.test.ts
+        ├── personInfoRetrievalByUsername.test.ts
+        ├── personInfoUpdate.test.ts
+        ├── userRegistration.test.ts
+        ├── userRetrievalByEmail.test.ts
+        ├── userRetrievalByRole.test.ts
+        ├── userRetrievalByUsername.test.ts
+        └── userUpdate.test.ts
+```
+
+Each test suite is divided into **positive** and **negative** scenarios, with the latter being further subdivided into **validation-oriented** and **promise-oriented** tests.
+
+#### Negative and validation-oriented
+
+The negative, validation-oriented tests trigger validation errors with specific input to check the behavior of the express-validator middleware and that of the controllers catching the errors.
+
+![A diagram showing the main parts of the presentation layer probed by the validation-oriented backend integration tests](img/backend_integration_testing_diagram_1.png)
+
+#### Negative and promise-oriented
+
+The negative, promise-oriented tests generate promise rejections, which are caught by the service layer and, then, re-thrown to the controllers of the business layer for handling.
+
+![A diagram showing the application layers probed by the promise-oriented backend integration tests](img/backend_integration_testing_diagram_2.png)
 
 ## Out of scope
 
