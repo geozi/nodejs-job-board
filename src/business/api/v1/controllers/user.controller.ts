@@ -32,7 +32,7 @@ import { userControllerResponseMessages } from "business/messages/userController
 import { NotFoundError } from "errors/notFoundError.class";
 
 /**
- * Middleware array that contains user registration logic.
+ * Middleware array containing logic for user registration.
  *
  * @type {Array<object>}
  * @property {ValidationChain[]} userRegistrationRules - Express validation rules for user registration.
@@ -94,7 +94,7 @@ export const registrationMiddlewareArray = [
 ];
 
 /**
- * Middleware array that contains user update logic.
+ * Middleware array containing logic for user update.
  *
  * @type {Array<object>}
  * @property {ValidationChain[]} userUpdateRules - Express validation rules for user update.
@@ -150,7 +150,7 @@ export const updateMiddlewareArray = [
 ];
 
 /**
- * Middleware array that contains user retrieval by username logic.
+ * Middleware array containing logic for user retrieval by username.
  *
  * @type {Array<object>}
  * @property {ValidationChain[]} userRetrievalByUsernameRules - Express validation rules for user retrieval by username.
@@ -166,7 +166,10 @@ export const retrievalByUsernameMiddlewareArray = [
    * @param {Response} res - An HTTP response.
    * @returns {Promise<void>} A promise that resolves to void.
    */
-  async function callUserRetrievalByUsername(req: Request, res: Response) {
+  async function callUserRetrievalByUsername(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -206,7 +209,7 @@ export const retrievalByUsernameMiddlewareArray = [
 ];
 
 /**
- * Middleware array that contains user retrieval by email logic.
+ * Middleware array containing logic for user retrieval by email.
  *
  * @type {Array<object>}
  * @property {ValidationChain[]} userRetrievalByEmailRules - Express validation rules for user retrieval by email.
@@ -222,7 +225,10 @@ export const retrievalByEmailMiddlewareArray = [
    * @param {Response} res - An HTTP response.
    * @returns {Promise<void>} A promise that resolves to void.
    */
-  async function callUserRetrievalByEmail(req: Request, res: Response) {
+  async function callUserRetrievalByEmail(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -262,7 +268,7 @@ export const retrievalByEmailMiddlewareArray = [
 ];
 
 /**
- * Middleware array that contains user retrieval by role logic.
+ * Middleware array containing logic for user retrieval by role.
  *
  * @type {Array<object>}
  * @property {ValidationChain[]} userRetrievalByRoleRules - Express validation rules for user retrieval by role.
@@ -278,7 +284,10 @@ export const retrievalByRoleMiddlewareArray = [
    * @param {Response} res - An HTTP response.
    * @returns {Promise<void>} A promise that resolves to void.
    */
-  async function callUserRetrievalByRole(req: Request, res: Response) {
+  async function callUserRetrievalByRole(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({

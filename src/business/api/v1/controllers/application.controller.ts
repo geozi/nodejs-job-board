@@ -1,3 +1,8 @@
+/**
+ * Application controller.
+ * @module src/business/apis/v1/controllers/application.controller
+ */
+
 import { validationResult } from "express-validator";
 import {
   applicationCreationAndUniqueIndexRetrievalRules,
@@ -26,9 +31,27 @@ import { applicationControllerResponseMessages } from "business/messages/applica
 import { NotFoundError } from "errors/notFoundError.class";
 import { reqBodyToId } from "business/mappers/common.mapper";
 
+/**
+ * Middleware array containing logic for application creation.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} applicationCreationAndUniqueIndexRetrievalRules - Express validation rules for application creation.
+ * @property {Function} callApplicationCreation - Handles HTTP requests and responses for application creation.
+ */
 export const applicationCreationMiddlewareArray = [
   ...applicationCreationAndUniqueIndexRetrievalRules(),
-  async function callApplicationCreation(req: Request, res: Response) {
+
+  /**
+   * Processes HTTP requests for application creation.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
+  async function callApplicationCreation(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -70,12 +93,27 @@ export const applicationCreationMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for application retrieval by personId.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} applicationRetrievalByPersonIdRules - Express validation rules for application retrieval by personId.
+ * @property {Function} callApplicationRetrievalByPersonId - Handles HTTP requests and responses for application retrieval by personId.
+ */
 export const retrievalByPersonIdMiddlewareArray = [
   ...applicationRetrievalByPersonIdRules(),
+
+  /**
+   * Processes HTTP requests for application retrieval by personId.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callApplicationRetrievalByPersonId(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -114,12 +152,27 @@ export const retrievalByPersonIdMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for application retrieval by listingId.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} applicationRetrievalByListingIdRules - Express validation rules for application retrieval by listingId.
+ * @property {Function} callApplicationRetrievalByListingId - Handles HTTP requests and responses for application retrieval by listingId.
+ */
 export const retrievalByListingIdMiddlewareArray = [
   ...applicationRetrievalByListingIdRules(),
+
+  /**
+   * Processes HTTP requests for application retrieval by listingId.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callApplicationRetrievalByListingId(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -158,12 +211,27 @@ export const retrievalByListingIdMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for application retrieval by unique index.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} applicationCreationAndUniqueIndexRetrievalRules - Express validation rules for application retrieval by unique index.
+ * @property {Function} callApplicationRetrievalByUniqueIndex - Handles HTTP requests and responses for application retrieval by unique index.
+ */
 export const retrievalByUniqueIndexMiddlewareArray = [
   ...applicationCreationAndUniqueIndexRetrievalRules(),
+
+  /**
+   * Processes HTTP requests for application retrieval by unique index.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callApplicationRetrievalByUniqueIndex(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -205,9 +273,27 @@ export const retrievalByUniqueIndexMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for application removal by ID.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} applicationRemovalByIdRules - Express validation rules for application removal by ID.
+ * @property {Function} callApplicationRemovalById - Handles HTTP requests and responses for application removal by ID.
+ */
 export const removalByIdMiddlewareArray = [
   ...applicationRemovalByIdRules(),
-  async function callApplicationRemovalById(req: Request, res: Response) {
+
+  /**
+   * Processes HTTP requests for application removal by ID.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
+  async function callApplicationRemovalById(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({

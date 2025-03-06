@@ -1,3 +1,8 @@
+/**
+ * Listing controller.
+ * @module src/business/apis/v1/controllers/listing.controller
+ */
+
 import { Request, Response } from "express";
 import {
   listingCreationRules,
@@ -34,9 +39,27 @@ import { listingControllerResponseMessages } from "business/messages/listingCont
 import { NotFoundError } from "errors/notFoundError.class";
 import { reqBodyToId } from "business/mappers/common.mapper";
 
+/**
+ * Middleware array containing logic for listing creation.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} listingCreationRules - Express validation rules for listing creation.
+ * @property {Function} callListingCreation - Handles HTTP requests and responses for listing creation.
+ */
 export const listingCreationMiddlewareArray = [
   ...listingCreationRules(),
-  async function callListingCreation(req: Request, res: Response) {
+
+  /**
+   * Processes HTTP requests for listing creation.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
+  async function callListingCreation(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -75,9 +98,24 @@ export const listingCreationMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for listing update.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} listingUpdateRules - Express validation rules for listing update.
+ * @property {Function} callListingUpdate - Handles HTTP requests and responses for listing update.
+ */
 export const listingUpdateMiddlewareArray = [
   ...listingUpdateRules(),
-  async function callListingUpdate(req: Request, res: Response) {
+
+  /**
+   * Processes HTTP requests for listing update.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
+  async function callListingUpdate(req: Request, res: Response): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -116,9 +154,27 @@ export const listingUpdateMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for listing retrieval by status.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} listingRetrievalByStatusRules - Express validation rules for listing retrieval by status.
+ * @property {Function} callListingRetrievalByStatus - Handles HTTP requests and responses for listing retrieval by status.
+ */
 export const retrievalByStatusMiddlewareArray = [
   ...listingRetrievalByStatusRules(),
-  async function callListingRetrievalByStatus(req: Request, res: Response) {
+
+  /**
+   * Processes HTTP requests for listing retrieval by status.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
+  async function callListingRetrievalByStatus(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -157,9 +213,27 @@ export const retrievalByStatusMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for listing retrieval by work type.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} listingRetrievalByWorkTypeRules - Express validation rules for listing retrieval by work type.
+ * @property {Function} callListingRetrievalByWorkType - Handles HTTP requests and responses for listing retrieval by work type.
+ */
 export const retrievalByWorkTypeMiddlewareArray = [
   ...listingRetrievalByWorkTypeRules(),
-  async function callListingRetrievalByWorkType(req: Request, res: Response) {
+
+  /**
+   * Processes HTTP requests for listing retrieval by work type.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
+  async function callListingRetrievalByWorkType(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -198,12 +272,27 @@ export const retrievalByWorkTypeMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for listing retrieval by employment type.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} listingRetrievalByEmploymentTypeRules - Express validation rules for listing retrieval by employment type.
+ * @property {Function} callListingRetrievalByEmploymentType - Handles HTTP requests and responses for listing retrieval by employment type.
+ */
 export const retrievalByEmploymentTypeMiddlewareArray = [
   ...listingRetrievalByEmploymentTypeRules(),
+
+  /**
+   * Processes HTTP requests for listing retrieval by employment type.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callListingRetrievalByEmploymentType(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -242,12 +331,27 @@ export const retrievalByEmploymentTypeMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for listing retrieval by experience level.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} listingRetrievalByExperienceLevelRules - Express validation rules for listing retrieval by experience level.
+ * @property {Function} callListingRetrievalByExperienceLevel - Handles HTTP requests and responses for listing retrieval by experience level.
+ */
 export const retrievalByExperienceLevelMiddlewareArray = [
   ...listingRetrievalByExperienceLevelRules(),
+
+  /**
+   * Processes HTTP requests for listing retrieval by experience level.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callListingRetrievalByExperienceLevel(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -286,9 +390,27 @@ export const retrievalByExperienceLevelMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for listing retrieval by ID.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} listingRetrievalByIdRules - Express validation rules for listing retrieval by ID.
+ * @property {Function} callListingRetrievalById - Handles HTTP requests and responses for listing retrieval by ID.
+ */
 export const retrievalByIdMiddlewareArray = [
   ...listingRetrievalByIdRules(),
-  async function callListingRetrievalById(req: Request, res: Response) {
+
+  /**
+   * Processes HTTP requests for listing retrieval by ID.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
+  async function callListingRetrievalById(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({

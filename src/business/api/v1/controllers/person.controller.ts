@@ -1,3 +1,8 @@
+/**
+ * Person controller.
+ * @module src/business/apis/v1/controllers/person.controller
+ */
+
 import { Request, Response } from "express";
 import {
   personInfoCreationRules,
@@ -22,9 +27,27 @@ import {
 } from "service/person.service";
 import { NotFoundError } from "errors/notFoundError.class";
 
+/**
+ * Middleware array containing logic for person info creation.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} personInfoCreationRules - Express validation rules for person info creation.
+ * @property {Function} callPersonInfoCreation - Handles HTTP requests and responses for person info creation.
+ */
 export const infoCreationMiddlewareArray = [
   ...personInfoCreationRules(),
-  async function callPersonInfoCreation(req: Request, res: Response) {
+
+  /**
+   * Processes HTTP requests for person info creation.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
+  async function callPersonInfoCreation(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -66,9 +89,27 @@ export const infoCreationMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for person info update.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} personInfoUpdateRules - Express validation rules for person update creation.
+ * @property {Function} callPersonInfoUpdate - Handles HTTP requests and responses for person info update.
+ */
 export const infoUpdateMiddlewareArray = [
   ...personInfoUpdateRules(),
-  async function callPersonInfoUpdate(req: Request, res: Response) {
+
+  /**
+   * Processes HTTP requests for person info update.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
+  async function callPersonInfoUpdate(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
@@ -107,12 +148,27 @@ export const infoUpdateMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array containing logic for person info retrieval by username.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} personInfoRetrievalByUsernameRules - Express validation rules for person info retrieval by username.
+ * @property {Function} callPersonInfoRetrievalByUsername - Handles HTTP requests and responses for person info retrieval by username.
+ */
 export const infoRetrievalByUsernameMiddlewareArray = [
   ...personInfoRetrievalByUsernameRules(),
+
+  /**
+   * Processes HTTP requests for person info retrieval by username.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callPersonInfoRetrievalByUsername(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
       const errorMessage = expressErrors.array().map((err) => ({
