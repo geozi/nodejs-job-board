@@ -1,6 +1,7 @@
 import { validationResult } from "express-validator";
 import {
   applicationCreationAndUniqueIndexRetrievalRules,
+  applicationRemovalByIdRules,
   applicationRetrievalByListingIdRules,
   applicationRetrievalByPersonIdRules,
 } from "../middleware/application.rules";
@@ -16,6 +17,7 @@ import {
 } from "business/mappers/application.mapper";
 import {
   createApplication,
+  removeApplicationById,
   retrieveApplicationByUniqueIndex,
   retrieveApplicationsByListingId,
   retrieveApplicationsByPersonId,
@@ -194,6 +196,44 @@ export const retrievalByUniqueIndexMiddlewareArray = [
       if (error instanceof ServerError || error instanceof NotFoundError) {
         appLogger.error(
           `Application controller: ${callApplicationRetrievalByUniqueIndex.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+    }
+  },
+];
+
+export const removalByIdMiddlewareArray = [
+  ...applicationRemovalByIdRules(),
+  async function callApplicationRemovalById(req: Request, res: Response) {
+    const expressErrors = validationResult(req);
+    if (!expressErrors.isEmpty()) {
+      const errorMessage = expressErrors.array().map((err) => ({
+        message: err.msg,
+      }));
+
+      appLogger.error(
+        `Application controller: ${callApplicationRemovalById.name} -> Express validation errors detected and caught`
+      );
+
+      res.status(httpCodes.BAD_REQUEST).json({
+        message: commonResponseMessages.BAD_REQUEST,
+        errors: errorMessage,
+      });
+      return;
+    }
+
+    try {
+      const id = reqBodyToId(req);
+      await removeApplicationById(id);
+
+      res.status(httpCodes.NO_CONTENT).json({});
+    } catch (error) {
+      if (error instanceof ServerError || error instanceof NotFoundError) {
+        appLogger.error(
+          `Application controller: ${callApplicationRemovalById.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
