@@ -12,9 +12,13 @@ Compared to the [Task Manager API](https://github.com/geozi/nodejs-typescript-ta
 
 - **tsx** instead of **ts-node**,
 
-- nested sub-documents, as in the [Person](src/domain/models/person.model.ts) and [Listing](src/domain//models//listing.model.ts) model schemas,
+- nested fields, as in the [Person](src/domain/models/person.model.ts) and [Listing](src/domain//models//listing.model.ts) model schemas,
 
 - secondary interfaces in the domain layer for better type checking.
+
+- custom mappers to reduce complexity in the controllers of the business layer.
+
+- regular instead of anonymous functions inside the controller middleware arrays to achieve more dynamic logging messages.
 
 ##
 
