@@ -1,3 +1,7 @@
+/**
+ * Express validation rules for person-related operations.
+ * @module src/business/apis/v1/middleware/person.rules
+ */
 import { check, ValidationChain } from "express-validator";
 import { personFailedValidation } from "domain/messages/personValidation.message";
 import { personConstants } from "domain/constants/person.constant";
@@ -25,6 +29,10 @@ function isBoolean(value: string) {
   return result;
 }
 
+/**
+ * Returns a validation chain for person info creation.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const personInfoCreationRules = (): ValidationChain[] => {
   return [
     check("firstName")
@@ -232,6 +240,10 @@ export const personInfoCreationRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for person info update.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const personInfoUpdateRules = (): ValidationChain[] => {
   return [
     check("id")
@@ -436,6 +448,10 @@ export const personInfoUpdateRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for person info retrieval by username.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const personInfoRetrievalByUsernameRules = (): ValidationChain[] => {
   return [
     check("username")

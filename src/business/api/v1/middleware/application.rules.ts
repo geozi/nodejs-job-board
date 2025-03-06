@@ -1,3 +1,7 @@
+/**
+ * Express validation rules for application-related operations.
+ * @module src/business/apis/v1/middleware/application.rules
+ */
 import { check, ValidationChain } from "express-validator";
 import { personFailedValidation } from "domain/messages/personValidation.message";
 import { commonConstants } from "domain/constants/common.constant";
@@ -5,6 +9,10 @@ import { ID_REGEX } from "domain/resources/validationRegExp";
 import { listingFailedValidation } from "domain/messages/listingValidation.message";
 import { applicationFailedValidation } from "domain/messages/applicationValidation.message";
 
+/**
+ * Returns a validation chain for application creation and retrieval by unique index.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const applicationCreationAndUniqueIndexRetrievalRules =
   (): ValidationChain[] => {
     return [
@@ -33,6 +41,10 @@ export const applicationCreationAndUniqueIndexRetrievalRules =
     ];
   };
 
+/**
+ * Returns a validation chain for application retrieval by personId.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const applicationRetrievalByPersonIdRules = (): ValidationChain[] => {
   return [
     check("personId")
@@ -49,6 +61,10 @@ export const applicationRetrievalByPersonIdRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for application retrieval by listingId.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const applicationRetrievalByListingIdRules = (): ValidationChain[] => {
   return [
     check("listingId")
@@ -65,6 +81,10 @@ export const applicationRetrievalByListingIdRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for application removal by id.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const applicationRemovalByIdRules = (): ValidationChain[] => {
   return [
     check("id")

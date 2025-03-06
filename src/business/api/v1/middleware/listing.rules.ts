@@ -1,3 +1,7 @@
+/**
+ * Express validation rules for listing-related operations.
+ * @module src/business/apis/v1/middleware/listing.rules
+ */
 import { body, check, ValidationChain } from "express-validator";
 import { listingFailedValidation } from "domain/messages/listingValidation.message";
 import { commonFailedValidation } from "domain/messages/commonValidation.message";
@@ -14,6 +18,10 @@ import { listingConstants } from "domain/constants/listing.constant";
 import { listingStatusArray } from "domain/enums/listingStatus.enum";
 import { salaryRangeFailedValidation } from "domain/messages/salaryRangeValidation.message";
 
+/**
+ * Returns a validation chain for listing creation.
+ * @returns  {ValidationChain[]} Validation chain.
+ */
 export const listingCreationRules = (): ValidationChain[] => {
   return [
     check("title")
@@ -115,6 +123,10 @@ export const listingCreationRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for listing update.
+ * @returns  {ValidationChain[]} Validation chain.
+ */
 export const listingUpdateRules = (): ValidationChain[] => {
   return [
     check("id")
@@ -207,6 +219,10 @@ export const listingUpdateRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for listing retrieval by status.
+ * @returns  {ValidationChain[]} Validation chain.
+ */
 export const listingRetrievalByStatusRules = (): ValidationChain[] => {
   return [
     check("status")
@@ -218,6 +234,10 @@ export const listingRetrievalByStatusRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for listing retrieval by work type.
+ * @returns  {ValidationChain[]} Validation chain.
+ */
 export const listingRetrievalByWorkTypeRules = (): ValidationChain[] => {
   return [
     check("workType")
@@ -229,6 +249,10 @@ export const listingRetrievalByWorkTypeRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for listing retrieval by employment type.
+ * @returns  {ValidationChain[]} Validation chain.
+ */
 export const listingRetrievalByEmploymentTypeRules = (): ValidationChain[] => {
   return [
     check("employmentType")
@@ -240,6 +264,10 @@ export const listingRetrievalByEmploymentTypeRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for listing retrieval by experience level.
+ * @returns  {ValidationChain[]} Validation chain.
+ */
 export const listingRetrievalByExperienceLevelRules = (): ValidationChain[] => {
   return [
     check("experienceLevel")
@@ -251,6 +279,10 @@ export const listingRetrievalByExperienceLevelRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for listing retrieval by id.
+ * @returns  {ValidationChain[]} Validation chain.
+ */
 export const listingRetrievalByIdRules = (): ValidationChain[] => {
   return [
     check("id")

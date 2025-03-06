@@ -1,3 +1,7 @@
+/**
+ * Express validation rules for user-related operations.
+ * @module src/business/apis/v1/middleware/user.rules
+ */
 import { check, ValidationChain } from "express-validator";
 import { userFailedValidation } from "domain/messages/userValidation.message";
 import { userConstants } from "domain/constants/user.constant";
@@ -9,6 +13,10 @@ import {
 import { RoleType } from "domain/enums/roleType.enum";
 import { commonConstants } from "domain/constants/common.constant";
 
+/**
+ * Returns a validation chain for user registration.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const userRegistrationRules = (): ValidationChain[] => {
   return [
     check("username")
@@ -42,6 +50,10 @@ export const userRegistrationRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for user update.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const userUpdateRules = (): ValidationChain[] => {
   return [
     check("id")
@@ -74,6 +86,10 @@ export const userUpdateRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for user retrieval by username.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const userRetrievalByUsernameRules = (): ValidationChain[] => {
   return [
     check("username")
@@ -87,6 +103,10 @@ export const userRetrievalByUsernameRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for user retrieval by email.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const userRetrievalByEmailRules = (): ValidationChain[] => {
   return [
     check("email")
@@ -98,6 +118,10 @@ export const userRetrievalByEmailRules = (): ValidationChain[] => {
   ];
 };
 
+/**
+ * Returns a validation chain for user retrieval by role.
+ * @returns {ValidationChain[]} Validation chain.
+ */
 export const userRetrievalByRoleRules = (): ValidationChain[] => {
   return [
     check("role")
