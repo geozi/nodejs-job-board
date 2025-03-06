@@ -1,3 +1,7 @@
+/**
+ * User controller.
+ * @module src/business/apis/v1/controllers/user.controller
+ */
 import { Request, Response } from "express";
 import {
   userRegistrationRules,
@@ -27,8 +31,23 @@ import {
 import { userControllerResponseMessages } from "business/messages/userControllerResponse.message";
 import { NotFoundError } from "errors/notFoundError.class";
 
+/**
+ * Middleware array that contains user registration logic.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} userRegistrationRules - Express validation rules for user registration.
+ * @property {Function} callUserRegistration - Handles HTTP requests and responses for user registration.
+ */
 export const registrationMiddlewareArray = [
   ...userRegistrationRules(),
+
+  /**
+   * Processes HTTP requests for user registration.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callUserRegistration(
     req: Request,
     res: Response
@@ -74,8 +93,23 @@ export const registrationMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array that contains user update logic.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} userUpdateRules - Express validation rules for user update.
+ * @property {Function} callUserUpdate - Handles HTTP requests and responses for user update.
+ */
 export const updateMiddlewareArray = [
   ...userUpdateRules(),
+
+  /**
+   * Processes HTTP requests for user update.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callUserUpdate(req: Request, res: Response): Promise<void> {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
@@ -115,8 +149,23 @@ export const updateMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array that contains user retrieval by username logic.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} userRetrievalByUsernameRules - Express validation rules for user retrieval by username.
+ * @property {Function} callUserRetrievalByUsername - Handles HTTP requests and responses for user retrieval by username.
+ */
 export const retrievalByUsernameMiddlewareArray = [
   ...userRetrievalByUsernameRules(),
+
+  /**
+   * Processes HTTP requests for user retrieval by username.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callUserRetrievalByUsername(req: Request, res: Response) {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
@@ -156,8 +205,23 @@ export const retrievalByUsernameMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array that contains user retrieval by email logic.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} userRetrievalByEmailRules - Express validation rules for user retrieval by email.
+ * @property {Function} callUserRetrievalByEmail - Handles HTTP requests and responses for user retrieval by email.
+ */
 export const retrievalByEmailMiddlewareArray = [
   ...userRetrievalByEmailRules(),
+
+  /**
+   * Processes HTTP requests for user retrieval by email.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callUserRetrievalByEmail(req: Request, res: Response) {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
@@ -197,8 +261,23 @@ export const retrievalByEmailMiddlewareArray = [
   },
 ];
 
+/**
+ * Middleware array that contains user retrieval by role logic.
+ *
+ * @type {Array<object>}
+ * @property {ValidationChain[]} userRetrievalByRoleRules - Express validation rules for user retrieval by role.
+ * @property {Function} callUserRetrievalByRole - Handles HTTP requests and responses for user retrieval by role.
+ */
 export const retrievalByRoleMiddlewareArray = [
   ...userRetrievalByRoleRules(),
+
+  /**
+   * Processes HTTP requests for user retrieval by role.
+   *
+   * @param {Request} req - An HTTP request.
+   * @param {Response} res - An HTTP response.
+   * @returns {Promise<void>} A promise that resolves to void.
+   */
   async function callUserRetrievalByRole(req: Request, res: Response) {
     const expressErrors = validationResult(req);
     if (!expressErrors.isEmpty()) {
