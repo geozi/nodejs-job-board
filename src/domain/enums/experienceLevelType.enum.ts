@@ -54,6 +54,10 @@ export enum ExperienceLevelType {
   Executive = "Executive",
 }
 
+/**
+ * Experience level array.
+ * @type {Array<ExperienceLevelType>}
+ */
 export const experienceLevelTypeArray = [
   ExperienceLevelType.Internship,
   ExperienceLevelType.Entry_Level,
@@ -63,6 +67,10 @@ export const experienceLevelTypeArray = [
   ExperienceLevelType.Executive,
 ];
 
+/**
+ * Maps ExperienceLevelType strings to ExperienceLevelType enums.
+ * @type {object}
+ */
 export const experienceLevelMap: { [key: string]: ExperienceLevelType } = {
   [ExperienceLevelType.Internship.toString()]: ExperienceLevelType.Internship,
   [ExperienceLevelType.Entry_Level.toString()]: ExperienceLevelType.Entry_Level,

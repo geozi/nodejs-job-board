@@ -45,7 +45,10 @@ export enum EmploymentType {
    */
   Other = "Other",
 }
-
+/**
+ * Employment type array.
+ * @type {Array<EmploymentType>}
+ */
 export const employmentTypeArray = [
   EmploymentType.Contract,
   EmploymentType.Full_Time,
@@ -54,6 +57,10 @@ export const employmentTypeArray = [
   EmploymentType.Other,
 ];
 
+/**
+ * Maps EmploymentType strings to EmploymentType enums.
+ * @type {object}
+ */
 export const employmentTypeMap: { [key: string]: EmploymentType } = {
   [EmploymentType.Contract.toString()]: EmploymentType.Contract,
   [EmploymentType.Full_Time.toString()]: EmploymentType.Full_Time,

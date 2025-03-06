@@ -32,12 +32,20 @@ export enum WorkType {
   Remote = "Remote",
 }
 
+/**
+ * Work type array.
+ * @type {Array<WorkType>}
+ */
 export const workTypeArray = [
   WorkType.Hybrid,
   WorkType.On_Site,
   WorkType.Remote,
 ];
 
+/**
+ * Maps WorkType strings to WorkType enums.
+ * @type {object}
+ */
 export const workTypeMap: { [key: string]: WorkType } = {
   [WorkType.Hybrid.toString()]: WorkType.Hybrid,
   [WorkType.On_Site.toString()]: WorkType.On_Site,

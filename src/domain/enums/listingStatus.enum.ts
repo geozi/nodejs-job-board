@@ -25,4 +25,8 @@ export enum ListingStatus {
   Closed = "Closed",
 }
 
+/**
+ * Listing status array.
+ * @type {Array<ListingStatus>}
+ */
 export const listingStatusArray = [ListingStatus.Closed, ListingStatus.Open];
