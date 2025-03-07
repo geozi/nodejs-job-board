@@ -4,7 +4,6 @@ import sinon, { SinonStub } from "sinon";
 import { Error, Types } from "mongoose";
 import { NotFoundError } from "errors/notFoundError.class";
 import { ServerError } from "errors/serverError.class";
-import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import { validApplicationInput } from "../testInputs";
 import {
   retrieveApplicationByUniqueIndex,

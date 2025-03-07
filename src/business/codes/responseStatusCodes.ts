@@ -13,7 +13,6 @@
  * @property {number} UNAUTHORIZED - {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401}
  * @property {number} NOT_FOUND - {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404}
  * @property {number} FORBIDDEN - {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403}
- * @property {number} CONFLICT - {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409}
  * @property {number} INTERNAL_SERVER_ERROR - {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500}
  */
 export const httpCodes = {
@@ -48,22 +47,16 @@ export const httpCodes = {
   UNAUTHORIZED: 401,
 
   /**
-   * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403}
-   * @type {number}
-   */
-  FORBIDDEN: 403,
-
-  /**
    * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404}
    * @type {number}
    */
   NOT_FOUND: 404,
 
   /**
-   * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409}
+   * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403}
    * @type {number}
    */
-  CONFLICT: 409,
+  FORBIDDEN: 403,
 
   /**
    * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500}
