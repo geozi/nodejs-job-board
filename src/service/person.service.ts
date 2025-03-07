@@ -16,7 +16,6 @@ import {
 import { commonServiceMessages } from "./messages/commonService.message";
 import { personServiceMessages } from "./messages/personService.message";
 import { IPersonUpdate } from "business/interfaces/iPersonUpdate.interface";
-import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 
 /**
  * Calls on the persistence layer to retrieve a person's information with the specified username.
@@ -58,7 +57,7 @@ export const retrievePersonInfoByUsername = async (
  *
  * @param {IPerson} newPerson - The new person to be persisted.
  * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the newly added person.
- * @throws - {@link UniqueConstraintError} | {@link ServerError}
+ * @throws - {@link https://mongoosejs.com/docs/api/error.html#Error.ValidationError} | {@link ServerError}
  */
 export const createPersonInfo = async (
   newPerson: IPerson
@@ -66,12 +65,13 @@ export const createPersonInfo = async (
   try {
     return await addPerson(newPerson);
   } catch (error) {
+    console.log(error);
     if (error instanceof Error.ValidationError) {
       appLogger.error(
         `Person service: ${createPersonInfo.name} -> ${error.name} detected and re-thrown`
       );
 
-      throw new UniqueConstraintError(error.message);
+      throw error;
     }
 
     appLogger.error(

@@ -14,7 +14,6 @@ import { httpCodes } from "business/codes/responseStatusCodes";
 import { appLogger } from "../../../../../logs/logger.config";
 import { commonResponseMessages } from "business/messages/commonResponse.message";
 import { ServerError } from "errors/serverError.class";
-import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import {
   reqBodyToPerson,
   reqBodyToPersonUpdate,
@@ -26,6 +25,7 @@ import {
   retrievePersonInfoByUsername,
 } from "service/person.service";
 import { NotFoundError } from "errors/notFoundError.class";
+import { Error } from "mongoose";
 
 /**
  * Middleware array containing logic for person info creation.
@@ -74,15 +74,21 @@ export const infoCreationMiddlewareArray = [
         data: savedPerson,
       });
     } catch (error) {
-      if (
-        error instanceof ServerError ||
-        error instanceof UniqueConstraintError
-      ) {
+      if (error instanceof ServerError) {
         appLogger.error(
           `Person controller: ${callPersonInfoCreation.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+
+      if (error instanceof Error.ValidationError) {
+        appLogger.error(
+          `Person controller: ${callPersonInfoCreation.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(httpCodes.BAD_REQUEST).json({ message: error.message });
         return;
       }
     }

@@ -63,7 +63,10 @@ const personSchema = new Schema<IPerson>(
       trim: true,
     },
     dateOfBirth: {
-      type: Schema.Types.Date,
+      type: Date,
+      default: null,
+      set: (value: string | number | Date) =>
+        value && !isNaN(new Date(value).getTime()) ? new Date(value) : null,
     },
     education: {
       type: [Object],

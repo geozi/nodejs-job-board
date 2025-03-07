@@ -4,7 +4,6 @@ import sinon, { SinonStub } from "sinon";
 import { Error, Types } from "mongoose";
 import { NotFoundError } from "errors/notFoundError.class";
 import { ServerError } from "errors/serverError.class";
-import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import {
   retrievePersonInfoByUsername,
   createPersonInfo,
@@ -62,12 +61,12 @@ describe("Person service unit tests", () => {
       return chai.assert.isRejected(createPersonInfo(mockPerson), ServerError);
     });
 
-    it("unique constraint error", async () => {
+    it("Error.ValidationError", async () => {
       functionStub.rejects(new Error.ValidationError());
 
       return chai.assert.isRejected(
         createPersonInfo(mockPerson),
-        UniqueConstraintError
+        Error.ValidationError
       );
     });
   });
