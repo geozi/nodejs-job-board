@@ -1,3 +1,7 @@
+/**
+ * Passport configuration.
+ * @module src/auth/passport.config
+ */
 import { User } from "domain/models/user.model";
 import passport from "passport";
 import { ExtractJwt, Strategy } from "passport-jwt";

@@ -1,6 +1,6 @@
 # Job Board API test plan
 
-Document version 1.0.3
+Document version 1.0.4
 
 ## Introduction
 
@@ -153,6 +153,42 @@ The negative, validation-oriented tests trigger validation errors with specific 
 The negative, promise-oriented tests generate promise rejections, which are caught by the service layer and, then, re-thrown to the controllers of the business layer for handling.
 
 ![A diagram showing the application layers probed by the promise-oriented backend integration tests](img/backend_integration_testing_diagram_2.png)
+
+### Auth integration tests
+
+Auth logic integration test suites:
+
+- Successful user login [✔],
+- Failed user login [✔].
+
+```text
+├── src
+└── tests
+    └── authIntegration
+        ├── userLoginFailure.test.ts
+        └── userLoginSuccess.test.ts
+```
+
+### Database integration tests
+
+Database integration test suites:
+
+- Application collection [✔],
+- Listing collection [✔],
+- Person collection [✔],
+- User collection [✔].
+
+```text
+├── src
+└── tests
+    └── databaseIntegration
+        ├── applicationCollection.test.ts
+        ├── listingCollection.test.ts
+        ├── personCollection.test.ts
+        └── userCollection.test.ts
+```
+
+Here, one operation per collection is tested to check database connectivity and its integration with the backend layers.
 
 ## Out of scope
 
