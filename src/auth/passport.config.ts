@@ -1,10 +1,12 @@
 import { User } from "domain/models/user.model";
 import passport from "passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "secret",
+  secretOrKey: process.env.USER_KEY as string,
 };
 
 passport.use(
