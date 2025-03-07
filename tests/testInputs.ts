@@ -268,3 +268,6 @@ export const invalidObjectIdInputs = {
     ["ObjectId contains capital letters", "67710722913928977AA04ea0"],
   ] as [string, string][],
 };
+
+export const testToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ld1VzZXIiLCJpYXQiOjE1MTYyMzkwMjJ9.6X6NKeg86aa_8fjqOnI0iGsANvBUgBDBqV4Mc6Kiigg";
