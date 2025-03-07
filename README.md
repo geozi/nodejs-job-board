@@ -18,7 +18,9 @@ Compared to the [Task Manager API](https://github.com/geozi/nodejs-typescript-ta
 
 - custom mappers to reduce complexity in the controllers of the business layer.
 
-- regular instead of anonymous functions inside the controller middleware arrays to achieve more dynamic logging messages.
+- regular, instead of anonymous, functions inside the controller middleware arrays to achieve more dynamic logging messages.
+
+- the Error.ValidationError class, instead of the custom UniqueConstraintError class, for wider error catch.
 
 ##
 
