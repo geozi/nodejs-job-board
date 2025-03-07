@@ -15,7 +15,6 @@ import { appLogger } from "../../../../../logs/logger.config";
 import { httpCodes } from "business/codes/responseStatusCodes";
 import { commonResponseMessages } from "business/messages/commonResponse.message";
 import { ServerError } from "errors/serverError.class";
-import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import {
   reqBodyToRole,
   reqBodyToUser,
@@ -30,6 +29,7 @@ import {
 } from "service/user.service";
 import { userControllerResponseMessages } from "business/messages/userControllerResponse.message";
 import { NotFoundError } from "errors/notFoundError.class";
+import { Error } from "mongoose";
 
 /**
  * Middleware array containing logic for user registration.
@@ -78,15 +78,21 @@ export const registrationMiddlewareArray = [
         data: savedUser,
       });
     } catch (error) {
-      if (
-        error instanceof ServerError ||
-        error instanceof UniqueConstraintError
-      ) {
+      if (error instanceof ServerError) {
         appLogger.error(
           `User controller: ${callUserRegistration.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+
+      if (error instanceof Error.ValidationError) {
+        appLogger.error(
+          `User controller: ${callUserRegistration.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(httpCodes.BAD_REQUEST).json({ message: error.message });
         return;
       }
     }

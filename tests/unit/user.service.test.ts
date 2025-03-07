@@ -14,7 +14,6 @@ import {
   removeUser,
 } from "service/user.service";
 import { IUserUpdate } from "business/interfaces/iUserUpdate.interface";
-import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import * as chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
@@ -113,12 +112,12 @@ describe("User service unit tests", () => {
       return chai.assert.isRejected(createUser(mockUser), ServerError);
     });
 
-    it("unique constraint error", async () => {
+    it("Error.ValidationError", async () => {
       functionStub.rejects(new Error.ValidationError());
 
       return chai.assert.isRejected(
         createUser(mockUser),
-        UniqueConstraintError
+        Error.ValidationError
       );
     });
   });

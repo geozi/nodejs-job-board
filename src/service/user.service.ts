@@ -18,7 +18,6 @@ import {
 } from "persistence/user.repository";
 import { commonServiceMessages } from "./messages/commonService.message";
 import { userServiceMessages } from "./messages/userService.message";
-import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import { IUserUpdate } from "business/interfaces/iUserUpdate.interface";
 
 /**
@@ -126,7 +125,7 @@ export const retrieveUsersByRole = async (
  *
  * @param {IUser} newUser - The new user profile to be persisted.
  * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the newly added user profile.
- * @throws - {@link UniqueConstraintError} | {@link ServerError}
+ * @throws - {@link https://mongoosejs.com/docs/api/error.html#Error.ValidationError} | {@link ServerError}
  */
 export const createUser = async (newUser: IUser): Promise<IUser> => {
   try {
@@ -137,7 +136,7 @@ export const createUser = async (newUser: IUser): Promise<IUser> => {
         `User service: ${createUser.name} -> ${error.name} detected and re-thrown`
       );
 
-      throw new UniqueConstraintError(error.message);
+      throw error;
     }
 
     appLogger.error(
