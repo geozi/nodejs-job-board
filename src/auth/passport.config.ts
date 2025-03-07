@@ -15,16 +15,19 @@ const options = {
 
 passport.use(
   new Strategy(options, async (payload, done) => {
-    User.findOne({ username: payload.username }, (err: any, user: unknown) => {
-      if (err) {
-        return done(err, false);
-      }
-
+    try {
+      const user = await User.findOne({
+        username: payload.loggedInUser,
+      }).exec();
       if (user) {
         return done(null, user);
       } else {
         return done(null, false);
       }
-    });
+    } catch (error) {
+      return done(error, false);
+    }
   })
 );
+
+export default passport;

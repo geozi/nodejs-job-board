@@ -65,7 +65,7 @@ export const userLoginMiddlewareArray = [
 
       const token = jwt.sign(
         { loggedInUser: user.username },
-        process.env.KEY as string,
+        process.env.USER_KEY as string,
         {
           expiresIn: "1h",
         }
