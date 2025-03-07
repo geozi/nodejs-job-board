@@ -65,7 +65,6 @@ export const createPersonInfo = async (
   try {
     return await addPerson(newPerson);
   } catch (error) {
-    console.log(error);
     if (error instanceof Error.ValidationError) {
       appLogger.error(
         `Person service: ${createPersonInfo.name} -> ${error.name} detected and re-thrown`

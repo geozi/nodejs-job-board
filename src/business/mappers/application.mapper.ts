@@ -18,7 +18,7 @@ export const reqBodyToApplication = function (req: Request): IApplication {
 
   const application = new Application({
     personId: new Types.ObjectId(personId),
-    listingID: new Types.ObjectId(listingId),
+    listingId: new Types.ObjectId(listingId),
   });
 
   return application;

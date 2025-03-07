@@ -24,7 +24,7 @@ const applicationSchema = new Schema<IApplication>(
       required: [true, personFailedValidation.PERSON_ID_REQUIRED_MESSAGE],
       validate: {
         validator: function (value: any) {
-          return value.length === commonConstants.MONGODB_ID_LENGTH;
+          return value.toString().length === commonConstants.MONGODB_ID_LENGTH;
         },
         message: personFailedValidation.PERSON_ID_OUT_OF_LENGTH_MESSAGE,
       },
@@ -35,7 +35,7 @@ const applicationSchema = new Schema<IApplication>(
       required: [true, listingFailedValidation.LISTING_ID_REQUIRED_MESSAGE],
       validate: {
         validator: function (value: any) {
-          return value.length === commonConstants.MONGODB_ID_LENGTH;
+          return value.toString().length === commonConstants.MONGODB_ID_LENGTH;
         },
         message: listingFailedValidation.LISTING_ID_OUT_OF_LENGTH_MESSAGE,
       },
