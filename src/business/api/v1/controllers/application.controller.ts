@@ -15,7 +15,6 @@ import { appLogger } from "../../../../../logs/logger.config";
 import { httpCodes } from "business/codes/responseStatusCodes";
 import { commonResponseMessages } from "business/messages/commonResponse.message";
 import { ServerError } from "errors/serverError.class";
-import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 import {
   reqBodyToApplication,
   reqBodyToUniqueIndex,
@@ -30,6 +29,7 @@ import {
 import { applicationControllerResponseMessages } from "business/messages/applicationControllerResponse.message";
 import { NotFoundError } from "errors/notFoundError.class";
 import { reqBodyToId } from "business/mappers/common.mapper";
+import { Error } from "mongoose";
 
 /**
  * Middleware array containing logic for application creation.
@@ -78,15 +78,21 @@ export const applicationCreationMiddlewareArray = [
         data: savedApplication,
       });
     } catch (error) {
-      if (
-        error instanceof ServerError ||
-        error instanceof UniqueConstraintError
-      ) {
+      if (error instanceof ServerError) {
         appLogger.error(
           `Application controller: ${callApplicationCreation.name} -> ${error.name} detected and caught`
         );
 
         res.status(error.httpCode).json({ message: error.message });
+        return;
+      }
+
+      if (error instanceof Error.ValidationError) {
+        appLogger.error(
+          `Application controller: ${callApplicationCreation.name} -> ${error.name} detected and caught`
+        );
+
+        res.status(httpCodes.BAD_REQUEST).json({ message: error.message });
         return;
       }
     }

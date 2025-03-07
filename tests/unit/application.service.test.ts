@@ -115,12 +115,12 @@ describe("Application service unit tests", () => {
       );
     });
 
-    it("unique constraint error", async () => {
+    it("Error.ValidationError", async () => {
       functionStub.rejects(new Error.ValidationError());
 
       return chai.assert.isRejected(
         createApplication(mockApplication),
-        UniqueConstraintError
+        Error.ValidationError
       );
     });
   });

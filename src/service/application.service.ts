@@ -16,7 +16,6 @@ import {
   getApplicationsByPersonId,
 } from "persistence/application.repository";
 import { applicationServiceMessages } from "./messages/applicationService.message";
-import { UniqueConstraintError } from "errors/uniqueConstraintError.class";
 
 /**
  * Calls on the persistence layer to retrieve applications with the specified person ID.
@@ -137,7 +136,7 @@ export const retrieveApplicationByUniqueIndex = async (
  *
  * @param {IApplication} newApplication - The new application to be persisted.
  * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the newly persisted application.
- * @throws - {@link UniqueConstraintError} | {@link ServerError}
+ * @throws - {@link https://mongoosejs.com/docs/api/error.html#Error.ValidationError} | {@link ServerError}
  */
 export const createApplication = async (
   newApplication: IApplication
@@ -150,7 +149,7 @@ export const createApplication = async (
         `Application service: ${createApplication.name} -> ${error.name} detected and re-thrown`
       );
 
-      throw new UniqueConstraintError(error.message);
+      throw error;
     }
 
     appLogger.error(

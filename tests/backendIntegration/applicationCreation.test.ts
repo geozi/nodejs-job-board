@@ -229,7 +229,7 @@ describe("Application creation integration tests", () => {
         );
       });
 
-      it("unique constraint error (409)", async () => {
+      it("Error.ValidationError (400)", async () => {
         functionStub.rejects(new Error.ValidationError());
 
         for (const middleware of applicationCreationMiddlewareArray) {
@@ -239,7 +239,7 @@ describe("Application creation integration tests", () => {
         statusStub = res.status as SinonStub;
         jsonSpy = res.json as SinonSpy;
 
-        assert.strictEqual(statusStub.calledWith(httpCodes.CONFLICT), true);
+        assert.strictEqual(statusStub.calledWith(httpCodes.BAD_REQUEST), true);
         assert.strictEqual(
           jsonSpy.calledWith({ message: "Validation failed" }),
           true
