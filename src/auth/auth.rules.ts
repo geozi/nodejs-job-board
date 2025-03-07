@@ -35,7 +35,7 @@ export const userLoginRules = (): ValidationChain[] => {
 };
 
 /**
- * Returns a validation chain for for header verification.
+ * Returns a validation chain for header verification.
  * @returns {ValidationChain[]} Validation chain.
  */
 export const headerVerificationRules = (): ValidationChain[] => {
