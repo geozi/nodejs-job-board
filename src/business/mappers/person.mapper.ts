@@ -2,21 +2,22 @@
  * Person mapper.
  * @module src/business/mappers/person.mapper
  */
-import { Request } from "express";
 import { Person } from "../../domain/models/person.model";
 import { IEducation } from "../../domain/interfaces/secondary/iEducation.interface";
 import { IWorkExperience } from "../../domain/interfaces/secondary/iWorkExperience.interface";
 import { Types } from "mongoose";
 import { IPerson } from "../../domain/interfaces/documents/iPerson.interface";
 import { IPersonUpdate } from "../interfaces/iPersonUpdate.interface";
+import { IRequest } from "business/interfaces/iRequest.interface";
 
 /**
  * Maps an HTTP request body to an {@link IPerson} object.
  *
- * @param {Request} req - An HTTP request.
+ * @param {IRequest} req - An HTTP request.
  * @returns {IPerson} An {@link IPerson} object.
  */
-export const reqBodyToPerson = function (req: Request): IPerson {
+export const reqBodyToPerson = function (req: IRequest): IPerson {
+  console.log(req);
   const {
     firstName,
     lastName,
@@ -25,7 +26,6 @@ export const reqBodyToPerson = function (req: Request): IPerson {
     dateOfBirth,
     education,
     workExperience,
-    username,
   } = req.body;
 
   const person = new Person({
@@ -34,8 +34,11 @@ export const reqBodyToPerson = function (req: Request): IPerson {
     phoneNumber: phoneNumber,
     address: address,
     dateOfBirth: new Date(dateOfBirth),
-    username: username,
   });
+
+  if (req.user) {
+    person.username = req.user.username;
+  }
 
   if (education.length !== 0) {
     education.forEach((edu: any) => {
@@ -93,10 +96,10 @@ export const reqBodyToPerson = function (req: Request): IPerson {
 /**
  * Maps an HTTP request body to an {@link IPersonUpdate} object.
  *
- * @param {Request} req - An HTTP request.
+ * @param {IRequest} req - An HTTP request.
  * @returns {IPersonUpdate} An {@link IPersonUpdate} object.
  */
-export const reqBodyToPersonUpdate = function (req: Request): IPersonUpdate {
+export const reqBodyToPersonUpdate = function (req: IRequest): IPersonUpdate {
   const {
     id,
     firstName,
@@ -106,7 +109,6 @@ export const reqBodyToPersonUpdate = function (req: Request): IPersonUpdate {
     dateOfBirth,
     education,
     workExperience,
-    username,
   } = req.body;
 
   const person: IPersonUpdate = {
@@ -116,8 +118,11 @@ export const reqBodyToPersonUpdate = function (req: Request): IPersonUpdate {
     phoneNumber: phoneNumber,
     address: address,
     dateOfBirth: new Date(dateOfBirth),
-    username: username,
   };
+
+  if (req.user) {
+    person.username = req.user.username;
+  }
 
   let helperArray: any[] = [];
   if (education && education.length !== 0) {

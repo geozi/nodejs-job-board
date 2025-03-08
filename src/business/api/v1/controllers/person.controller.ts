@@ -26,6 +26,7 @@ import {
 } from "service/person.service";
 import { NotFoundError } from "errors/notFoundError.class";
 import { Error } from "mongoose";
+import { IRequest } from "business/interfaces/iRequest.interface";
 
 /**
  * Middleware array containing logic for person info creation.
@@ -66,7 +67,7 @@ export const infoCreationMiddlewareArray = [
     }
 
     try {
-      const newPerson = reqBodyToPerson(req);
+      const newPerson = reqBodyToPerson(req as IRequest);
       const savedPerson = await createPersonInfo(newPerson);
 
       res.status(httpCodes.CREATED).json({
@@ -134,7 +135,7 @@ export const infoUpdateMiddlewareArray = [
     }
 
     try {
-      const userToUpdate = reqBodyToPersonUpdate(req);
+      const userToUpdate = reqBodyToPersonUpdate(req as IRequest);
       const updatedUser = await bringPersonInfoToDate(userToUpdate);
 
       res.status(httpCodes.OK).json({

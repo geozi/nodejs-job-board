@@ -228,15 +228,6 @@ export const personInfoCreationRules = (): ValidationChain[] => {
 
         return true;
       }),
-
-    check("username")
-      .notEmpty()
-      .withMessage(userFailedValidation.USERNAME_REQUIRED_MESSAGE)
-      .bail()
-      .isLength({ min: userConstants.USERNAME_MIN_LENGTH })
-      .withMessage(userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE)
-      .isLength({ max: userConstants.USERNAME_MAX_LENGTH })
-      .withMessage(userFailedValidation.USERNAME_ABOVE_MAX_LENGTH_MESSAGE),
   ];
 };
 
@@ -439,12 +430,6 @@ export const personInfoUpdateRules = (): ValidationChain[] => {
 
         return true;
       }),
-    check("username")
-      .optional()
-      .isLength({ min: userConstants.USERNAME_MIN_LENGTH })
-      .withMessage(userFailedValidation.USERNAME_BELOW_MIN_LENGTH_MESSAGE)
-      .isLength({ max: userConstants.USERNAME_MAX_LENGTH })
-      .withMessage(userFailedValidation.USERNAME_ABOVE_MAX_LENGTH_MESSAGE),
   ];
 };
 
