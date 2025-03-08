@@ -20,9 +20,12 @@ Compared to the [Task Manager API](https://github.com/geozi/nodejs-typescript-ta
 
 - regular, instead of anonymous, functions inside the controller middleware arrays to achieve more dynamic logging messages.
 
-- the Error.ValidationError class, instead of the custom UniqueConstraintError class, for wider error catch.
+- the [Error.ValidationError](https://mongoosejs.com/docs/api/error.html#Error.ValidationError) class, instead of the custom UniqueConstraintError class, for wider error catch.
 
-- the `.bail()`[^1] method in validation chains, minimizing the number of errors sent back to the client as well as the number of checks performed by the validation chain elements.
+- the [.bail()](https://express-validator.github.io/docs/api/validation-chain#bail)
+  method in validation chains, minimizing the number of errors sent back to the client as well as the number of checks performed by the validation chain elements.
+
+- [passport.js](https://www.passportjs.org/) for token extraction and authentication.
 
 ##
 
@@ -31,5 +34,3 @@ Compared to the [Task Manager API](https://github.com/geozi/nodejs-typescript-ta
         <img src="https://go-skill-icons.vercel.app/api/icons?i=vscode,nodejs,typescript,mocha,mongoose"/>
       </a>
 </p>
-
-[^1]: Documentation for `.bail()` can be found it: [https://express-validator.github.io/docs/api/validation-chain#bail](https://express-validator.github.io/docs/api/validation-chain#bail)
