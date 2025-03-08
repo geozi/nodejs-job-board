@@ -7,7 +7,9 @@ import {
   listingCreationMiddlewareArray,
   listingUpdateMiddlewareArray,
 } from "../controllers/listing.controller";
+import { retrievalByRoleMiddlewareArray } from "../controllers/user.controller";
 
 export const adminRouter = Router();
-adminRouter.post("/", listingCreationMiddlewareArray);
-adminRouter.put("/", listingUpdateMiddlewareArray);
+adminRouter.post("/listings", listingCreationMiddlewareArray);
+adminRouter.put("/listings", listingUpdateMiddlewareArray);
+adminRouter.get("/users", retrievalByRoleMiddlewareArray);
