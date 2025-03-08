@@ -1,3 +1,7 @@
+/**
+ * Person routes.
+ * @module src/business/apis/v1/routes/person.route
+ */
 import { Router } from "express";
 import {
   infoCreationMiddlewareArray,
