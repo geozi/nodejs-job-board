@@ -134,7 +134,6 @@ export const reqBodyToListingUpdate = function (req: Request): IListingUpdate {
       break;
   }
 
-  console.log(listingToUpdate);
   return listingToUpdate;
 };
 

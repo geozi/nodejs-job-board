@@ -141,6 +141,7 @@ export const updateListing = async (
     country,
     listingDesc,
     salaryRange,
+    status,
   } = { ...updateDataObj };
 
   const listingToUpdate = {
@@ -154,6 +155,7 @@ export const updateListing = async (
     country: country,
     listingDesc: listingDesc,
     salaryRange: salaryRange,
+    status: status,
   };
 
   const updatedListing = await Listing.findByIdAndUpdate(id, listingToUpdate, {
