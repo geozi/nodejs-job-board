@@ -17,7 +17,6 @@ import { IRequest } from "business/interfaces/iRequest.interface";
  * @returns {IPerson} An {@link IPerson} object.
  */
 export const reqBodyToPerson = function (req: IRequest): IPerson {
-  console.log(req);
   const {
     firstName,
     lastName,
