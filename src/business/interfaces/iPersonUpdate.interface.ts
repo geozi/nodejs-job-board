@@ -16,7 +16,6 @@ import { Types } from "mongoose";
  * @property {Date} [dateOfBirth] - (Optional) The date of birth of a person.
  * @property {Object[]} [education] - (Optional) The education of a person as an array of objects.
  * @property {Object[]} [workExperience] - (Optional) The work experience of a person as an array of objects.
- * @property {string} [username] - (Optional) The username of a person.
  */
 export interface IPersonUpdate {
   /**
@@ -66,10 +65,4 @@ export interface IPersonUpdate {
    * @type {Object[]}
    */
   workExperience?: Object[];
-
-  /**
-   * (Optional) The username of a person.
-   * @type {string}
-   */
-  username?: string;
 }

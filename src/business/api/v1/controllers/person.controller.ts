@@ -135,7 +135,7 @@ export const infoUpdateMiddlewareArray = [
     }
 
     try {
-      const userToUpdate = reqBodyToPersonUpdate(req as IRequest);
+      const userToUpdate = reqBodyToPersonUpdate(req);
       const updatedUser = await bringPersonInfoToDate(userToUpdate);
 
       res.status(httpCodes.OK).json({

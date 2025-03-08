@@ -9,6 +9,7 @@ import { Types } from "mongoose";
 import { IPerson } from "../../domain/interfaces/documents/iPerson.interface";
 import { IPersonUpdate } from "../interfaces/iPersonUpdate.interface";
 import { IRequest } from "business/interfaces/iRequest.interface";
+import { Request } from "express";
 
 /**
  * Maps an HTTP request body to an {@link IPerson} object.
@@ -32,8 +33,11 @@ export const reqBodyToPerson = function (req: IRequest): IPerson {
     lastName: lastName,
     phoneNumber: phoneNumber,
     address: address,
-    dateOfBirth: new Date(dateOfBirth),
   });
+
+  if (dateOfBirth) {
+    person.dateOfBirth = new Date(dateOfBirth);
+  }
 
   if (req.user) {
     person.username = req.user.username;
@@ -95,10 +99,10 @@ export const reqBodyToPerson = function (req: IRequest): IPerson {
 /**
  * Maps an HTTP request body to an {@link IPersonUpdate} object.
  *
- * @param {IRequest} req - An HTTP request.
+ * @param {Request} req - An HTTP request.
  * @returns {IPersonUpdate} An {@link IPersonUpdate} object.
  */
-export const reqBodyToPersonUpdate = function (req: IRequest): IPersonUpdate {
+export const reqBodyToPersonUpdate = function (req: Request): IPersonUpdate {
   const {
     id,
     firstName,
@@ -116,11 +120,10 @@ export const reqBodyToPersonUpdate = function (req: IRequest): IPersonUpdate {
     lastName: lastName,
     phoneNumber: phoneNumber,
     address: address,
-    dateOfBirth: new Date(dateOfBirth),
   };
 
-  if (req.user) {
-    person.username = req.user.username;
+  if (dateOfBirth) {
+    person.dateOfBirth = new Date(dateOfBirth);
   }
 
   let helperArray: any[] = [];

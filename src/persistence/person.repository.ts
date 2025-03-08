@@ -58,7 +58,6 @@ export const updatePerson = async (
     dateOfBirth,
     education,
     workExperience,
-    username,
   } = { ...updateDataObj };
 
   const personToUpdate = {
@@ -69,7 +68,6 @@ export const updatePerson = async (
     dateOfBirth: dateOfBirth,
     education: education,
     workExperience: workExperience,
-    username: username,
   };
 
   const updatedPerson = await Person.findByIdAndUpdate(id, personToUpdate, {
