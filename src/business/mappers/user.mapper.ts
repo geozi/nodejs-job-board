@@ -68,9 +68,9 @@ export const reqBodyToUserUpdate = async (
  * @returns {RoleType} A {@link RoleType} enum
  */
 export const reqBodyToRole = (req: Request): RoleType => {
-  const { roleAsString } = req.body;
+  const { role } = req.body;
 
-  if (roleAsString === RoleType.Admin.toString()) {
+  if (role === RoleType.Admin.toString()) {
     return RoleType.Admin;
   } else {
     return RoleType.User;
