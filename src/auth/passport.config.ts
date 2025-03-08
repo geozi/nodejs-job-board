@@ -33,4 +33,29 @@ passport.use(
   })
 );
 
+// Strategy for Admin role.
+
+const admin_strategy_options = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.ADMIN_KEY as string,
+};
+
+passport.use(
+  "admin-strategy",
+  new Strategy(admin_strategy_options, async (payload, done) => {
+    try {
+      const user = await User.findOne({
+        username: payload.loggedInUser,
+      }).exec();
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    } catch (error) {
+      return done(error, false);
+    }
+  })
+);
+
 export default passport;

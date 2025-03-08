@@ -9,6 +9,7 @@ import { authRouter } from "business/api/v1/routes/auth.route";
 import { regRouter } from "business/api/v1/routes/registration.route";
 import { personRouter } from "business/api/v1/routes/person.route";
 import { listingRouter } from "business/api/v1/routes/listing.route";
+import { adminRouter } from "business/api/v1/routes/admin.route";
 const app = express();
 const port = 3000;
 
@@ -30,6 +31,11 @@ app.use("/api/v1/register", regRouter);
 
 // Protected routes
 
+app.use(
+  "/api/v1/p/admin",
+  passport.authenticate("admin-strategy", { session: false }),
+  adminRouter
+);
 app.use(
   "/api/v1/p/users",
   passport.authenticate("user-strategy", { session: false }),

@@ -14,6 +14,7 @@ import { ServerError } from "errors/serverError.class";
 import { retrieveUserByUsername } from "service/user.service";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { RoleType } from "domain/enums/roleType.enum";
 
 /**
  * Middleware array containing logic for user login.
@@ -63,13 +64,24 @@ export const userLoginMiddlewareArray = [
         return;
       }
 
-      const token = jwt.sign(
-        { loggedInUser: user.username },
-        process.env.USER_KEY as string,
-        {
-          expiresIn: "1h",
-        }
-      );
+      let token: string;
+      if (user.role === RoleType.User) {
+        token = jwt.sign(
+          { loggedInUser: user.username },
+          process.env.USER_KEY as string,
+          {
+            expiresIn: "1h",
+          }
+        );
+      } else {
+        token = jwt.sign(
+          { loggedInUser: user.username },
+          process.env.ADMIN_KEY as string,
+          {
+            expiresIn: "1h",
+          }
+        );
+      }
 
       res.status(httpCodes.OK).json({
         message: authResponseMessages.AUTHENTICATION_SUCCESS,
