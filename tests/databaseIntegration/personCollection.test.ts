@@ -4,16 +4,19 @@ import sinon, { SinonStub, SinonSpy } from "sinon";
 import mongoose, { ConnectOptions } from "mongoose";
 import { Person } from "domain/models/person.model";
 import * as dotenv from "dotenv";
-import { validPersonInput } from "../../tests/testInputs";
+import { validPersonInput, validUserInput } from "../../tests/testInputs";
 import { infoCreationMiddlewareArray } from "business/api/v1/controllers/person.controller";
 import { httpCodes } from "business/codes/responseStatusCodes";
+import { IRequest } from "business/interfaces/iRequest.interface";
+import { User } from "domain/models/user.model";
 dotenv.config();
 
 describe("Person collection integration test(s)", () => {
-  let req: Partial<Request>;
+  let req: Partial<IRequest>;
   let res: Partial<Response>;
   let next: SinonSpy;
   let statusStub: SinonStub;
+  let user = new User(validUserInput);
 
   before(async () => {
     await mongoose.connect(
@@ -40,7 +43,17 @@ describe("Person collection integration test(s)", () => {
   });
 
   it("new person info added (201)", async () => {
-    req = { body: { ...validPersonInput } };
+    req = {
+      body: {
+        firstName: validPersonInput.firstName,
+        lastName: validPersonInput.lastName,
+        phoneNumber: validPersonInput.phoneNumber,
+        address: validPersonInput.address,
+        education: validPersonInput.education,
+        workExperience: validPersonInput.workExperience,
+      },
+      user: user,
+    };
 
     for (const middleware of infoCreationMiddlewareArray) {
       await middleware(req as Request, res as Response, next);
