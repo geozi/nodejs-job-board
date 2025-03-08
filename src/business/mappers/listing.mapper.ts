@@ -102,11 +102,14 @@ export const reqBodyToListingUpdate = function (req: Request): IListingUpdate {
     id: new Types.ObjectId(id),
     title: title,
     organizationName: organizationName,
-    datePosted: new Date(datePosted),
     city: city,
     country: country,
     listingDesc: listingDesc,
   };
+
+  if (datePosted) {
+    listingToUpdate.datePosted = new Date(datePosted);
+  }
 
   listingToUpdate.workType = workTypeMap[workType];
   listingToUpdate.employmentType = employmentTypeMap[employmentType];
@@ -131,6 +134,7 @@ export const reqBodyToListingUpdate = function (req: Request): IListingUpdate {
       break;
   }
 
+  console.log(listingToUpdate);
   return listingToUpdate;
 };
 
