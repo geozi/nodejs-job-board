@@ -147,9 +147,8 @@ export const reqBodyToPersonUpdate = function (req: Request): IPersonUpdate {
 
       helperArray.push(singleEduRecord);
     });
+    person.education = helperArray;
   }
-
-  person.education = helperArray;
 
   helperArray = [];
   if (workExperience && workExperience.length !== 0) {
@@ -178,9 +177,9 @@ export const reqBodyToPersonUpdate = function (req: Request): IPersonUpdate {
 
       helperArray.push(singleWorkExpRecord);
     });
-  }
 
-  person.workExperience = helperArray;
+    person.workExperience = helperArray;
+  }
 
   return person;
 };

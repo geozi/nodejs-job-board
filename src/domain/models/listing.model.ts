@@ -27,7 +27,7 @@ import { listingStatusArray } from "domain/enums/listingStatus.enum";
  * @property {string} city - The city where the job is located.
  * @property {string} country - The country where the job is located.
  * @property {string} listingDesc - The description of the job.
- * @property {Schema.Types.Mixed[]} [salaryRange] - (Optional) The salary range of the job.
+ * @property {Schema.Types.Mixed} [salaryRange] - (Optional) The salary range of the job.
  * @property {string} status - The status of the listing.
  */
 const listingSchema = new Schema<IListing>(
