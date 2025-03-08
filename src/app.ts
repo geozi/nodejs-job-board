@@ -7,6 +7,7 @@ import "../src/auth/passport.config";
 import { userRouter } from "business/api/v1/routes/user.route";
 import { authRouter } from "business/api/v1/routes/auth.route";
 import { regRouter } from "business/api/v1/routes/registration.route";
+import { personRouter } from "business/api/v1/routes/person.route";
 const app = express();
 const port = 3000;
 
@@ -26,6 +27,11 @@ app.use(
   "/api/v1/p/users",
   passport.authenticate("jwt", { session: false }),
   userRouter
+);
+app.use(
+  "/api/v1/p/persons",
+  passport.authenticate("jwt", { session: false }),
+  personRouter
 );
 
 app.listen(port, () => {
