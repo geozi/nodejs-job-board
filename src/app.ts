@@ -10,6 +10,7 @@ import { regRouter } from "business/api/v1/routes/registration.route";
 import { personRouter } from "business/api/v1/routes/person.route";
 import { listingRouter } from "business/api/v1/routes/listing.route";
 import { adminRouter } from "business/api/v1/routes/admin.route";
+import { applicationRouter } from "business/api/v1/routes/application.route";
 const app = express();
 const port = 3000;
 
@@ -50,6 +51,11 @@ app.use(
   "/api/v1/p/listings",
   passport.authenticate("user-strategy", { session: false }),
   listingRouter
+);
+app.use(
+  "/api/v1/p/applications",
+  passport.authenticate("user-strategy", { session: false }),
+  applicationRouter
 );
 
 app.listen(port, () => {

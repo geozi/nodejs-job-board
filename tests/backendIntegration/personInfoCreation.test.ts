@@ -5,7 +5,6 @@ import {
   invalidCommonInputs,
   invalidEducationInputs,
   invalidPersonInputs,
-  invalidUserInputs,
   invalidWorkExperienceInputs,
   validEducationInput,
   validPersonInput,
@@ -20,7 +19,6 @@ import { commonResponseMessages } from "business/messages/commonResponse.message
 import { personFailedValidation } from "domain/messages/personValidation.message";
 import { commonServiceMessages } from "service/messages/commonService.message";
 import { Error } from "mongoose";
-import { userFailedValidation } from "domain/messages/userValidation.message";
 import { educationFailedValidation } from "domain/messages/educationValidation.message";
 import { commonFailedValidation } from "domain/messages/commonValidation.message";
 import { workExperienceFailedValidation } from "domain/messages/workExperienceValidation.message";
