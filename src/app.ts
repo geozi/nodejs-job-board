@@ -8,6 +8,7 @@ import { userRouter } from "business/api/v1/routes/user.route";
 import { authRouter } from "business/api/v1/routes/auth.route";
 import { regRouter } from "business/api/v1/routes/registration.route";
 import { personRouter } from "business/api/v1/routes/person.route";
+import { listingRouter } from "business/api/v1/routes/listing.route";
 const app = express();
 const port = 3000;
 
@@ -21,17 +22,28 @@ async function connectToDB() {
 }
 
 app.use(express.json());
+
+// Open routes
+
 app.use("/api/login", authRouter);
 app.use("/api/v1/register", regRouter);
+
+// Protected routes
+
 app.use(
   "/api/v1/p/users",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("user-strategy", { session: false }),
   userRouter
 );
 app.use(
   "/api/v1/p/persons",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("user-strategy", { session: false }),
   personRouter
+);
+app.use(
+  "/api/v1/p/listings",
+  passport.authenticate("user-strategy", { session: false }),
+  listingRouter
 );
 
 app.listen(port, () => {

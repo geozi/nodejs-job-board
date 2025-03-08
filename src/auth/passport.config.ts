@@ -8,13 +8,16 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const options = {
+// Strategy for User role.
+
+const user_strategy_options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.USER_KEY as string,
 };
 
 passport.use(
-  new Strategy(options, async (payload, done) => {
+  "user-strategy",
+  new Strategy(user_strategy_options, async (payload, done) => {
     try {
       const user = await User.findOne({
         username: payload.loggedInUser,
