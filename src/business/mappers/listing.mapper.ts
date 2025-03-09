@@ -187,3 +187,15 @@ export const reqBodyToExperienceLevel = function (
   const { experienceLevel } = req.body;
   return experienceLevelMap[experienceLevel];
 };
+
+/**
+ * Maps an HTTP request body to a listing ID.
+ *
+ * @param {Request} req - An HTTP request.
+ * @returns {Types.ObjectId} An ID of Types.ObjectId.
+ * @see {@link https://mongoosejs.com/docs/schematypes.html#objectids}
+ */
+export const reqBodyToListingId = function (req: Request): Types.ObjectId {
+  const { listingId } = req.body;
+  return new Types.ObjectId(listingId);
+};

@@ -30,7 +30,8 @@ import { NotFoundError } from "errors/notFoundError.class";
 import { reqBodyToId } from "business/mappers/common.mapper";
 import { Error } from "mongoose";
 import { IRequest } from "business/interfaces/iRequest.interface";
-import { reqBodyToPersonId } from "business/mappers/person.mapper";
+import { reqToPersonId } from "business/mappers/person.mapper";
+import { reqBodyToListingId } from "business/mappers/listing.mapper";
 
 /**
  * Middleware array containing logic for application creation.
@@ -112,7 +113,7 @@ export async function callApplicationRetrievalByPersonId(
   res: Response
 ): Promise<void> {
   try {
-    const personId = await reqBodyToPersonId(req as IRequest);
+    const personId = await reqToPersonId(req as IRequest);
     const applications = await retrieveApplicationsByPersonId(personId);
 
     res.status(httpCodes.OK).json({
@@ -170,7 +171,7 @@ export const retrievalByListingIdMiddlewareArray = [
     }
 
     try {
-      const listingId = reqBodyToId(req);
+      const listingId = reqBodyToListingId(req);
       const applications = await retrieveApplicationsByListingId(listingId);
 
       res.status(httpCodes.OK).json({

@@ -183,12 +183,13 @@ export const reqBodyToPersonUpdate = function (req: Request): IPersonUpdate {
 };
 
 /**
- * Maps an HTTP request body to a person ID.
+ * Maps an HTTP request to a person ID.
  *
- * @param {Request} req - An HTTP request.
- * @returns {Promise<Types.ObjectId>} A promise that resolves to a Types.ObjectId.
+ * @param {IRequest} req - An HTTP request.
+ * @returns {Promise<Types.ObjectId>} A promise that resolves to an ID of Types.ObjectId.
+ * @see {@link https://mongoosejs.com/docs/schematypes.html#objectids}
  */
-export const reqBodyToPersonId = async function (
+export const reqToPersonId = async function (
   req: IRequest
 ): Promise<Types.ObjectId> {
   const username = req.user.username;

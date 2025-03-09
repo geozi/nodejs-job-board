@@ -35,7 +35,8 @@ export const reqBodyToApplication = async function (
  * Maps an HTTP request body to an application ID.
  *
  * @param {Request} req - An HTTP request.
- * @returns {Types.ObjectId} An application ID.
+ * @returns {Types.ObjectId} An ID of Types.ObjectId.
+ * @see {@link https://mongoosejs.com/docs/schematypes.html#objectids}
  */
 export const reqBodyToApplicationId = function (req: Request): Types.ObjectId {
   const { id } = req.body;
@@ -46,7 +47,8 @@ export const reqBodyToApplicationId = function (req: Request): Types.ObjectId {
  * Maps an HTTP request body to an object containing person and listing IDs.
  *
  * @param {IRequest} req - An HTTP request.
- * @returns {Promise<object>} A promise that resolves to an object containing person and listing IDs.
+ * @returns {Promise<object>} A promise that resolves to an object containing IDs of Types.ObjectId.
+ * @see {@link https://mongoosejs.com/docs/schematypes.html#objectids}
  */
 export const reqBodyToUniqueIndex = async function (req: IRequest): Promise<{
   personId: Types.ObjectId;
