@@ -56,7 +56,7 @@ export const retrievePersonInfoByUsername = async (
  * Calls on the persistence layer to add the information of a new person to database.
  *
  * @param {IPerson} newPerson - The new person to be persisted.
- * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the newly added person.
+ * @returns {Promise<IPerson>} A promise that resolves to an {@link IPerson} object representing the newly added person.
  * @throws - {@link https://mongoosejs.com/docs/api/error.html#Error.ValidationError} | {@link ServerError}
  */
 export const createPersonInfo = async (
@@ -85,7 +85,7 @@ export const createPersonInfo = async (
  * Calls on the persistence layer to update the information of an existing person in the database.
  *
  * @param {IPersonUpdate} updateDataObj - The new information to be persisted.
- * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the updated information of a person.
+ * @returns {Promise<IPerson>} A promise that resolves to an {@link IPerson} object representing the updated information of a person.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const bringPersonInfoToDate = async (
@@ -119,7 +119,7 @@ export const bringPersonInfoToDate = async (
  * Calls on the persistence layer to remove the information of an existing person in the database.
  *
  * @param {Types.ObjectId} id - The ID assigned to the person.
- * @returns {Promise<IPerson>} A promise that resolves to an IPerson object representing the removed information of a person.
+ * @returns {Promise<IPerson>} A promise that resolves to an {@link IPerson} object representing the removed information of a person.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const removePersonInfo = async (

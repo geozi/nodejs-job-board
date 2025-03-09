@@ -24,7 +24,7 @@ import { IUserUpdate } from "business/interfaces/iUserUpdate.interface";
  * Calls on the persistence layer to retrieve the user with the specified username.
  *
  * @param {string} username - The username of the user.
- * @returns {Promise<IUser>} A promise that resolves to an IUser object.
+ * @returns {Promise<IUser>} A promise that resolves to an {@link IUser} object.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveUserByUsername = async (
@@ -58,7 +58,7 @@ export const retrieveUserByUsername = async (
  * Calls on the persistence layer to retrieve the user with the specified email.
  *
  * @param {string} email - The email of the user.
- * @returns {Promise<IUser>} A promise that resolves to an IUser object.
+ * @returns {Promise<IUser>} A promise that resolves to an {@link IUser} object.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveUserByEmail = async (email: string): Promise<IUser> => {
@@ -90,7 +90,7 @@ export const retrieveUserByEmail = async (email: string): Promise<IUser> => {
  * Calls on the persistence layer to retrieve the users with the specified role.
  *
  * @param {RoleType} role - A role assigned to users.
- * @returns {Promise<Array<IUser>>} A promise that resolves to an array of IUser objects.
+ * @returns {Promise<Array<IUser>>} A promise that resolves to an array of {@link IUser} objects.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveUsersByRole = async (
@@ -124,7 +124,7 @@ export const retrieveUsersByRole = async (
  * Calls on the persistence layer to add a new user profile to database.
  *
  * @param {IUser} newUser - The new user profile to be persisted.
- * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the newly added user profile.
+ * @returns {Promise<IUser>} A promise that resolves to an {@link IUser} object representing the newly added user profile.
  * @throws - {@link https://mongoosejs.com/docs/api/error.html#Error.ValidationError} | {@link ServerError}
  */
 export const createUser = async (newUser: IUser): Promise<IUser> => {
@@ -151,7 +151,7 @@ export const createUser = async (newUser: IUser): Promise<IUser> => {
  * Calls on the persistence layer to update the profile of an existing user.
  *
  * @param {IUserUpdate} updateDataObj - The new information to be persisted.
- * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the updated user profile.
+ * @returns {Promise<IUser>} A promise that resolves to an {@link IUser} object representing the updated user profile.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const bringUserToDate = async (
@@ -186,7 +186,7 @@ export const bringUserToDate = async (
  * Calls on the persistence layer to remove a user profile from database.
  *
  * @param {Types.ObjectId} id - The ID assigned to the user profile.
- * @returns {Promise<IUser>} A promise that resolves to an IUser object representing the removed user profile.
+ * @returns {Promise<IUser>} A promise that resolves to an {@link IUser} object representing the removed user profile.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const removeUser = async (id: Types.ObjectId): Promise<IUser> => {

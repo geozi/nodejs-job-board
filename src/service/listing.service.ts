@@ -29,7 +29,7 @@ import { listingServiceMessages } from "./messages/listingService.message";
  * Calls on the persistence layer to retrieve the listings with the specified status.
  *
  * @param {ListingStatus} status - An enum representing the status assigned to listings.
- * @returns {Promise<Array<IListing>>} A promise that resolves to an array of IListing objects.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of {@link IListing} objects.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveListingsByStatus = async (
@@ -62,7 +62,7 @@ export const retrieveListingsByStatus = async (
  * Calls on the persistence layer to retrieve the listings with the specified work type.
  *
  * @param {WorkType} workType - An enum representing the work type assigned to listings.
- * @returns {Promise<Array<IListing>>} A promise that resolves to an array of IListing objects.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of {@link IListing} objects.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveListingsByWorkType = async (
@@ -97,7 +97,7 @@ export const retrieveListingsByWorkType = async (
  * Calls on the persistence layer to retrieve the listings with the specified employment type.
  *
  * @param {EmploymentType} employmentType - An enum representing the employment type assigned to listings.
- * @returns {Promise<Array<IListing>>} A promise that resolves to an array of IListing objects.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of {@link IListing} objects.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveListingsByEmploymentType = async (
@@ -132,7 +132,7 @@ export const retrieveListingsByEmploymentType = async (
  * Calls on the persistence layer to retrieve the listings with the specified experience level.
  *
  * @param {ExperienceLevelType} experienceLevel - An enum representing the experience level assigned to listings.
- * @returns {Promise<Array<IListing>>} A promise that resolves to an array of IListing objects.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of {@link IListing} objects.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveListingsByExperienceLevel = async (
@@ -169,7 +169,7 @@ export const retrieveListingsByExperienceLevel = async (
  * Calls on the persistence layer to retrieve the listing with the specified ID.
  *
  * @param {Types.ObjectId} id - The ID assigned to the listing.
- * @returns {Promise<IListing>} A promise that resolves to an IListing object.
+ * @returns {Promise<IListing>} A promise that resolves to an {@link IListing} object.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveListingById = async (
@@ -204,7 +204,7 @@ export const retrieveListingById = async (
  * Calls on the persistence layer to create a new listing in the database.
  *
  * @param {IListing} newListing - The new listing to be persisted.
- * @returns {Promise<IListing>} A promise that resolves to an IListing object representing the newly created listing.
+ * @returns {Promise<IListing>} A promise that resolves to an {@link IListing} object representing the newly created listing.
  * @throws - {@link ServerError}
  */
 export const createListing = async (
@@ -225,7 +225,7 @@ export const createListing = async (
  * Calls on the persistence layer to update an existing listing in the database.
  *
  * @param {IListingUpdate} updateDataObj - The new information to be persisted.
- * @returns {Promise<IListing>} A listing that resolves to an IListing object representing the updated listing.
+ * @returns {Promise<IListing>} A listing that resolves to an {@link IListing} object representing the updated listing.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const bringListingToDate = async (
@@ -259,7 +259,7 @@ export const bringListingToDate = async (
  * Calls on the persistence layer to remove a listing from the database.
  *
  * @param {Types.ObjectId} id - The ID assigned to a listing.
- * @returns {Promise<IListing>} A promise that resolves to an IListing object representing the removed listing.
+ * @returns {Promise<IListing>} A promise that resolves to an {@link IListing} object representing the removed listing.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const removeListing = async (id: Types.ObjectId): Promise<IListing> => {

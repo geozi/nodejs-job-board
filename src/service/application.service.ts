@@ -21,7 +21,7 @@ import { applicationServiceMessages } from "./messages/applicationService.messag
  * Calls on the persistence layer to retrieve applications with the specified person ID.
  *
  * @param {Types.ObjectId} personId - The ID assigned to a person.
- * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of IApplication objects.
+ * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of {@link IApplication} objects.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveApplicationsByPersonId = async (
@@ -58,7 +58,7 @@ export const retrieveApplicationsByPersonId = async (
  * Calls on the persistence layer to retrieve applications with the specified listing ID.
  *
  * @param {Types.ObjectId} listingId - The ID assigned to a listing.
- * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of IApplication objects.
+ * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of {@link IApplication} objects.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveApplicationsByListingId = async (
@@ -96,7 +96,7 @@ export const retrieveApplicationsByListingId = async (
  *
  * @param {Types.ObjectId} personId - The ID assigned to a person.
  * @param {Types.ObjectId} listingId - The ID assigned to a listing.
- * @returns {Promise<IApplication>} A promise that resolves to an IApplication object.
+ * @returns {Promise<IApplication>} A promise that resolves to an {@link IApplication} object.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const retrieveApplicationByUniqueIndex = async (
@@ -135,7 +135,7 @@ export const retrieveApplicationByUniqueIndex = async (
  * Calls on the persistence layer to add a new application to database.
  *
  * @param {IApplication} newApplication - The new application to be persisted.
- * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the newly persisted application.
+ * @returns {Promise<IApplication>} A promise that resolves to an {@link IApplication} object representing the newly persisted application.
  * @throws - {@link https://mongoosejs.com/docs/api/error.html#Error.ValidationError} | {@link ServerError}
  */
 export const createApplication = async (
@@ -164,7 +164,7 @@ export const createApplication = async (
  * Calls on the persistence layer to remove an application with the specified ID.
  *
  * @param {Types.ObjectId} id - The ID assigned to an application.
- * @returns {Promise<IApplication>} A promise that resolves to an IApplication object representing the removed application.
+ * @returns {Promise<IApplication>} A promise that resolves to an {@link IApplication} object representing the removed application.
  * @throws - {@link NotFoundError} | {@link ServerError}
  */
 export const removeApplicationById = async (
