@@ -33,14 +33,11 @@ export const reqBodyToPerson = function (req: IRequest): IPerson {
     lastName: lastName,
     phoneNumber: phoneNumber,
     address: address,
+    username: req.user.username,
   });
 
   if (dateOfBirth) {
     person.dateOfBirth = new Date(dateOfBirth);
-  }
-
-  if (req.user) {
-    person.username = req.user.username;
   }
 
   if (education.length !== 0) {

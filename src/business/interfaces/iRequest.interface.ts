@@ -10,12 +10,12 @@ import { IUser } from "domain/interfaces/documents/iUser.interface";
  *
  * @interface
  * @extends {Request}
- * @property {IUser} [user] - (Optional) The user returned by passport.js upon successful authentication.
+ * @property {IUser} user - The user returned by passport.js upon successful authentication.
  */
 export interface IRequest extends Request {
   /**
-   * (Optional) The user returned by passport.js upon successful authentication.
+   * The user returned by passport.js upon successful authentication.
    * @type {IUser}
    */
-  user?: IUser;
+  user: IUser;
 }

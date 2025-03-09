@@ -30,6 +30,7 @@ import { applicationControllerResponseMessages } from "business/messages/applica
 import { NotFoundError } from "errors/notFoundError.class";
 import { reqBodyToId } from "business/mappers/common.mapper";
 import { Error } from "mongoose";
+import { IRequest } from "business/interfaces/iRequest.interface";
 
 /**
  * Middleware array containing logic for application creation.
@@ -70,7 +71,7 @@ export const applicationCreationMiddlewareArray = [
     }
 
     try {
-      const newApplication = reqBodyToApplication(req);
+      const newApplication = await reqBodyToApplication(req as IRequest);
       const savedApplication = await createApplication(newApplication);
 
       res.status(httpCodes.CREATED).json({

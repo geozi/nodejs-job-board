@@ -6,6 +6,8 @@ import { Request } from "express";
 import { Application } from "../../domain/models/application.model";
 import { Types } from "mongoose";
 import { IApplication } from "../../domain/interfaces/documents/iApplication.interface";
+import { IRequest } from "business/interfaces/iRequest.interface";
+import { retrievePersonInfoByUsername } from "service/person.service";
 
 /**
  * Maps an HTTP request body to an {@link IApplication} object.
@@ -13,11 +15,16 @@ import { IApplication } from "../../domain/interfaces/documents/iApplication.int
  * @param {Request} req - An HTTP request.
  * @returns {IApplication} An {@link IApplication} object.
  */
-export const reqBodyToApplication = function (req: Request): IApplication {
-  const { personId, listingId } = req.body;
+export const reqBodyToApplication = async function (
+  req: IRequest
+): Promise<IApplication> {
+  const username = req.user.username;
+  const person = await retrievePersonInfoByUsername(username);
+
+  const { listingId } = req.body;
 
   const application = new Application({
-    personId: new Types.ObjectId(personId),
+    personId: person._id,
     listingId: new Types.ObjectId(listingId),
   });
 
