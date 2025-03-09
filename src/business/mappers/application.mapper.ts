@@ -12,8 +12,8 @@ import { retrievePersonInfoByUsername } from "service/person.service";
 /**
  * Maps an HTTP request body to an {@link IApplication} object.
  *
- * @param {Request} req - An HTTP request.
- * @returns {IApplication} An {@link IApplication} object.
+ * @param {IRequest} req - An HTTP request.
+ * @returns {Promise<IApplication>} A promise that resolves to an {@link IApplication} object.
  */
 export const reqBodyToApplication = async function (
   req: IRequest

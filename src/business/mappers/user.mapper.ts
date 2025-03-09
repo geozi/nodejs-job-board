@@ -14,7 +14,7 @@ import { Types } from "mongoose";
  * Maps an HTTP request body to an {@link IUser} object.
  *
  * @param {Request} req - An HTTP request.
- * @returns {Promise<IUser>} A promise that resolves to an IUser object.
+ * @returns {Promise<IUser>} A promise that resolves to an {@link IUser} object.
  */
 export const reqBodyToUser = async (req: Request): Promise<IUser> => {
   const { username, email, password, role } = req.body;
