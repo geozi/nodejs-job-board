@@ -1,6 +1,6 @@
 # Job Board API test plan
 
-Document version 1.0.4
+Document version 1.0.5
 
 ## Introduction
 
@@ -8,7 +8,7 @@ The Job Board API test plan contains information on tests that run during the de
 
 ## In Scope
 
-The project's tests are unit and integration tests. Completed tests are noted with ✔ and any pending ones with ⌛.
+The project's tests included in this plan are unit and integration tests.[^2] Completed tests are noted with ✔ and any pending ones with ⌛.
 
 ## Unit tests
 
@@ -203,6 +203,8 @@ The current implementation is for demonstration purposes and might be subject to
 - Mongoose,
 - Mocha,
 - Sinon,
-- Chai and chai-as-promised.
+- Chai and chai-as-promised,
+- Postman.
 
 [^1]: Documentation for `validateSync()` can be found in: [https://mongoosejs.com/docs/api/document.html](https://mongoosejs.com/docs/api/document.html)
+[^2]: API tests are conducted with Postman and are not included here.
