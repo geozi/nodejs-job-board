@@ -17,7 +17,6 @@ import { Person } from "domain/models/person.model";
 describe("Application retrieval by personId integration tests", () => {
   let req: Partial<IRequest>;
   let res: Partial<Response>;
-  let next: SinonSpy;
   let statusStub: SinonStub;
   let jsonSpy: SinonSpy;
   let applicationFindStub: SinonStub;
@@ -38,7 +37,6 @@ describe("Application retrieval by personId integration tests", () => {
         json: sinon.spy(),
       };
 
-      next = sinon.spy();
       req = {
         body: {},
         user: user,
@@ -82,7 +80,6 @@ describe("Application retrieval by personId integration tests", () => {
           json: sinon.spy(),
         };
 
-        next = sinon.spy();
         req = {
           body: {},
           user: user,

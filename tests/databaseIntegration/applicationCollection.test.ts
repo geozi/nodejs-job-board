@@ -1,5 +1,5 @@
 import assert from "assert";
-import { Request, Response } from "express";
+import { Response } from "express";
 import sinon, { SinonStub, SinonSpy } from "sinon";
 import mongoose, { ConnectOptions } from "mongoose";
 import { Application } from "domain/models/application.model";
