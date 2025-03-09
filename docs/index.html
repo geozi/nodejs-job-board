@@ -1,0 +1,78 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>nodejs-job-board-api - v1.0.0</title><meta name="description" content="Documentation for nodejs-job-board-api"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script><script async src="assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">nodejs-job-board-api - v1.0.0</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>nodejs-job-board-api - v1.0.0</h1></div><div class="tsd-panel tsd-typography"><a id="nodejs-job-board" class="tsd-anchor"></a><h1 class="tsd-anchor-link">nodejs-job-board<a href="#nodejs-job-board" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p><img src="https://img.shields.io/badge/demo_app-blue" alt="nodejs badge"></p>
+<a id="about-the-project" class="tsd-anchor"></a><h2 class="tsd-anchor-link">About the project<a href="#about-the-project" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Contains the backend implementation of a Job Board API. It exposes the following REST endpoints, according to <strong>User</strong> and <strong>Admin</strong> privileges:</p>
+<ul>
+<li><strong>Admin</strong>:
+<ul>
+<li>Listing creation,</li>
+<li>Listing update,</li>
+<li>User retrieval by role.</li>
+</ul>
+</li>
+<li><strong>User</strong>:
+<ul>
+<li>Application creation,</li>
+<li>Application removal by ID,</li>
+<li>Application retrieval by listing ID,</li>
+<li>Application retrieval by person ID,</li>
+<li>Application retrieval by unique index,</li>
+<li>Listing retrieval by employment type,</li>
+<li>Listing retrieval by experience level,</li>
+<li>Listing retrieval by ID,</li>
+<li>Listing retrieval by status,</li>
+<li>Listing retrieval by work type,</li>
+<li>Person info creation,</li>
+<li>Person info retrieval by username,</li>
+<li>Person info update,</li>
+<li>User retrieval,</li>
+<li>User update.</li>
+</ul>
+</li>
+</ul>
+<p>The following endpoints are open to all, irrespective of their role:</p>
+<ul>
+<li>User registration,</li>
+<li>User login.</li>
+</ul>
+<a id="testing" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Testing<a href="#testing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>A thorough presentation of the tests conducted during development can be found in the <a href="/QA-test-plan.md">QA-test-plan</a>.</p>
+<a id="prerequisites" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Prerequisites<a href="#prerequisites" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li>Nodejs (v22.13.1)[^1],</li>
+<li>MongoDB.</li>
+</ul>
+<a id="security" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Security<a href="#security" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li><strong>Authentication</strong>: Single factor, local authentication.</li>
+<li><strong>Authorization</strong>: JSON Web Token (JWT).</li>
+</ul>
+<a id="differences-with-previous-typescript-projects" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Differences with previous Typescript projects<a href="#differences-with-previous-typescript-projects" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Compared to the <a href="https://github.com/geozi/nodejs-typescript-task-manager">Task Manager API</a> and <a href="https://github.com/geozi/nodejs-typescript-contact-manager">Contact Manager API</a> projects, the Job Board API project uses:</p>
+<ul>
+<li>
+<p><strong>tsx</strong> instead of <strong>ts-node</strong>,</p>
+</li>
+<li>
+<p>nested fields, as in the <a href="modules/src_domain_models_person.model.html">Person</a> and <a href="modules/src_domain_models_listing.model.html">Listing</a> model schemas,</p>
+</li>
+<li>
+<p>secondary interfaces in the domain layer for better type checking.</p>
+</li>
+<li>
+<p>custom mappers to reduce complexity in the controllers of the business layer.</p>
+</li>
+<li>
+<p>regular, instead of anonymous, functions inside the controller middleware arrays to achieve more dynamic logging messages.</p>
+</li>
+<li>
+<p>the <a href="https://mongoosejs.com/docs/api/error.html#Error.ValidationError">Error.ValidationError</a> class, instead of the custom UniqueConstraintError class, for wider error catch.</p>
+</li>
+<li>
+<p>the <a href="https://express-validator.github.io/docs/api/validation-chain#bail">.bail()</a>
+method in validation chains, minimizing the number of errors sent back to the client as well as the number of checks performed by the validation chain elements.</p>
+</li>
+<li>
+<p><a href="https://www.passportjs.org/">Passport.js</a> for token extraction and authentication.</p>
+</li>
+</ul>
+<a id="" class="tsd-anchor"></a><h2 class="tsd-anchor-link"></h2><p>[^1]: According to the <a href="https://nodejs.org/en/about/previous-releases">Release Schedule</a>, Node.js v22 will enter its maintenance phase in the last quarter of 2025. During that period, it is recommended that the project should migrate to the latest active LTS version.</p>
+<p align="center">
+        <a href="https://github.com/LelouchFR/skill-icons">
+        <img src="https://go-skill-icons.vercel.app/api/icons?i=vscode,nodejs,typescript,mocha,mongoose,mongo"/>
+      </a>
+</p></div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#nodejs-job-board"><span>nodejs-<wbr/>job-<wbr/>board</span></a><ul><li><a href="#about-the-project"><span>About the project</span></a></li><li><a href="#testing"><span>Testing</span></a></li><li><a href="#prerequisites"><span>Prerequisites</span></a></li><li><a href="#security"><span>Security</span></a></li><li><a href="#differences-with-previous-typescript-projects"><span>Differences with previous <wbr/>Typescript projects</span></a></li><li><a href="#"><span></span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">nodejs-job-board-api - v1.0.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
