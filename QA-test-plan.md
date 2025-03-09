@@ -8,7 +8,7 @@ The Job Board API test plan contains information on tests that run during the de
 
 ## In Scope
 
-The project's tests included in this plan are unit and integration tests.[^2] Completed tests are noted with ✔ and any pending ones with ⌛.
+The project's tests included in this plan are unit and integration tests.[^1] Completed tests are noted with ✔ and any pending ones with ⌛.
 
 ## Unit tests
 
@@ -34,7 +34,7 @@ Domain layer unit test suites:
         └── user.model.test.ts
 ```
 
-The domain layer unit tests contain simulated scenarios, in which a stub of `validateSync()`[^1] returns specific validation errors.
+The domain layer unit tests contain simulated scenarios, in which a stub of `validateSync()`[^2] returns specific validation errors.
 
 ### Promise-oriented
 
@@ -148,6 +148,8 @@ The negative, validation-oriented tests trigger validation errors with specific 
 
 ![A diagram showing the main parts of the presentation layer probed by the validation-oriented backend integration tests](img/backend_integration_testing_diagram_1.png)
 
+**Important note**: The `applicationCreation.test.ts` and `applicationRetrievalByPersonId.test.ts` integration test suites do not contain any validation-oriented tests.
+
 #### Negative and promise-oriented
 
 The negative, promise-oriented tests generate promise rejections, which are caught by the service layer and, then, re-thrown to the controllers of the business layer for handling.
@@ -203,8 +205,7 @@ The current implementation is for demonstration purposes and might be subject to
 - Mongoose,
 - Mocha,
 - Sinon,
-- Chai and chai-as-promised,
-- Postman.
+- Chai and chai-as-promised.
 
-[^1]: Documentation for `validateSync()` can be found in: [https://mongoosejs.com/docs/api/document.html](https://mongoosejs.com/docs/api/document.html)
-[^2]: API tests are conducted with Postman and are not included here.
+[^1]: API tests were conducted with Postman and are not included here.
+[^2]: Documentation for `validateSync()` can be found in: [https://mongoosejs.com/docs/api/document.html](https://mongoosejs.com/docs/api/document.html)
