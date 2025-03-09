@@ -12,7 +12,7 @@ import { IPersonUpdate } from "business/interfaces/iPersonUpdate.interface";
  * Returns a person with the specified username.
  *
  * @param {string} username The username of a person.
- * @returns {Promise<IPerson | null>} A promise that resolves to a Person object or null.
+ * @returns {Promise<IPerson | null>} A promise that resolves to an {@link IPerson} object or null.
  */
 export const getPersonByUsername = async (
   username: string
@@ -30,7 +30,7 @@ export const getPersonByUsername = async (
  * Adds a person to database.
  *
  * @param {IPerson} newPerson - The new person to be persisted.
- * @returns {Promise<IPerson>} A promise that resolves to a Person object.
+ * @returns {Promise<IPerson>} A promise that resolves to an {@link IPerson} object.
  */
 export const addPerson = async (newPerson: IPerson): Promise<IPerson> => {
   const savedPerson = await newPerson.save();
@@ -44,7 +44,7 @@ export const addPerson = async (newPerson: IPerson): Promise<IPerson> => {
  * Updates the information of an existing person in the database.
  *
  * @param {IPersonUpdate} updateDataObj - The new information to be persisted.
- * @returns {Promise<IPerson | null>} A promise that resolves to a Person object representing the updated document or null.
+ * @returns {Promise<IPerson | null>} A promise that resolves to an {@link IPerson} object representing the updated document or null.
  */
 export const updatePerson = async (
   updateDataObj: IPersonUpdate
@@ -85,7 +85,7 @@ export const updatePerson = async (
  * Deletes the information of a person.
  *
  * @param {Types.ObjectId} id The ID of a person.
- * @returns {Promise<IPerson | null>} A promise that resolves to a Person object representing the deleted document or null.
+ * @returns {Promise<IPerson | null>} A promise that resolves to an {@link IPerson} object representing the deleted document or null.
  */
 export const deletePerson = async (
   id: Types.ObjectId

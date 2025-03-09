@@ -11,7 +11,7 @@ import { appLogger } from "../../logs/logger.config";
  * Returns an array of applications with the specified person ID.
  *
  * @param {Types.ObjectId} personId - The ID of a person.
- * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of Application objects or an empty array.
+ * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of {@link IApplication} objects or an empty array.
  */
 export const getApplicationsByPersonId = async (
   personId: Types.ObjectId
@@ -31,7 +31,7 @@ export const getApplicationsByPersonId = async (
  * Returns an array of applications with the specified listing ID.
  *
  * @param {Types.ObjectId} listingId - The ID of a listing.
- * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of Application objects or an empty array.
+ * @returns {Promise<Array<IApplication>>} A promise that resolves to an array of {@link IApplication} objects or an empty array.
  */
 export const getApplicationsByListingId = async (
   listingId: Types.ObjectId
@@ -52,7 +52,7 @@ export const getApplicationsByListingId = async (
  *
  * @param {Types.ObjectId} personId - The ID of a person.
  * @param {Types.ObjectId} listingId - The ID of a listing.
- * @returns {Promise<IApplication | null>} - A promise that resolves to an Application object or null.
+ * @returns {Promise<IApplication | null>} - A promise that resolves to an {@link IApplication} object or null.
  */
 export const getApplicationByUniqueIndex = async (
   personId: Types.ObjectId,
@@ -74,7 +74,7 @@ export const getApplicationByUniqueIndex = async (
  * Adds a new application to database.
  *
  * @param {IApplication} newApplication - The new application to be persisted.
- * @returns {Promise<IApplication>} A promise that resolves to an Application object representing the saved application.
+ * @returns {Promise<IApplication>} A promise that resolves to an {@link IApplication} object representing the saved application.
  */
 export const addApplication = async (
   newApplication: IApplication
@@ -92,7 +92,7 @@ export const addApplication = async (
  * Deletes an application with the specified ID.
  *
  * @param {Types.ObjectId} id - The ID of an application.
- * @returns {Promise<IApplication | null>} A promise that resolves to an Application object representing the deleted document or null.
+ * @returns {Promise<IApplication | null>} A promise that resolves to an {@link IApplication} object representing the deleted document or null.
  */
 export const deleteApplicationById = async (
   id: Types.ObjectId

@@ -16,7 +16,7 @@ import { ListingStatus } from "domain/enums/listingStatus.enum";
  * Returns an array of listings with the specified status.
  *
  * @param {ListingStatus} status - The status assigned to listings.
- * @returns {Promise<Array<IListing>>} A promise that resolves to an array of Listing objects or an empty array.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of {@link IListing} objects or an empty array.
  */
 export const getListingsByStatus = async (
   status: ListingStatus
@@ -34,7 +34,7 @@ export const getListingsByStatus = async (
  * Returns an array of listings with the specified work type.
  *
  * @param {WorkType} workType - A work type category.
- * @returns {Promise<Array<IListing>>} A promise that resolves to an array of Listing objects or an empty array.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of {@link IListing} objects or an empty array.
  */
 export const getListingsByWorkType = async (
   workType: WorkType
@@ -52,7 +52,7 @@ export const getListingsByWorkType = async (
  * Returns an array of listings with the specified employment type.
  *
  * @param {EmploymentType} employmentType - An employment type category.
- * @returns {Promise<Array<IListing>>} A promise that resolves to an array of Listing objects or an empty array.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of {@link IListing} objects or an empty array.
  */
 export const getListingsByEmploymentType = async (
   employmentType: EmploymentType
@@ -72,7 +72,7 @@ export const getListingsByEmploymentType = async (
  * Returns an array of listings with the specified experience level.
  *
  * @param {ExperienceLevelType} experienceLevel - An experience level category.
- * @returns {Promise<Array<IListing>>} A promise that resolves to an array of Listing objects or an empty array.
+ * @returns {Promise<Array<IListing>>} A promise that resolves to an array of {@link IListing} objects or an empty array.
  */
 export const getListingsByExperienceLevel = async (
   experienceLevel: ExperienceLevelType
@@ -92,7 +92,7 @@ export const getListingsByExperienceLevel = async (
  * Returns a listing with the specified ID.
  *
  * @param {Types.ObjectId} id - The ID of a listing.
- * @returns {Promise<IListing | null>} A promise that resolves to a Listing object or null.
+ * @returns {Promise<IListing | null>} A promise that resolves to a {@link IListing} object or null.
  */
 export const getListingById = async (
   id: Types.ObjectId
@@ -110,7 +110,7 @@ export const getListingById = async (
  * Adds a new listing to database.
  *
  * @param {IListing} newListing - The new listing to be persisted.
- * @returns {Promise<IListing>} A promise that resolves to a Listing object.
+ * @returns {Promise<IListing>} A promise that resolves to a {@link IListing} object.
  */
 export const addListing = async (newListing: IListing): Promise<IListing> => {
   const savedListing = await newListing.save();
@@ -124,7 +124,7 @@ export const addListing = async (newListing: IListing): Promise<IListing> => {
  * Updates the information of an existing listing in the database.
  *
  * @param {IListingUpdate} updateDataObj - The new information to be persisted.
- * @returns {Promise<IListing | null>} A promise that resolves to a Listing object representing the updated document or null.
+ * @returns {Promise<IListing | null>} A promise that resolves to a {@link IListing} object representing the updated document or null.
  */
 export const updateListing = async (
   updateDataObj: IListingUpdate
@@ -175,7 +175,7 @@ export const updateListing = async (
  * Deletes a listing.
  *
  * @param {Types.ObjectId} id The ID of a listing.
- * @returns {Promise<IListing | null>} A promise that resolves to a Listing object representing the deleted document or null.
+ * @returns {Promise<IListing | null>} A promise that resolves to a {@link IListing} object representing the deleted document or null.
  */
 export const deleteListing = async (
   id: Types.ObjectId
