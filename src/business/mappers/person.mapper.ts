@@ -10,6 +10,7 @@ import { IPerson } from "../../domain/interfaces/documents/iPerson.interface";
 import { IPersonUpdate } from "../interfaces/iPersonUpdate.interface";
 import { IRequest } from "business/interfaces/iRequest.interface";
 import { Request } from "express";
+import { retrievePersonInfoByUsername } from "service/person.service";
 
 /**
  * Maps an HTTP request body to an {@link IPerson} object.
@@ -179,4 +180,18 @@ export const reqBodyToPersonUpdate = function (req: Request): IPersonUpdate {
   }
 
   return person;
+};
+
+/**
+ * Maps an HTTP request body to a person ID.
+ *
+ * @param {Request} req - An HTTP request.
+ * @returns {Promise<Types.ObjectId>} A promise that resolves to a Types.ObjectId.
+ */
+export const reqBodyToPersonId = async function (
+  req: IRequest
+): Promise<Types.ObjectId> {
+  const username = req.user.username;
+  const person = await retrievePersonInfoByUsername(username);
+  return person._id;
 };

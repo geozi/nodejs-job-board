@@ -3,7 +3,6 @@
  * @module src/business/apis/v1/middleware/application.rules
  */
 import { check, ValidationChain } from "express-validator";
-import { personFailedValidation } from "domain/messages/personValidation.message";
 import { commonConstants } from "domain/constants/common.constant";
 import { ID_REGEX } from "domain/resources/validationRegExp";
 import { listingFailedValidation } from "domain/messages/listingValidation.message";
@@ -29,26 +28,6 @@ export const applicationCreationAndUniqueIndexRetrievalRules =
         .withMessage(listingFailedValidation.LISTING_ID_INVALID_MESSAGE),
     ];
   };
-
-/**
- * Returns a validation chain for application retrieval by personId.
- * @returns {ValidationChain[]} Validation chain.
- */
-export const applicationRetrievalByPersonIdRules = (): ValidationChain[] => {
-  return [
-    check("personId")
-      .notEmpty()
-      .withMessage(personFailedValidation.PERSON_ID_REQUIRED_MESSAGE)
-      .bail()
-      .isLength({
-        min: commonConstants.MONGODB_ID_LENGTH,
-        max: commonConstants.MONGODB_ID_LENGTH,
-      })
-      .withMessage(personFailedValidation.PERSON_ID_OUT_OF_LENGTH_MESSAGE)
-      .matches(ID_REGEX)
-      .withMessage(personFailedValidation.PERSON_ID_INVALID_MESSAGE),
-  ];
-};
 
 /**
  * Returns a validation chain for application retrieval by listingId.

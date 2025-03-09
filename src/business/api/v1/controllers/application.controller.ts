@@ -8,7 +8,6 @@ import {
   applicationCreationAndUniqueIndexRetrievalRules,
   applicationRemovalByIdRules,
   applicationRetrievalByListingIdRules,
-  applicationRetrievalByPersonIdRules,
 } from "../middleware/application.rules";
 import { Request, Response } from "express";
 import { appLogger } from "../../../../../logs/logger.config";
@@ -31,6 +30,7 @@ import { NotFoundError } from "errors/notFoundError.class";
 import { reqBodyToId } from "business/mappers/common.mapper";
 import { Error } from "mongoose";
 import { IRequest } from "business/interfaces/iRequest.interface";
+import { reqBodyToPersonId } from "business/mappers/person.mapper";
 
 /**
  * Middleware array containing logic for application creation.
@@ -101,63 +101,35 @@ export const applicationCreationMiddlewareArray = [
 ];
 
 /**
- * Middleware array containing logic for application retrieval by personId.
+ * Processes HTTP requests for application retrieval by personId.
  *
- * @type {Array<object>}
- * @property {ValidationChain[]} applicationRetrievalByPersonIdRules - Express validation rules for application retrieval by personId.
- * @property {Function} callApplicationRetrievalByPersonId - Handles HTTP requests and responses for application retrieval by personId.
+ * @param {Request} req - An HTTP request.
+ * @param {Response} res - An HTTP response.
+ * @returns {Promise<void>} A promise that resolves to void.
  */
-export const retrievalByPersonIdMiddlewareArray = [
-  ...applicationRetrievalByPersonIdRules(),
+export async function callApplicationRetrievalByPersonId(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    const personId = await reqBodyToPersonId(req as IRequest);
+    const applications = await retrieveApplicationsByPersonId(personId);
 
-  /**
-   * Processes HTTP requests for application retrieval by personId.
-   *
-   * @param {Request} req - An HTTP request.
-   * @param {Response} res - An HTTP response.
-   * @returns {Promise<void>} A promise that resolves to void.
-   */
-  async function callApplicationRetrievalByPersonId(
-    req: Request,
-    res: Response
-  ): Promise<void> {
-    const expressErrors = validationResult(req);
-    if (!expressErrors.isEmpty()) {
-      const errorMessage = expressErrors.array().map((err) => ({
-        message: err.msg,
-      }));
-
+    res.status(httpCodes.OK).json({
+      message: applicationControllerResponseMessages.APPLICATION_S_RETRIEVED,
+      data: applications,
+    });
+  } catch (error) {
+    if (error instanceof ServerError || error instanceof NotFoundError) {
       appLogger.error(
-        `Application controller: ${callApplicationRetrievalByPersonId.name} -> Express validation errors detected and caught`
+        `Application controller: ${callApplicationRetrievalByPersonId.name} -> ${error.name} detected and caught`
       );
 
-      res.status(httpCodes.BAD_REQUEST).json({
-        message: commonResponseMessages.BAD_REQUEST,
-        errors: errorMessage,
-      });
+      res.status(error.httpCode).json({ message: error.message });
       return;
     }
-
-    try {
-      const personId = reqBodyToId(req);
-      const applications = await retrieveApplicationsByPersonId(personId);
-
-      res.status(httpCodes.OK).json({
-        message: applicationControllerResponseMessages.APPLICATION_S_RETRIEVED,
-        data: applications,
-      });
-    } catch (error) {
-      if (error instanceof ServerError || error instanceof NotFoundError) {
-        appLogger.error(
-          `Application controller: ${callApplicationRetrievalByPersonId.name} -> ${error.name} detected and caught`
-        );
-
-        res.status(error.httpCode).json({ message: error.message });
-        return;
-      }
-    }
-  },
-];
+  }
+}
 
 /**
  * Middleware array containing logic for application retrieval by listingId.

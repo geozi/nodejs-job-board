@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import {
   invalidObjectIdInputs,
   validApplicationInput,
+  validUserInput,
 } from "../../tests/testInputs";
 import { retrievalByUniqueIndexMiddlewareArray } from "business/api/v1/controllers/application.controller";
 import assert from "assert";
@@ -11,10 +12,12 @@ import { httpCodes } from "business/codes/responseStatusCodes";
 import { applicationControllerResponseMessages } from "business/messages/applicationControllerResponse.message";
 import { retrieveApplicationByUniqueIndex } from "service/application.service";
 import { commonResponseMessages } from "business/messages/commonResponse.message";
-import { personFailedValidation } from "domain/messages/personValidation.message";
 import { listingFailedValidation } from "domain/messages/listingValidation.message";
 import { commonServiceMessages } from "service/messages/commonService.message";
 import { applicationServiceMessages } from "service/messages/applicationService.message";
+import { User } from "domain/models/user.model";
+import { Person } from "domain/models/person.model";
+import { Types } from "mongoose";
 
 describe("Application retrieval by unique index integration tests", () => {
   let req: Partial<Request>;
@@ -22,13 +25,20 @@ describe("Application retrieval by unique index integration tests", () => {
   let next: SinonSpy;
   let statusStub: SinonStub;
   let jsonSpy: SinonSpy;
-  let functionStub: SinonStub;
-  const mockApplication = new Application();
+  let personFindOneStub: SinonStub;
+  let applicationFindOneStub: SinonStub;
+  const mockUser = new User(validUserInput);
+  const mockPerson = new Person({ username: mockUser.username });
+  const mockApplication = new Application({
+    personId: mockPerson._id,
+    listingId: new Types.ObjectId(validApplicationInput.listingId),
+  });
 
   describe("Positive scenario(s)", () => {
     beforeEach(() => {
       sinon.restore();
-      functionStub = sinon.stub(Application, "findOne");
+      personFindOneStub = sinon.stub(Person, "findOne");
+      applicationFindOneStub = sinon.stub(Application, "findOne");
       res = {
         status: sinon.stub().callsFake(() => {
           return res;
@@ -40,15 +50,16 @@ describe("Application retrieval by unique index integration tests", () => {
       req = {
         body: JSON.parse(
           JSON.stringify({
-            personId: validApplicationInput.personId,
             listingId: validApplicationInput.listingId,
           })
         ),
+        user: mockUser,
       };
     });
 
-    it("has valid inputs", async () => {
-      functionStub.resolves(mockApplication);
+    it("successful retrieval (200)", async () => {
+      personFindOneStub.resolves(mockPerson);
+      applicationFindOneStub.resolves(mockApplication);
 
       for (const middleware of retrievalByUniqueIndexMiddlewareArray) {
         await middleware(req as Request, res as Response, next);
@@ -89,36 +100,11 @@ describe("Application retrieval by unique index integration tests", () => {
           req = {
             body: JSON.parse(
               JSON.stringify({
-                personId: validApplicationInput.personId,
                 listingId: validApplicationInput.listingId,
               })
             ),
+            user: mockUser,
           };
-        });
-
-        it("personId is undefined", async () => {
-          req.body.personId = undefined;
-
-          for (const middleware of retrievalByUniqueIndexMiddlewareArray) {
-            await middleware(req as Request, res as Response, next);
-          }
-
-          statusStub = res.status as SinonStub;
-          jsonSpy = res.json as SinonSpy;
-
-          assert.strictEqual(
-            statusStub.calledWith(httpCodes.BAD_REQUEST),
-            true
-          );
-          assert.strictEqual(
-            jsonSpy.calledWith({
-              message: commonResponseMessages.BAD_REQUEST,
-              errors: [
-                { message: personFailedValidation.PERSON_ID_REQUIRED_MESSAGE },
-              ],
-            }),
-            true
-          );
         });
 
         it("listingId is undefined", async () => {
@@ -151,7 +137,7 @@ describe("Application retrieval by unique index integration tests", () => {
         invalidObjectIdInputs.OBJECT_ID_LENGTH_CASES.forEach(
           ([testName, invalidLengthId]) => {
             it(testName, async () => {
-              req.body.personId = invalidLengthId;
+              req.body.listingId = invalidLengthId;
 
               for (const middleware of retrievalByUniqueIndexMiddlewareArray) {
                 await middleware(req as Request, res as Response, next);
@@ -170,7 +156,7 @@ describe("Application retrieval by unique index integration tests", () => {
                   errors: [
                     {
                       message:
-                        personFailedValidation.PERSON_ID_OUT_OF_LENGTH_MESSAGE,
+                        listingFailedValidation.LISTING_ID_OUT_OF_LENGTH_MESSAGE,
                     },
                   ],
                 }),
@@ -217,7 +203,8 @@ describe("Application retrieval by unique index integration tests", () => {
     describe("promise-oriented", () => {
       beforeEach(() => {
         sinon.restore();
-        functionStub = sinon.stub(Application, "findOne");
+        personFindOneStub = sinon.stub(Person, "findOne");
+        applicationFindOneStub = sinon.stub(Application, "findOne");
         res = {
           status: sinon.stub().callsFake(() => {
             return res;
@@ -229,15 +216,16 @@ describe("Application retrieval by unique index integration tests", () => {
         req = {
           body: JSON.parse(
             JSON.stringify({
-              personId: validApplicationInput.personId,
               listingId: validApplicationInput.listingId,
             })
           ),
+          user: mockUser,
         };
       });
 
       it("server error (500)", async () => {
-        functionStub.rejects();
+        personFindOneStub.resolves(mockPerson);
+        applicationFindOneStub.rejects();
 
         for (const middleware of retrievalByUniqueIndexMiddlewareArray) {
           await middleware(req as Request, res as Response, next);
@@ -257,7 +245,8 @@ describe("Application retrieval by unique index integration tests", () => {
       });
 
       it("not found (404)", async () => {
-        functionStub.resolves(null);
+        personFindOneStub.resolves(mockPerson);
+        applicationFindOneStub.resolves(null);
 
         for (const middleware of retrievalByUniqueIndexMiddlewareArray) {
           await middleware(req as Request, res as Response, next);

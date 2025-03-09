@@ -7,13 +7,19 @@ import * as dotenv from "dotenv";
 import { validApplicationInput } from "../../tests/testInputs";
 import { applicationCreationMiddlewareArray } from "business/api/v1/controllers/application.controller";
 import { httpCodes } from "business/codes/responseStatusCodes";
+import { IRequest } from "business/interfaces/iRequest.interface";
+import { User } from "domain/models/user.model";
+import { Person } from "domain/models/person.model";
 dotenv.config();
 
 describe("Application collection integration test(s)", () => {
-  let req: Partial<Request>;
+  let req: Partial<IRequest>;
   let res: Partial<Response>;
   let next: SinonSpy;
   let statusStub: SinonStub;
+  let personFindOneStub: SinonStub;
+  const mockUser = new User();
+  const mockPerson = new Person();
 
   before(async () => {
     await mongoose.connect(
@@ -37,13 +43,19 @@ describe("Application collection integration test(s)", () => {
     };
 
     next = sinon.spy();
+    personFindOneStub = sinon.stub(Person, "findOne");
   });
 
   it("new application created (201)", async () => {
-    req = { body: { ...validApplicationInput } };
+    req = {
+      body: { listingId: validApplicationInput.listingId },
+      user: mockUser,
+    };
+
+    personFindOneStub.resolves(mockPerson);
 
     for (const middleware of applicationCreationMiddlewareArray) {
-      await middleware(req as Request, res as Response, next);
+      await middleware(req as IRequest, res as Response, next);
     }
 
     statusStub = res.status as SinonStub;

@@ -8,6 +8,7 @@ import {
   invalidWorkExperienceInputs,
   validEducationInput,
   validPersonInput,
+  validUserInput,
   validWorkExperienceInput,
 } from "../testInputs";
 import { infoCreationMiddlewareArray } from "business/api/v1/controllers/person.controller";
@@ -22,6 +23,7 @@ import { Error } from "mongoose";
 import { educationFailedValidation } from "domain/messages/educationValidation.message";
 import { commonFailedValidation } from "domain/messages/commonValidation.message";
 import { workExperienceFailedValidation } from "domain/messages/workExperienceValidation.message";
+import { User } from "domain/models/user.model";
 
 describe("Person info creation integration tests", () => {
   let req: Partial<Request>;
@@ -30,9 +32,16 @@ describe("Person info creation integration tests", () => {
   let statusStub: SinonStub;
   let jsonSpy: SinonSpy;
   let functionStub: SinonStub;
+  const mockUser = new User(validUserInput);
   const mockPerson = new Person({
     dateOfBirth: new Date("2001-02-18"),
-    ...validPersonInput,
+    firstName: validPersonInput.firstName,
+    lastName: validPersonInput.lastName,
+    phoneNumber: validPersonInput.phoneNumber,
+    address: validPersonInput.address,
+    education: validPersonInput.education,
+    workExperience: validPersonInput.workExperience,
+    username: mockUser.username,
   });
 
   describe("Positive scenario(s)", () => {
@@ -51,9 +60,15 @@ describe("Person info creation integration tests", () => {
         body: JSON.parse(
           JSON.stringify({
             dateOfBirth: "2001-02-18",
-            ...validPersonInput,
+            firstName: validPersonInput.firstName,
+            lastName: validPersonInput.lastName,
+            phoneNumber: validPersonInput.phoneNumber,
+            address: validPersonInput.address,
+            education: validPersonInput.education,
+            workExperience: validPersonInput.workExperience,
           })
         ),
+        user: mockUser,
       };
     });
 
@@ -96,9 +111,15 @@ describe("Person info creation integration tests", () => {
             body: JSON.parse(
               JSON.stringify({
                 dateOfBirth: "2001-02-18",
-                ...validPersonInput,
+                firstName: validPersonInput.firstName,
+                lastName: validPersonInput.lastName,
+                phoneNumber: validPersonInput.phoneNumber,
+                address: validPersonInput.address,
+                education: validPersonInput.education,
+                workExperience: validPersonInput.workExperience,
               })
             ),
+            user: mockUser,
           };
         });
 
@@ -1047,9 +1068,15 @@ describe("Person info creation integration tests", () => {
           body: JSON.parse(
             JSON.stringify({
               dateOfBirth: "2001-02-18",
-              ...validPersonInput,
+              firstName: validPersonInput.firstName,
+              lastName: validPersonInput.lastName,
+              phoneNumber: validPersonInput.phoneNumber,
+              address: validPersonInput.address,
+              education: validPersonInput.education,
+              workExperience: validPersonInput.workExperience,
             })
           ),
+          user: mockUser,
         };
       });
 
