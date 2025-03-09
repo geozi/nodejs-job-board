@@ -16,17 +16,6 @@ import { applicationFailedValidation } from "domain/messages/applicationValidati
 export const applicationCreationAndUniqueIndexRetrievalRules =
   (): ValidationChain[] => {
     return [
-      check("personId")
-        .notEmpty()
-        .withMessage(personFailedValidation.PERSON_ID_REQUIRED_MESSAGE)
-        .bail()
-        .isLength({
-          min: commonConstants.MONGODB_ID_LENGTH,
-          max: commonConstants.MONGODB_ID_LENGTH,
-        })
-        .withMessage(personFailedValidation.PERSON_ID_OUT_OF_LENGTH_MESSAGE)
-        .matches(ID_REGEX)
-        .withMessage(personFailedValidation.PERSON_ID_INVALID_MESSAGE),
       check("listingId")
         .notEmpty()
         .withMessage(listingFailedValidation.LISTING_ID_REQUIRED_MESSAGE)

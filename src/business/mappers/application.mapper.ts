@@ -45,16 +45,19 @@ export const reqBodyToApplicationId = function (req: Request): Types.ObjectId {
 /**
  * Maps an HTTP request body to an object containing person and listing IDs.
  *
- * @param {Request} req - An HTTP request.
- * @returns {object} An object containing person and listing IDs.
+ * @param {IRequest} req - An HTTP request.
+ * @returns {Promise<object>} A promise that resolves to an object containing person and listing IDs.
  */
-export const reqBodyToUniqueIndex = function (req: Request): {
+export const reqBodyToUniqueIndex = async function (req: IRequest): Promise<{
   personId: Types.ObjectId;
   listingId: Types.ObjectId;
-} {
-  const { personId, listingId } = req.body;
+}> {
+  const username = req.user.username;
+  const person = await retrievePersonInfoByUsername(username);
+
+  const { listingId } = req.body;
   return {
-    personId: new Types.ObjectId(personId),
+    personId: person._id,
     listingId: new Types.ObjectId(listingId),
   };
 };

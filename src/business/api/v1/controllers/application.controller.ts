@@ -257,7 +257,9 @@ export const retrievalByUniqueIndexMiddlewareArray = [
     }
 
     try {
-      const { personId, listingId } = reqBodyToUniqueIndex(req);
+      const { personId, listingId } = await reqBodyToUniqueIndex(
+        req as IRequest
+      );
       const application = await retrieveApplicationByUniqueIndex(
         personId,
         listingId
